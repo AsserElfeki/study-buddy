@@ -1,0 +1,19 @@
+- Home page 
+- login 
+- register
+- search for programs
+  - programID
+- apply
+  - form --> fill in form and upload docs
+  - payment
+- profile 
+  - settings
+  - my applications 
+    - applicationID --> view and edit 
+- help forum -->(view posts, comment and add one)
+  - postID
+- students' news (view and add)
+- faq
+- testemonials
+- about
+  
