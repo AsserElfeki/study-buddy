@@ -34,10 +34,3 @@ export default async function Home() {
     </main>
   );
 }
-        <h1>Server Session</h1>
-        <pre className='flex flex-wrap'>{JSON.stringify(session)}</pre>
-        <User />
-      </div>
-    </main>
-  );
-}
