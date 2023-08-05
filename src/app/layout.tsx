@@ -19,10 +19,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-          <div className="main">
-            <div className="gradient" />
-          </div>
-        <main className="app"><NextAuthProvider> {children } </NextAuthProvider></main>
+        <div className="main">
+          <div className="gradient" />
+        </div>
+        <main className="app"><NextAuthProvider> {children} </NextAuthProvider></main>
       </body>
     </html>
   );
