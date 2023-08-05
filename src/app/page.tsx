@@ -1,7 +1,18 @@
-import React from "react";
+import Navbar from "@components/navbar";
 
 const Home = () => {
-  return <div>hello world</div>;
+  return (
+    <>
+      <Navbar />
+      <div>Home page </div>
+    </>
+  );
 };
 
-export default Home;
+        <h1>Server Session</h1>
+        <pre className='flex flex-wrap'>{JSON.stringify(session)}</pre>
+        <User />
+      </div>
+    </main>
+  );
+}
