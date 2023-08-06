@@ -1,6 +1,11 @@
+- [ ] auth : 
+  - [√] credentials 
+  - [ ] google (from the article)
+  - [ ] facebook (like google?)
+- [ ] routes 
+- [ ] components 
 - [ ] users model
-- [ ] auth
 - [ ] uni programs model
 - [ ] uni programs EPs
-- [ ] forum model 
-- [ ] forum EPs 
+- [x] forum model 
+- [x] forum EPs 
