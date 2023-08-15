@@ -16,8 +16,8 @@ function Navbar() {
     SetOpenSidebar(!openSidebar);
   };
   return (
-    <div className="flex w-screen bg-white top-0 ">
-      <div className=" flex justify-between  items-center flex-1 py-6 px-10 z-50 bg-white">
+    <div className=" flex md:w-screen bg-white top-0 ">
+      <div className=" flex justify-between  items-center flex-1 py-5 px-5 md:px-10 z-50 bg-white">
         <Link href="/" className="flex items-center gap-3">
           <Image src={logo} alt="Logo" width={46} height={46} />
           <h1 className="font-bold">StudyBuddy</h1>

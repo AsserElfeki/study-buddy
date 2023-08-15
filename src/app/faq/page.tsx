@@ -4,13 +4,12 @@ import Navbar from "@components/navbar";
 function Faq() {
   return (
     <div>
-      <Navbar />
       <div className="w-screen bg-white my-2 py-10">
-        <div className="w-3/5 flex flex-col mx-auto">
-          <h1 className="text-3xl font-bold mb-3">
+        <div className="w-10/12 lg:w-3/5 flex flex-col mx-auto">
+          <h1 className="text-xl md:text-3xl font-bold mb-3">
             Frequently asked questions
           </h1>
-          <p className="text-lg ">
+          <p className="text-base md:text-lg ">
             We understand that studying abroad can be a complex and sometimes
             overwhelming process, which is why we've put together a list of
             frequently asked questions to help you better understand our website
