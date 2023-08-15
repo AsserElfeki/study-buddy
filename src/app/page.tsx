@@ -21,7 +21,7 @@ export default async function Home() {
           alignItems: "center",
           height: "70vh",
           width: "500px",
-          border: "red 20px"
+          border: "red 15px"
         }}
       >
         <div className="flex flex-col flex-wrap border-2 border-red-400 rounded-xl overflow-visible">
