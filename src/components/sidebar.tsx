@@ -5,7 +5,7 @@ function Sidebar() {
   const pathname = usePathname();
   const isActive = pathname;
   return (
-    <div className="md:hidden w-72 h-screen bg-red-900 text-white fixed top-0 right-0 flex flex-col justify-center items-center ">
+    <div className="md:hidden w-72 h-screen bg-red-900 text-white fixed top-0 right-0 flex flex-col justify-center items-center z-30">
       <ul className="text-xl flex flex-col gap-7  text-center">
         <li className="">
           <Link
