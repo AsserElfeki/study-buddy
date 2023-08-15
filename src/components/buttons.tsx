@@ -1,8 +1,16 @@
 "use client";
 
+//reusable button components 
+
+
 import { signIn, signOut } from "next-auth/react";
 import Link from "next/link";
 
+/**
+ * Renders a login button component.
+ *
+ * @return {JSX.Element} The rendered login button.
+ */
 export const LoginButton = () => {
     return (
         <button style={{ marginRight: 10 }} onClick={() => signIn()}>

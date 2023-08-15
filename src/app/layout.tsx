@@ -12,6 +12,13 @@ export const metadata: Metadata = {
     "Easily find and apply for study programmes in Poland from all around the world",
 };
 
+/**
+ * Renders the root layout component.
+ *
+ * @param {Object} props - The component props.
+ * @param {React.ReactNode} props.children - The child components to render.
+ * @return {React.ReactElement} The rendered root layout component.
+ */
 export default function RootLayout({
   children,
 }: {

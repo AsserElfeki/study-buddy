@@ -3,6 +3,11 @@ import { hash } from "bcryptjs";
 
 const prisma = new PrismaClient();
 
+/**
+ * Executes the main function.
+ *
+ * @return {Promise<void>} A promise that resolves when the function has finished executing.
+ */
 async function main() {
     const password = await hash("password123", 12);
     const user = await prisma.user.upsert({
@@ -14,8 +19,10 @@ async function main() {
             password,
         },
     });
-    console.log({ user });
+    // console.log({ user });
 }
+
+
 main()
     .then(() => prisma.$disconnect())
     .catch(async (e) => {
