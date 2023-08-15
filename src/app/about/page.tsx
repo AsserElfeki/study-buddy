@@ -21,7 +21,7 @@ function About() {
       <div className=" bg-white flex items-center  justify-center">
         <div className="w-10/12 xl:w-3/5 flex-col py-5  xl:px-32  ">
           <h3 className="text-xl font-bold ">
-            Bachelor's degrees from all around Poland
+            Bachelor&rsquo;s degrees from all around Poland
           </h3>
           <p>256 Universities</p>
           <form className="mt-3 flex flex-col md:flex-row md:flex-nowrap  text-center ">

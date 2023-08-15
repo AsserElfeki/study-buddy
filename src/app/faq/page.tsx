@@ -11,7 +11,7 @@ function Faq() {
           </h1>
           <p className="text-base md:text-lg ">
             We understand that studying abroad can be a complex and sometimes
-            overwhelming process, which is why we've put together a list of
+            overwhelming process, which is why we&rsquo;ve put together a list of
             frequently asked questions to help you better understand our website
             and how it can help you achieve your goals.
           </p>
