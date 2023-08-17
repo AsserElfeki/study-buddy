@@ -76,8 +76,13 @@ export const authOptions: NextAuthOptions = {
 
         async signIn({ account, profile }): Promise<string | boolean> {
             // perform sign in logic here
-            if (account?.provider === "google") {
-                if (profile?.email && profile?.email.endsWith("@example.com")) {
+            if (account?.provider === "google" || account?.provider === "github") {
+                if (profile?.email) {
+                    await prisma.user.upsert({
+                        where: { email: profile.email },
+                        update: { email: profile.email, name: profile.name, provider: account.provider },
+                        create: { email: profile.email, name: profile.name, provider: account.provider },
+                    });
                     return true;
                 } else {
                     return false;
