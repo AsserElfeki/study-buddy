@@ -23,8 +23,8 @@ export const authOptions: NextAuthOptions = {
 
     providers: [
         GoogleProvider({
-            clientId: process.env.GOOGLE_CLIENT_ID as string,
-            clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+            clientId: process.env.GOOGLE_CLIENT_ID as string ?? "",
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET as string ?? "",
             authorization: {
                 params: {
                     prompt: "consent",
@@ -76,8 +76,12 @@ export const authOptions: NextAuthOptions = {
 
         async signIn({ account, profile }): Promise<string | boolean> {
             // perform sign in logic here
-            if (account.provider === "google") {
-                return profile.email_verified && profile.email.endsWith("@example.com")
+            if (account?.provider === "google") {
+                if (profile?.email && profile?.email.endsWith("@example.com")) {
+                    return true;
+                } else {
+                    return false;
+                }
             }
 
             // return a string or boolean value indicating success or failure
