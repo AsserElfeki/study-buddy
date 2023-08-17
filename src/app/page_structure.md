@@ -3,14 +3,14 @@
 - register
 - search for programs
   - programID
-- apply
+- apply (guarded)
   - form --> fill in form and upload docs
   - payment
-- profile 
+- profile (guarded)
   - settings
   - my applications 
     - applicationID --> view and edit 
-- help forum -->(view posts, comment and add one)
+- help forum -->(view posts, comment and add one) (accepted students only)
   - postID
 - students' news (view and add)
 - faq

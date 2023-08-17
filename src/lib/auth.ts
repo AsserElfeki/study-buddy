@@ -1,16 +1,42 @@
 //here is the nextAuth option, separate from the handler because sometimes there exporting errors when it's coupled
 
 import { prisma } from "@/lib/prisma";
+import { PrismaAdapter } from '@next-auth/prisma-adapter';
+import { PrismaClient } from "@prisma/client";
 import { compare } from "bcryptjs";
 import type { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import GitHubProvider from "next-auth/providers/github";
+import GoogleProvider from "next-auth/providers/google";
 
 //this is the object that contains config for authentication process
 export const authOptions: NextAuthOptions = {
+    adapter: PrismaAdapter(prisma),
+
+    pages: {
+        signIn: "/login"
+    },
+
     session: {
         strategy: "jwt",
     },
+
     providers: [
+        GoogleProvider({
+            clientId: process.env.GOOGLE_CLIENT_ID as string,
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+            authorization: {
+                params: {
+                    prompt: "consent",
+                    access_type: "offline",
+                    response_type: "code",
+                },
+            },
+        }),
+        GitHubProvider({
+            clientId: process.env.GITHUB_ID as string,
+            clientSecret: process.env.GITHUB_SECRET as string,
+        }),
         CredentialsProvider({
             name: "Credentials",
             credentials: {
@@ -21,15 +47,6 @@ export const authOptions: NextAuthOptions = {
                 },
                 password: { label: "Password", type: "password" },
             },
-            /**
-             * Asynchronously authorizes the user with the given credentials.
-             *
-             * @param {Object} credentials - The user's credentials.
-             * @param {string} credentials.email - The user's email.
-             * @param {string} credentials.password - The user's password.
-             * @return {Object | null} - Returns an object with user data if authorization is successful, otherwise null.
-             */
-            //
             async authorize(credentials) {
                 if (!credentials?.email || !credentials.password) {
                     return null;
@@ -56,6 +73,17 @@ export const authOptions: NextAuthOptions = {
         }),
     ],
     callbacks: {
+
+        async signIn({ account, profile }): Promise<string | boolean> {
+            // perform sign in logic here
+            if (account.provider === "google") {
+                return profile.email_verified && profile.email.endsWith("@example.com")
+            }
+
+            // return a string or boolean value indicating success or failure
+            return Promise.resolve(true);
+        },
+
         /**
          * Updates the session object with the provided token information.
          * here any more stuff can be added to the session
