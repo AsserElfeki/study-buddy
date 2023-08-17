@@ -13,8 +13,11 @@ datasource db {
 
 // schema.prisma
 model User {
-  id       String @id @default(uuid())
+  id       String  @id @default(uuid())
   name     String
-  email    String @unique
+  email    String  @unique
   password String
+  provider String? // nullable field for provider
+  googleId String? // nullable field for Google ID
+  githubId String? // nullable field for GitHub ID
 }
