@@ -76,8 +76,12 @@ export const authOptions: NextAuthOptions = {
 
         async signIn({ account, profile }): Promise<string | boolean> {
             // perform sign in logic here
-            if (account.provider === "google") {
-                return profile.email_verified && profile.email.endsWith("@example.com")
+            if (account?.provider === "google") {
+                if (profile?.email && profile?.email.endsWith("@example.com")) {
+                    return true;
+                } else {
+                    return false;
+                }
             }
 
             // return a string or boolean value indicating success or failure
