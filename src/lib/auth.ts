@@ -1,44 +1,32 @@
-//here is the nextAuth option, separate from the handler because sometimes there exporting errors when it's coupled
-
 import { prisma } from "@/lib/prisma";
-import { PrismaAdapter } from '@next-auth/prisma-adapter';
-import { PrismaClient } from "@prisma/client";
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { compare } from "bcryptjs";
 import type { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GitHubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 
-//this is the object that contains config for authentication process
 export const authOptions: NextAuthOptions = {
-    adapter: PrismaAdapter(prisma),
-
+    // This is a temporary fix for prisma client.
+    // @see https://github.com/prisma/prisma/issues/16117
+    adapter: PrismaAdapter(prisma as any),
     pages: {
-        signIn: "/login"
+        signIn: "/login",
     },
-
     session: {
         strategy: "jwt",
     },
-
     providers: [
         GoogleProvider({
-            clientId: process.env.GOOGLE_CLIENT_ID as string ?? "",
-            clientSecret: process.env.GOOGLE_CLIENT_SECRET as string ?? "",
-            authorization: {
-                params: {
-                    prompt: "consent",
-                    access_type: "offline",
-                    response_type: "code",
-                },
-            },
+            clientId: process.env.GOOGLE_CLIENT_ID as string,
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
         }),
         GitHubProvider({
             clientId: process.env.GITHUB_ID as string,
             clientSecret: process.env.GITHUB_SECRET as string,
         }),
         CredentialsProvider({
-            name: "Credentials",
+            name: "Sign in",
             credentials: {
                 email: {
                     label: "Email",
@@ -58,45 +46,21 @@ export const authOptions: NextAuthOptions = {
                     },
                 });
 
-                if (!user || !(await compare(credentials.password, user.password))) {
+                if (!user || !(await compare(credentials.password, user.password!))) {
                     return null;
                 }
 
                 return {
-                    //ToDO : change what I need to get back
                     id: user.id,
                     email: user.email,
                     name: user.name,
-                    randomKey: "Hey cool", //anything can be added 
+                    randomKey: "Hey cool",
                 };
             },
         }),
     ],
     callbacks: {
-
-        async signIn({ account, profile }): Promise<string | boolean> {
-            // perform sign in logic here
-            if (account?.provider === "google") {
-                if (profile?.email && profile?.email.endsWith("@example.com")) {
-                    return true;
-                } else {
-                    return false;
-                }
-            }
-
-            // return a string or boolean value indicating success or failure
-            return Promise.resolve(true);
-        },
-
-        /**
-         * Updates the session object with the provided token information.
-         * here any more stuff can be added to the session
-         * @param {object} session - The current session object.
-         * @param {object} token - The token information to update the session with.
-         * @return {object} The updated session object with the user information updated.
-        */
         session: ({ session, token }) => {
-            // console.log("Session Callback", { session, token });
             return {
                 ...session,
                 user: {
@@ -106,9 +70,7 @@ export const authOptions: NextAuthOptions = {
                 },
             };
         },
-        //here any info can be added to the jwt token 
         jwt: ({ token, user }) => {
-            // console.log("JWT Callback", { token, user });
             if (user) {
                 const u = user as unknown as any;
                 return {
