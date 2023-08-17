@@ -4,6 +4,8 @@ import { prisma } from "@/lib/prisma";
 import { compare } from "bcryptjs";
 import type { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import GoogleProvider from "next-auth/providers/google";
+import GitHubProvider from "next-auth/providers/github";
 
 //this is the object that contains config for authentication process
 export const authOptions: NextAuthOptions = {
@@ -11,6 +13,14 @@ export const authOptions: NextAuthOptions = {
         strategy: "jwt",
     },
     providers: [
+        GoogleProvider({
+            clientId: process.env.GOOGLE_CLIENT_ID,
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+        }),
+        GitHubProvider({
+            clientId: process.env.GITHUB_CLIENT_ID,
+            clientSecret: process.env.GITHUB_CLIENT_SECRET,
+        }),
         CredentialsProvider({
             name: "Credentials",
             credentials: {
@@ -35,9 +45,21 @@ export const authOptions: NextAuthOptions = {
                     return null;
                 }
 
-                const user = await prisma.user.findUnique({
+                const user = await prisma.user.upsert({
                     where: {
                         email: credentials.email,
+                    },
+                    update: {
+                        email: credentials.email,
+                        name: credentials.name,
+                        googleId: credentials.googleId,
+                        githubId: credentials.githubId,
+                    },
+                    create: {
+                        email: credentials.email,
+                        name: credentials.name,
+                        googleId: credentials.googleId,
+                        githubId: credentials.githubId,
                     },
                 });
 
@@ -46,11 +68,11 @@ export const authOptions: NextAuthOptions = {
                 }
 
                 return {
-                    //ToDO : change what I need to get back
                     id: user.id,
                     email: user.email,
                     name: user.name,
-                    randomKey: "Hey cool", //anything can be added 
+                    googleId: user.googleId,
+                    githubId: user.githubId,
                 };
             },
         }),
