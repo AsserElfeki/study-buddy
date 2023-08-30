@@ -5,6 +5,12 @@ import Image from 'next/image';
 import { useSearchParams, useRouter } from "next/navigation";
 import { ChangeEvent, useState } from "react";
 
+/**
+ * Renders a login form with email and password fields.
+ *
+ * @param {React.FormEvent} e - The form event.
+ * @return {void}
+ */
 export const LoginForm = () => {
     const router = useRouter();
     const [loading, setLoading] = useState(false);
@@ -109,10 +115,11 @@ export const LoginForm = () => {
                 />
                 Continue with Google
             </a>
-            <a
+            {/* ToDo */}
+            {/* <a
                 className="px-7 py-2 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out w-full flex justify-center items-center"
                 style={{ backgroundColor: "#55acee" }}
-                onClick={() => signIn("github", { callbackUrl })}
+                onClick={() => signIn("email", { callbackUrl })}
                 role="button"
             >
                 <Image
@@ -122,8 +129,8 @@ export const LoginForm = () => {
                     width={60}
                     height={60}
                 />
-                Continue with GitHub
-            </a>
+                Continue with email
+            </a> */}
         </form>
     );
 };

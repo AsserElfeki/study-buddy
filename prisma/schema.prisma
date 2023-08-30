@@ -11,18 +11,28 @@ datasource db {
   directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
 }
 
+enum Role {
+  NEW_STUDENT
+  ACCEPTED_STUDENT
+  COMMUNITY_ANGEL
+  ADMIN
+}
+
 // schema.prisma
 model User {
-  id            String    @id @default(uuid())
-  name          String
-  email         String?   @unique
+  id            String    @id @default(cuid())
+  firstName     String?   @map("first_name") @db.VarChar(32)
+  lastName      String?   @map("last_name") @db.VarChar(32)
+  image         String?
+  sex           String?   @db.VarChar(32)
+  email         String?   @unique @db.VarChar(64)
   password      String?
   emailVerified DateTime? @map("email_verified")
-  image         String?
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  nationalId    String?   @unique @map("national_id")
+  role          Role      @default(NEW_STUDENT)
+  isActive      Boolean   @default(true)
   accounts      Account[]
-  sessions      Session[]
+  Session       Session[]
 
   @@map("users")
 }
@@ -60,13 +70,13 @@ model Session {
   @@map("sessions")
 }
 
-model VerificationRequest {
-  id         String   @id @default(cuid())
-  identifier String
-  token      String   @unique
-  expires    DateTime
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+// model VerificationRequest {
+//   id         String   @id @default(cuid())
+//   identifier String
+//   token      String   @unique
+//   expires    DateTime
+//   createdAt  DateTime @default(now())
+//   updatedAt  DateTime @updatedAt
 
-  @@unique([identifier, token])
-}
+//   @@unique([identifier, token])
+// }
