@@ -2,7 +2,7 @@
   - [√] credentials 
   - [ ] route guarding
   - [√] google (from the article)
-  - [ ] facebook (like google?)
+  - [x] facebook (like google?)
 - [ ] routes 
 - [ ] components 
 - [ ] users model

@@ -14,7 +14,7 @@ export const authOptions: NextAuthOptions = {
     adapter: PrismaAdapter(prisma),
     pages: {
         signIn: "/login",
-        
+
     },
     session: {
         strategy: "jwt",
@@ -25,7 +25,7 @@ export const authOptions: NextAuthOptions = {
             clientId: process.env.GOOGLE_CLIENT_ID as string,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
         }),
-        
+
         EmailProvider({
             server: {
                 host: process.env.EMAIL_SERVER_HOST,
@@ -50,7 +50,7 @@ export const authOptions: NextAuthOptions = {
                 const user = result.user;
 
                 // If no error and we have user data, return it
-
+                console.log("reached authorize func")
                 if (res.ok && user) {
                     return user;
                 }
@@ -60,7 +60,7 @@ export const authOptions: NextAuthOptions = {
         }),
     ],
     callbacks: {
-        async signIn({ user , account, profile }) {
+        async signIn({ user, account, profile }) {
             const existingUser = await prisma.user.findUnique({
                 where: { id: user.id }
             })
@@ -72,24 +72,21 @@ export const authOptions: NextAuthOptions = {
                     await sendVerificationEmail(user)
                 }
                 else if (!existingUser.isActive) {
-                    console.log("BanHammer")
                     return false;
                 } else if (!existingUser.emailVerified) {
-                    console.log("Verify email")
                     return '/unauthorized';
                 }
-
                 delete user.name;
             }
             //ToDo
-            
+
             else if (account.provider === "credentials") {
                 console.log("CredentialsProvider")
                 if (!existingUser.isActive) {
-                    console.log("BanHammer")
+                    // console.log("BanHammer")
                     return false;
                 } else if (!existingUser.emailVerified) {
-                    console.log("Verify email")
+                    // console.log("Verify email")
                     return '/unauthorized';
                 }
             }

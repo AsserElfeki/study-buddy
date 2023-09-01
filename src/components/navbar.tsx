@@ -57,9 +57,9 @@ function Navbar() {
         </ul>
 
         <div className="flex gap-2">
-          <button className="bg-red-900 rounded-lg font-medium p-2 text-white">
+          <Link href="/register" className="bg-red-900 rounded-lg font-medium p-2 text-white">
             Join now
-          </button>
+          </Link>
           <button className="text-3xl md:hidden" onClick={handleOpen}>
             {openSidebar ? (
               <div className="w-2">&#128473;</div>

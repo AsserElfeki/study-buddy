@@ -13,7 +13,7 @@ import Link from "next/link";
  */
 export const LoginButton = () => {
     return (
-        <button style={{ marginRight: 10 }} onClick={() => signIn()}>
+        <button className='' onClick={() => signIn()}>
             Sign in
         </button>
     );
@@ -21,7 +21,7 @@ export const LoginButton = () => {
 
 export const RegisterButton = () => {
     return (
-        <Link href="/register" style={{ marginRight: 10 }}>
+        <Link href="/register" className=''>
             Register
         </Link>
     );
@@ -29,7 +29,7 @@ export const RegisterButton = () => {
 
 export const LogoutButton = () => {
     return (
-        <button style={{ marginRight: 10 }} onClick={() => signOut()}>
+        <button className='' onClick={() => signOut()}>
             Sign Out
         </button>
     );
@@ -38,3 +38,11 @@ export const LogoutButton = () => {
 export const ProfileButton = () => {
     return <Link href="/profile">Profile</Link>;
 };
+
+export const HaveAccount = () => {
+    return (
+        <Link href="/login" className='inline-block px-7 py-4 bg-red-800 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-red-950 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out w-full max-w-md text-center'>
+            Already have an account?
+        </Link>
+    );
+}

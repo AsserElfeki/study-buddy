@@ -36,7 +36,7 @@ export default async function sendVerificationEmail(user) {
 
     try {
         await transporter.sendMail(mailOptions);
-        console.log(`Verification email sent to ${user.email}`);
+        // console.log(`Verification email sent to ${user.email}`);
     } catch (error) {
         console.error(`Error sending verification email to ${user.email}: ${error}`);
     }

@@ -6,7 +6,8 @@ import { ChangeEvent, useState } from "react";
 export const RegisterForm = () => {
     const [loading, setLoading] = useState(false);
     const [formValues, setFormValues] = useState({
-        name: "",
+        firstName: "",
+        lastName: "",
         email: "",
         password: "",
     });
@@ -15,7 +16,7 @@ export const RegisterForm = () => {
     const onSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setLoading(true);
-        setFormValues({ name: "", email: "", password: "" });
+        setFormValues({ firstName: "", lastName: "", email: "", password: "" });
 
         try {
             const res = await fetch("/api/register", {
@@ -32,7 +33,7 @@ export const RegisterForm = () => {
                 return;
             }
 
-            signIn(undefined, { callbackUrl: "/" });
+            signIn("credentials");
         } catch (error: any) {
             setLoading(false);
             setError(error);
@@ -58,10 +59,21 @@ export const RegisterForm = () => {
                 <input
                     required
                     type="name"
-                    name="name"
-                    value={formValues.name}
+                    name="firstName"
+                    value={formValues.firstName}
                     onChange={handleChange}
-                    placeholder="Name"
+                    placeholder="First name"
+                    className={`${input_style}`}
+                />
+            </div>
+            <div className="mb-6">
+                <input
+                    required
+                    type="name"
+                    name="lastName"
+                    value={formValues.lastName}
+                    onChange={handleChange}
+                    placeholder="Last name"
                     className={`${input_style}`}
                 />
             </div>
@@ -89,8 +101,7 @@ export const RegisterForm = () => {
             </div>
             <button
                 type="submit"
-                style={{ backgroundColor: `${loading ? "#ccc" : "#3446eb"}` }}
-                className="inline-block px-7 py-4 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out w-full"
+                className="inline-block px-7 py-4 bg-red-700 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-red-800 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out w-full"
                 disabled={loading}
             >
                 {loading ? "loading..." : "Sign Up"}

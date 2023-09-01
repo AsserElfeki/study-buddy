@@ -20,7 +20,7 @@ export default async function handler(req, res) {
         })
 
         res.redirect('../login?verified=true');
-        console.log("Email verified");
+        // console.log("Email verified");
     } catch (error) {
         //verification of an email when GoogleOAuth
         try {
@@ -41,7 +41,7 @@ export default async function handler(req, res) {
                 },
             })
 
-            console.log("Email verified");
+            // console.log("Email verified");
             res.redirect('/');
         }
         catch (error) {
