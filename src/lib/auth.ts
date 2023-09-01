@@ -5,6 +5,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import GitHubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import EmailProvider from "next-auth/providers/email";
+import FacebookProvider from "next-auth/providers/facebook";
 import sendVerificationEmail from "@/lib/sendVerificationEmail";
 import { Role } from '@prisma/client';
 
@@ -48,7 +49,7 @@ export const authOptions: NextAuthOptions = {
                 });
                 const result = await res.json();
                 const user = result.user;
-
+        
                 // If no error and we have user data, return it
                 console.log("reached authorize func")
                 if (res.ok && user) {
@@ -57,6 +58,10 @@ export const authOptions: NextAuthOptions = {
                 // Return null if user data could not be retrieved
                 return null;
             },
+        }),
+        FacebookProvider({
+            clientId: process.env.FACEBOOK_CLIENT_ID as string,
+            clientSecret: process.env.FACEBOOK_CLIENT_SECRET as string,
         }),
     ],
     callbacks: {
