@@ -26,6 +26,8 @@ model User {
   image         String?
   sex           String?   @db.VarChar(32)
   email         String?   @unique @db.VarChar(64)
+  hashedPassword String?
+  provider      String?
   password      String?
   emailVerified DateTime? @map("email_verified")
   nationalId    String?   @unique @map("national_id")
