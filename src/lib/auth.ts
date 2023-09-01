@@ -25,10 +25,7 @@ export const authOptions: NextAuthOptions = {
             clientId: process.env.GOOGLE_CLIENT_ID as string,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
         }),
-        // GitHubProvider({
-        //     clientId: process.env.GITHUB_ID as string,
-        //     clientSecret: process.env.GITHUB_SECRET as string,
-        // }),
+        
         EmailProvider({
             server: {
                 host: process.env.EMAIL_SERVER_HOST,
@@ -42,14 +39,7 @@ export const authOptions: NextAuthOptions = {
         }),
         CredentialsProvider({
             name: "Sign in",
-            credentials: {
-                // email: {
-                //     label: "Email",
-                //     type: "email",
-                //     placeholder: "example@example.com",
-                // },
-                // password: { label: "Password", type: "password" },
-            },
+            credentials: {},
             async authorize(credentials) {
                 const res = await fetch(process.env.NEXTAUTH_URL + "/api/login", {
                     method: "POST",
@@ -70,10 +60,6 @@ export const authOptions: NextAuthOptions = {
         }),
     ],
     callbacks: {
-        async redirect({ url, baseUrl }) {
-            return baseUrl;
-        },
-
         async signIn({ user , account, profile }) {
             const existingUser = await prisma.user.findUnique({
                 where: { id: user.id }
@@ -96,16 +82,7 @@ export const authOptions: NextAuthOptions = {
                 delete user.name;
             }
             //ToDo
-            // else if (account.provider === "email") {
-            //     console.log("EmailProvider")
-            //     if (!existingUser) {
-            //         user.firstName = "Guest";
-            //     }
-            //     else if (!existingUser.isActive) {
-            //         console.log("BanHammer")
-            //         return false;
-            //     }
-            // }
+            
             else if (account.provider === "credentials") {
                 console.log("CredentialsProvider")
                 if (!existingUser.isActive) {
