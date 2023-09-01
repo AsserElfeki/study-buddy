@@ -2,6 +2,7 @@ import { prisma } from "@/lib/prisma";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import type { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import FacebookProvider from "next-auth/providers/facebook";
 import GitHubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import EmailProvider from "next-auth/providers/email";
@@ -20,42 +21,44 @@ export const authOptions: NextAuthOptions = {
         strategy: "jwt",
         maxAge: 60 * 60 * 24 // 1 day
     },
-    providers: [
-        GoogleProvider({
-            clientId: process.env.GOOGLE_CLIENT_ID as string,
-            clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
-        }),
+providers: [
+    GoogleProvider({
+        clientId: process.env.GOOGLE_CLIENT_ID as string,
+        clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+    }),
 
-        EmailProvider({
-            server: {
-                host: process.env.EMAIL_SERVER_HOST,
-                port: Number(process.env.EMAIL_SERVER_PORT),
-                auth: {
-                    user: process.env.EMAIL_SERVER_USER,
-                    pass: process.env.EMAIL_SERVER_PASSWORD,
-                },
+    FacebookProvider({
+        clientId: process.env.FACEBOOK_CLIENT_ID as string,
+        clientSecret: process.env.FACEBOOK_CLIENT_SECRET as string,
+    }),
+    EmailProvider({
+        server: {
+            host: process.env.EMAIL_SERVER_HOST,
+            port: Number(process.env.EMAIL_SERVER_PORT),
+            auth: {
+                user: process.env.EMAIL_SERVER_USER,
+                pass: process.env.EMAIL_SERVER_PASSWORD,
             },
-            from: process.env.EMAIL_FROM,
-        }),
+        },
+        from: process.env.EMAIL_FROM,
+    }),
         CredentialsProvider({
             name: "Sign in",
-            credentials: {},
+            credentials: {
+                username: { label: "Username", type: "text" },
+                password: { label: "Password", type: "password" },
+            },
             async authorize(credentials) {
-                const res = await fetch(process.env.NEXTAUTH_URL + "/api/login", {
-                    method: "POST",
-                    body: JSON.stringify(credentials),
-                    headers: { "Content-Type": "application/json" },
-                });
-                const result = await res.json();
-                const user = result.user;
-
-                // If no error and we have user data, return it
-                console.log("reached authorize func")
-                if (res.ok && user) {
-                    return user;
+                // Validate the credentials
+                const user = users.find(user => user.username === credentials.username && user.password === credentials.password);
+            
+                if (user) {
+                    // Any object returned will be saved in `user` property of the JWT
+                    return Promise.resolve(user);
+                } else {
+                    // If you return null or false then the credentials will be rejected
+                    return Promise.resolve(null);
                 }
-                // Return null if user data could not be retrieved
-                return null;
             },
         }),
     ],
