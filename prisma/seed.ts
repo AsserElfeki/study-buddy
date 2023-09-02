@@ -1,5 +1,7 @@
 import { PrismaClient } from "@prisma/client";
-import { hash } from "bcryptjs";
+import { hashPassword } from '../src/lib/hashPasswords';
+// import { hash } from "bcryptjs";
+import cuid from 'cuid';
 
 const prisma = new PrismaClient();
 
@@ -8,8 +10,7 @@ const prisma = new PrismaClient();
  *
  * @return {Promise<void>} A promise that resolves when the function has finished executing.
  */
-async function main() {
-    const password = await hash("password123", 12);
+async function main(): Promise<void> {
     const user = await prisma.user.upsert({
         where: { email: "admin@admin.com" },
         update: {},
@@ -17,10 +18,15 @@ async function main() {
             email: "admin@admin.com",
             firstName: "Admin",
             lastName: "1",
-            password,
+            password: await hashPassword("password123"),
+            role: "ADMIN",
+            isActive: true,
+            emailVerified: "2022-04-07T21:05:53.424Z",
+            id: cuid()
+
         },
     });
-    // console.log({ user });
+    console.log(`created user with id ${user.id} and email ${user.email}`);
 }
 
 
