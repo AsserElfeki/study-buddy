@@ -9,48 +9,49 @@ import sendVerificationEmail from "@/lib/sendVerificationEmail";
 import { Role } from '@prisma/client';
 
 export const authOptions: NextAuthOptions = {
-    // This is a temporary fix for prisma client.
-    // @see https://github.com/prisma/prisma/issues/16117
-    adapter: PrismaAdapter(prisma),
-    pages: {
-        signIn: "/login",
-
-    },
     session: {
         strategy: "jwt",
         maxAge: 60 * 60 * 24 // 1 day
     },
-    providers: [
-        GoogleProvider({
-            clientId: process.env.GOOGLE_CLIENT_ID as string,
-            clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
-        }),
 
-        EmailProvider({
-            server: {
-                host: process.env.EMAIL_SERVER_HOST,
-                port: Number(process.env.EMAIL_SERVER_PORT),
-                auth: {
-                    user: process.env.EMAIL_SERVER_USER,
-                    pass: process.env.EMAIL_SERVER_PASSWORD,
-                },
-            },
-            from: process.env.EMAIL_FROM,
-        }),
+    providers: [
         CredentialsProvider({
-            name: "Sign in",
+            // The name to display on the sign in form (e.g. 'Sign in with...')
+            name: "Credentials",
+            type: "credentials",
+
+
+            // The credentials is used to generate a suitable form on the sign in page.
+            // You can specify whatever fields you are expecting to be submitted.
+            // e.g. domain, username, password, 2FA token, etc.
+            // You can pass any HTML attribute to the <input> tag through the object.
             credentials: {},
             async authorize(credentials) {
+                // You need to provide your own logic here that takes the credentials
+                // submitted and returns either a object representing a user or value
+                // that is false/null if the credentials are invalid.
+                // e.g. return { id: 1, name: 'J Smith', email: 'jsmith@example.com' }
+                // You can also use the `req` object to obtain additional parameters
+                // (i.e., the request IP address)
+                //console.log("====CREDENTIALS===")
+                //console.log(credentials)
+                // const { email, password } = credentials as {
+                //     email: String,
+                //     password: String
+                // }
+                console.log("auth func fired")
                 const res = await fetch(process.env.NEXTAUTH_URL + "/api/login", {
                     method: "POST",
                     body: JSON.stringify(credentials),
                     headers: { "Content-Type": "application/json" },
                 });
+                console.log("back at AUTH fuin")
                 const result = await res.json();
-                const user = result.user;
+                console.log(result)
+                const user = result.data;
 
                 // If no error and we have user data, return it
-                console.log("reached authorize func")
+
                 if (res.ok && user) {
                     return user;
                 }
@@ -58,13 +59,47 @@ export const authOptions: NextAuthOptions = {
                 return null;
             },
         }),
+        EmailProvider({
+            server: {
+                host: process.env.SMTP_HOST,
+                port: Number(process.env.SMTP_PORT),
+                auth: {
+                    user: process.env.SMTP_USER,
+                    pass: process.env.SMTP_PASSWORD,
+                },
+            },
+            from: process.env.SMTP_FROM,
+        }),
+        GoogleProvider({
+            clientId: process.env.GOOGLE_ID,
+            clientSecret: process.env.GOOGLE_SECRET,
+            authorization: {
+                params: {
+                    prompt: "consent",
+                    access_type: "offline",
+                    response_type: "code",
+                },
+            },
+        }),
     ],
+    pages: {
+        //TODO: Custom pages for errors/signOut
+        signIn: "/auth/login",
+        //error: "/api/error"
+        //signOut: "/api/signout"
+    },
+    adapter: PrismaAdapter(prisma),
     callbacks: {
+        async redirect({ url, baseUrl }) {
+            return baseUrl;
+        },
+
         async signIn({ user, account, profile }) {
+            console.log("the signin in Auth fired")
             const existingUser = await prisma.user.findUnique({
                 where: { id: user.id }
             })
-            if (account?.provider === "google") {
+            if (account.provider === "google") {
                 user.firstName = profile.given_name;
                 user.lastName = profile.family_name;
                 user.image = profile.picture;
@@ -72,34 +107,42 @@ export const authOptions: NextAuthOptions = {
                     await sendVerificationEmail(user)
                 }
                 else if (!existingUser.isActive) {
+                    console.log("BanHammer")
                     return false;
                 } else if (!existingUser.emailVerified) {
+                    console.log("Verify email")
                     return '/unauthorized';
                 }
-                delete user.name;
-            }
-            //ToDo
 
-            else if (account.provider === "credentials") {
+                delete user.name;
+            } else if (account.provider === "email") {
+                console.log("EmailProvider")
+                if (!existingUser) {
+                    user.firstName = "Guest";
+                }
+                else if (!existingUser.isActive) {
+                    console.log("BanHammer")
+                    return false;
+                }
+            } else if (account.provider === "credentials") {
                 console.log("CredentialsProvider")
                 if (!existingUser.isActive) {
-                    // console.log("BanHammer")
+                    console.log("BanHammer")
                     return false;
                 } else if (!existingUser.emailVerified) {
-                    // console.log("Verify email")
+                    console.log("Verify email")
                     return '/unauthorized';
                 }
             }
             return true;
         },
         session: async ({ session, token }) => {
-            if (session?.user) {
-                session.user.id = token.id as string;
-                session.user.name = token.name as string;
-                session.user.role = token.role as Role;
-                session.user.image = token.picture as string;
-                session.user.isActive = token.isActive as boolean;
-            }
+            session.user.id = token.id;
+            session.user.name = token.name;
+            session.user.role = token.role;
+            session.user.image = token.picture
+            session.user.isActive = token.isActive as boolean
+            // session.user = token
             return session;
         },
         jwt: async ({ profile, account, user, token, trigger, session }) => {
