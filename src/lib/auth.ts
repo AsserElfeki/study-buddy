@@ -1,11 +1,11 @@
-import { prisma } from "@/lib/prisma";
+import  sendVerificationEmail  from '@lib/sendVerificationEmail';
+import { prisma } from "@lib/prisma";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import type { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GitHubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import EmailProvider from "next-auth/providers/email";
-import sendVerificationEmail from "@/lib/sendVerificationEmail";
 import { Role } from '@prisma/client';
 
 export const authOptions: NextAuthOptions = {
@@ -99,7 +99,7 @@ export const authOptions: NextAuthOptions = {
             const existingUser = await prisma.user.findUnique({
                 where: { id: user.id }
             })
-            if (account.provider === "google") {
+            if (account?.provider === "google") {
                 user.firstName = profile.given_name;
                 user.lastName = profile.family_name;
                 user.image = profile.picture;

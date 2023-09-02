@@ -1,13 +1,25 @@
 import nodemailer from "nodemailer";
-import jwt from "jsonwebtoken";
+// import jwt from "jsonwebtoken";
 import { User } from "@prisma/client";
 
-const generateToken = (user: User) => {
+//create the module types
+
+
+
+import jwt, { Secret } from "jsonwebtoken";
+
+/**
+ * Generate a JWT token for a user.
+ * 
+ * @param user - The user object.
+ * @returns The generated JWT token.
+ */
+const generateToken = (user: { id: number, email: string }): string => {
     const payload = {
         id: user.id,
         email: user.email,
     };
-    const secret = process.env.NEXTAUTH_SECRET;
+    const secret: Secret = process.env.NEXTAUTH_SECRET;
     const options = {
         expiresIn: "1h",
     };
@@ -24,7 +36,13 @@ const transporter = nodemailer.createTransport({
     },
 });
 
-export default async function sendVerificationEmail(user) {
+/**
+ * Sends a verification email to a user.
+ * 
+ * @param user - The user object containing the necessary details.
+ * @returns A promise that resolves when the email is sent successfully, or rejects with an error if there was an issue sending the email.
+ */
+export default async function sendVerificationEmail(user: User): Promise<void> {
     const verificationLink = `http://localhost:3000/api/verify?token=${generateToken(user)}`;
 
     const mailOptions = {
