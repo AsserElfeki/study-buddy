@@ -3,9 +3,9 @@ import {
   LogoutButton,
   ProfileButton,
   RegisterButton,
-} from "@/components/buttons";
+} from "@components/buttons";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
+import { authOptions } from "@lib/auth";
 import { User } from "@components/user.component";
 
 export default async function Home() {

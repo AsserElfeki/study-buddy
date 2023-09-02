@@ -29,7 +29,7 @@
       "@pages/*": ["./src/app/*"],
       "@lib/*" : ["./src/lib/*"],
       "@utils/*" : ["./src/utils/*"],
-      
+      "@styles/*": ["./src/styles/*"]
 
     }
   },
