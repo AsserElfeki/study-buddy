@@ -59,50 +59,45 @@ export const authOptions: NextAuthOptions = {
                 return null;
             },
         }),
-        EmailProvider({
-            server: {
-                host: process.env.SMTP_HOST,
-                port: Number(process.env.SMTP_PORT),
-                auth: {
-                    user: process.env.SMTP_USER,
-                    pass: process.env.SMTP_PASSWORD,
-                },
-            },
-            from: process.env.SMTP_FROM,
-        }),
+        // EmailProvider({
+        //     server: {
+        //         host: process.env.SMTP_HOST,
+        //         port: Number(process.env.SMTP_PORT),
+        //         auth: {
+        //             user: process.env.SMTP_USER,
+        //             pass: process.env.SMTP_PASSWORD,
+        //         },
+        //     },
+        //     from: process.env.SMTP_FROM,
+        // }),
         GoogleProvider({
-            clientId: process.env.GOOGLE_ID,
-            clientSecret: process.env.GOOGLE_SECRET,
-            authorization: {
-                params: {
-                    prompt: "consent",
-                    access_type: "offline",
-                    response_type: "code",
-                },
-            },
+            clientId: process.env.GOOGLE_CLIENT_ID as string,
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+            
         }),
     ],
     pages: {
         //TODO: Custom pages for errors/signOut
-        signIn: "/auth/login",
+        signIn: "/login",
         //error: "/api/error"
         //signOut: "/api/signout"
     },
     adapter: PrismaAdapter(prisma),
     callbacks: {
-        async redirect({ url, baseUrl }) {
-            return baseUrl;
-        },
+        // async redirect({ url, baseUrl }) {
+        //     return baseUrl;
+        // },
 
         async signIn({ user, account, profile }) {
             console.log("the signin in Auth fired")
             const existingUser = await prisma.user.findUnique({
-                where: { id: user.id }
+                where: { email: user.email }
             })
             if (account?.provider === "google") {
                 user.firstName = profile.given_name;
                 user.lastName = profile.family_name;
                 user.image = profile.picture;
+                console.log("google user: ", user)
                 if (!existingUser) {
                     await sendVerificationEmail(user)
                 }

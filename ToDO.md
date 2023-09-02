@@ -1,7 +1,7 @@
 - [ ] auth : 
   - [√] credentials 
   - [ ] route guarding
-  - [√] google (from the article)
+  - [] google (from the article)
   - [x] facebook (like google?)
 - [ ] routes 
 - [ ] components 
