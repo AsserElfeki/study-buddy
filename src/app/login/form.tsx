@@ -1,5 +1,6 @@
 "use client";
 
+import { hashPassword } from '@lib/hashPasswords';
 import { signIn } from "next-auth/react";
 import Image from 'next/image';
 import { useSearchParams, useRouter } from "next/navigation";
@@ -27,15 +28,16 @@ export const LoginForm = () => {
         e.preventDefault();
         try {
             setLoading(true);
-            setFormValues({ email: "", password: "" });
-
+            
+            console.log("email in form:", formValues.email)
             const res = await signIn("credentials", {
                 redirect: false,
                 email: formValues.email,
                 password: formValues.password,
                 callbackUrl,
             });
-
+            
+            // setFormValues({ email: "", password: "" });
             setLoading(false);
 
             // console.log(res);
@@ -60,6 +62,8 @@ export const LoginForm = () => {
 
     return (
         <form
+            // method='post'
+            // action="/api/auth/callback/credentials"
             className="w-full max-w-md mx-auto"
             onSubmit={onSubmit}>
             {error && (

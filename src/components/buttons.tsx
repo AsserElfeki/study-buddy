@@ -13,9 +13,9 @@ import Link from "next/link";
  */
 export const LoginButton = () => {
     return (
-        <button className='' onClick={() => signIn()}>
+        <Link href="/login" className='' >
             Sign in
-        </button>
+        </Link>
     );
 };
 
