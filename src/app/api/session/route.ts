@@ -1,5 +1,5 @@
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
+import { authOptions } from "@lib/auth";
 import { NextResponse } from "next/server";
 
 //this is how to get session on an api route (so for endpoints)
