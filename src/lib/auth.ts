@@ -3,9 +3,7 @@ import { prisma } from "@lib/prisma";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import type { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import GitHubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
-import EmailProvider from "next-auth/providers/email";
 import { Role } from '@prisma/client';
 
 export const authOptions: NextAuthOptions = {
@@ -99,7 +97,8 @@ export const authOptions: NextAuthOptions = {
                 user.image = profile.picture;
                 console.log("google user: ", user)
                 if (!existingUser) {
-                    await sendVerificationEmail(user)
+                    // await sendVerificationEmail(user)
+                    console.log("ToDo")
                 }
                 else if (!existingUser.isActive) {
                     console.log("BanHammer")

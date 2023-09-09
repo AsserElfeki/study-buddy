@@ -1,8 +1,8 @@
 - [ ] auth : 
   - [√] credentials 
   - [√] google (from the article)
-  - [ ] password shown in network (how to secure password)
   - [ ] route guarding
+  - [ ] solve send verification email 
   - [x] facebook (like google?)
 - [ ] routes 
 - [ ] components 
