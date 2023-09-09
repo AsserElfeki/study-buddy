@@ -22,14 +22,14 @@ export const LoginForm = () => {
     const [error, setError] = useState("");
 
     const searchParams = useSearchParams();
-    const callbackUrl = searchParams.get("callbackUrl") || "/about";
+    const callbackUrl = searchParams.get("callbackUrl") || "/profile";
 
     const onSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
             setLoading(true);
             // const password = await hashPassword(formValues.password)
-            console.log("email in form:", formValues.email)
+            // console.log("email in form:", formValues.email)
             const res = await signIn("credentials", {
                 redirect: false,
                 email: formValues.email,

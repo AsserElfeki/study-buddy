@@ -8,10 +8,15 @@ declare module "next-auth" {
     }
 
     export interface User {
+        id: string
+        email: string
+        password: string
+        emailVerified?: Date
         firstName: string
         lastName?: string
+        image?: string
+        id: string
         sex?: string
-        emailVerified?: Date
         role?: Role
         isActive: boolean
     }

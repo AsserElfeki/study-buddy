@@ -1,6 +1,7 @@
 "use client";
 
 import { signIn } from "next-auth/react";
+import { redirect } from 'next/dist/server/api-utils';
 import { ChangeEvent, useState } from "react";
 
 export const RegisterForm = () => {
@@ -16,7 +17,8 @@ export const RegisterForm = () => {
     const onSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setLoading(true);
-        setFormValues({ firstName: "", lastName: "", email: "", password: "" });
+        setError("")
+        // setFormValues({ firstName: "", lastName: "", email: "", password: "" });
 
         try {
             const res = await fetch("/api/register", {
@@ -32,8 +34,20 @@ export const RegisterForm = () => {
                 setError((await res.json()).message);
                 return;
             }
+            //login with the newly created credentials
+            const { email, password } = formValues;
+            // console.log(email, password)
+            const signInRes = await signIn("credentials", {
+                redirect: true,
+                callbackUrl: "http://localhost:3000/about/",
+                email,
+                password,
+            });
+            if (signInRes?.error) {
+                setError(signInRes.error);
+                return;
+            }
 
-            signIn("credentials");
         } catch (error: any) {
             setLoading(false);
             setError(error);
@@ -101,7 +115,7 @@ export const RegisterForm = () => {
             </div>
             <button
                 type="submit"
-                className="inline-block px-7 py-4 bg-red-700 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-red-800 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out w-full"
+                className="inline-block px-7 py-4 bg-red-700 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-red-800 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out w-full disabled:bg-gray-400"
                 disabled={loading}
             >
                 {loading ? "loading..." : "Sign Up"}

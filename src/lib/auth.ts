@@ -37,15 +37,15 @@ export const authOptions: NextAuthOptions = {
                 //     email: String,
                 //     password: String
                 // }
-                console.log("auth func fired")
+                console.log("authorize func fired")
                 const res = await fetch(process.env.NEXTAUTH_URL + "/api/login", {
                     method: "POST",
                     body: JSON.stringify(credentials),
                     headers: { "Content-Type": "application/json" },
                 });
-                console.log("back at AUTH fuin")
+                console.log("back at AUTH fun")
                 const result = await res.json();
-                console.log(result)
+                // console.log(result)
                 const user = result.data;
 
                 // If no error and we have user data, return it
@@ -96,9 +96,9 @@ export const authOptions: NextAuthOptions = {
                 user.lastName = profile.family_name;
                 user.image = profile.picture;
                 console.log("google user: ", user)
-                if (!existingUser) {
+                if (!existingUser) { //ToDO
                     // await sendVerificationEmail(user)
-                    console.log("ToDo")
+                    // console.log("ToDo")
                 }
                 else if (!existingUser.isActive) {
                     console.log("BanHammer")
@@ -109,15 +109,15 @@ export const authOptions: NextAuthOptions = {
                 }
 
                 delete user.name;
-            } else if (account.provider === "email") {
-                console.log("EmailProvider")
-                if (!existingUser) {
-                    user.firstName = "Guest";
-                }
-                else if (!existingUser.isActive) {
-                    console.log("BanHammer")
-                    return false;
-                }
+            // } else if (account.provider === "email") {
+            //     console.log("EmailProvider")
+            //     if (!existingUser) {
+            //         user.firstName = "Guest";
+            //     }
+            //     else if (!existingUser.isActive) {
+            //         console.log("BanHammer")
+            //         return false;
+            //     }
             } else if (account.provider === "credentials") {
                 console.log("CredentialsProvider")
                 if (!existingUser.isActive) {
@@ -125,7 +125,7 @@ export const authOptions: NextAuthOptions = {
                     return false;
                 } else if (!existingUser.emailVerified) {
                     console.log("Verify email")
-                    return '/unauthorized';
+                    // return '/unauthorized';
                 }
             }
             return true;
