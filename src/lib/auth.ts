@@ -1,10 +1,10 @@
 import  sendVerificationEmail  from '@lib/sendVerificationEmail';
 import { prisma } from "@lib/prisma";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import type { NextAuthOptions } from "next-auth";
+import type { NextAuthOptions, Profile } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
-import { Role } from '@prisma/client';
+import { Account, Role, User } from '@prisma/client';
 
 export const authOptions: NextAuthOptions = {
     session: {
@@ -86,7 +86,7 @@ export const authOptions: NextAuthOptions = {
         //     return baseUrl;
         // },
 
-        async signIn({ user, account, profile }) {
+        async signIn({ user, account, profile, email, credentials }) {
             console.log("the signin in Auth fired")
             const existingUser = await prisma.user.findUnique({
                 where: { email: user.email }
@@ -105,6 +105,7 @@ export const authOptions: NextAuthOptions = {
                     return false;
                 } else if (!existingUser.emailVerified) {
                     console.log("Verify email")
+                    await sendVerificationEmail(user as User)
                     return '/unauthorized';
                 }
 
@@ -125,6 +126,7 @@ export const authOptions: NextAuthOptions = {
                     return false;
                 } else if (!existingUser.emailVerified) {
                     console.log("Verify email")
+                    await sendVerificationEmail(user as User)
                     // return '/unauthorized';
                 }
             }
