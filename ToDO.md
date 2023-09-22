@@ -1,8 +1,9 @@
 - [ ] auth : 
   - [√] credentials 
-  - [√] google (from the article)
+  - [√] google signin (from the article)
+  - [ ] register with google 
   - [ ] route guarding
-  - [ ] solve send verification email 
+  - [√] solve send verification email 
   - [x] facebook (like google?)
 - [ ] routes 
 - [ ] components :
