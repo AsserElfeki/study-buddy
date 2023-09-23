@@ -3,8 +3,8 @@ generator client {
 }
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")
+  provider          = "postgresql"
+  url               = env("DATABASE_URL")
   shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
   // directUrl = env("POSTGRES_URL_NON_POOLING")
 }
@@ -23,6 +23,7 @@ model User {
   accounts        Account[]
   Session         Session[]
   ActivationToken ActivationToken[]
+  applications    Application[]
 
   @@map("users")
 }
@@ -77,4 +78,63 @@ enum Role {
   ACCEPTED_STUDENT
   COMMUNITY_ANGEL
   ADMIN
+}
+
+model University {
+  id             String         @id @default(cuid())
+  name           String
+  location       String
+  universityLink String
+  studyPrograms  StudyProgram[]
+}
+
+model StudyProgram {
+  id                   String     @id @default(cuid())
+  name                 String
+  tuition_fee          Float
+  duration             Int
+  format               String
+  studyProgramLink     String
+  studyProgramLanguage String
+  universityId         String
+  university           University @relation(fields: [universityId], references: [id])
+  discipline           Discipline @relation(fields: [disciplineId], references: [id])
+  degreeType           DegreeType @relation(fields: [degreeTypeId], references: [id])
+  disciplineId         String
+  degreeTypeId         String
+  applications         Application[]
+}
+
+model Discipline {
+  id                   String     @id @default(cuid())
+  name          String
+  studyPrograms StudyProgram[]
+}
+
+model DegreeType {
+  id                   String     @id @default(cuid())
+  name          String
+  studyPrograms StudyProgram[]
+}
+
+model Application {
+  id              String    @id @default(cuid())
+  userId          String
+  studyProgramId  String
+  user            User      @relation(fields: [userId], references: [id])
+  studyProgram    StudyProgram @relation(fields: [studyProgramId], references: [id])
+  forms           Form[]
+  documents       Document[]
+}
+
+model Form {
+  id            String    @id @default(cuid())
+  applicationId String
+  application   Application @relation(fields: [applicationId], references: [id])
+}
+
+model Document {
+  id            String    @id @default(cuid())
+  applicationId String
+  application   Application @relation(fields: [applicationId], references: [id])
 }
