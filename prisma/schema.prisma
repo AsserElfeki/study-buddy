@@ -84,57 +84,86 @@ model University {
   id             String         @id @default(cuid())
   name           String
   location       String
-  universityLink String
   studyPrograms  StudyProgram[]
 }
 
 model StudyProgram {
-  id                   String     @id @default(cuid())
+  id                   String                @id @default(cuid())
   name                 String
-  tuition_fee          Float
-  duration             Int
-  format               String
+  description          String
+  tuition_fee          String
+  duration             String
   studyProgramLink     String
-  studyProgramLanguage String
+  degreeType           String
+  format               String
+  attendance           String
+  applyDate            String?
+  startDate            String?
+  studyProgramLanguage studyProgramLanguage  @default(EN)
   universityId         String
-  university           University @relation(fields: [universityId], references: [id])
-  discipline           Discipline @relation(fields: [disciplineId], references: [id])
-  degreeType           DegreeType @relation(fields: [degreeTypeId], references: [id])
-  disciplineId         String
-  degreeTypeId         String
+  university           University            @relation(fields: [universityId], references: [id])
+  discipline           DisciplineOnProgram[]
   applications         Application[]
 }
 
 model Discipline {
-  id                   String     @id @default(cuid())
+  id            String                @id @default(cuid())
   name          String
-  studyPrograms StudyProgram[]
+  studyPrograms DisciplineOnProgram[]
 }
 
-model DegreeType {
-  id                   String     @id @default(cuid())
-  name          String
-  studyPrograms StudyProgram[]
+// junction table for many-to-many relationship
+model DisciplineOnProgram {
+  discipline     Discipline   @relation(fields: [disciplineId], references: [id])
+  disciplineId   String
+  studyProgram   StudyProgram @relation(fields: [studyProgramId], references: [id])
+  studyProgramId String
+
+  @@id([disciplineId, studyProgramId])
+}
+
+enum studyProgramLanguage {
+  EN
+  PL
+}
+
+enum Format {
+  FULL_TIME
+  PART_TIME
+}
+
+enum Attendance {
+  ON_CAMPUS
+  ONLINE
+  BLENDED
+}
+
+enum Degree {
+  BA
+  BSC
+  BACHELOR
+  MASTER
+  DOCTORAL
 }
 
 model Application {
-  id              String    @id @default(cuid())
-  userId          String
-  studyProgramId  String
-  user            User      @relation(fields: [userId], references: [id])
-  studyProgram    StudyProgram @relation(fields: [studyProgramId], references: [id])
-  forms           Form[]
-  documents       Document[]
+  id             String       @id @default(cuid())
+  userId         String
+  studyProgramId String
+  user           User         @relation(fields: [userId], references: [id])
+  studyProgram   StudyProgram @relation(fields: [studyProgramId], references: [id])
+  forms          Form[]
+  documents      Document[]
 }
 
 model Form {
-  id            String    @id @default(cuid())
+  id            String      @id @default(cuid())
   applicationId String
   application   Application @relation(fields: [applicationId], references: [id])
 }
 
 model Document {
-  id            String    @id @default(cuid())
+  id            String      @id @default(cuid())
   applicationId String
   application   Application @relation(fields: [applicationId], references: [id])
 }

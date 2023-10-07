@@ -5,6 +5,10 @@
   - [ ] route guarding
   - [√] solve send verification email 
   - [x] facebook (like google?)
+- [ ] seeds: 
+  - [ ] disciplines junction table
+  - [ ] reading data 
+  - [ ] creating seeds 
 - [ ] routes 
 - [ ] components :
   - [ ] navbar
@@ -22,3 +26,8 @@
 - [ ] sync repo with priv repo 
 - [ ] db schema 
 - [ ] endpoints
+
+
+apply & start dates, 
+multi disciplines
+many to many in prisma 
