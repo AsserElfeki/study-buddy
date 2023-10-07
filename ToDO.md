@@ -28,6 +28,3 @@
 - [ ] endpoints
 
 
-apply & start dates, 
-multi disciplines
-many to many in prisma 
