@@ -1,7 +1,7 @@
 import prisma from '@lib/prisma';
 import { getServerSession } from 'next-auth';
 import { authOptions } from "@lib/auth";
-import { Role } from '@prisma/client';
+import { Role, StudyProgram } from '@prisma/client';
 import { type NextRequest } from 'next/server';
 
 export async function GET(req: NextRequest) {
@@ -69,7 +69,7 @@ export async function GET(req: NextRequest) {
 
     console.log("🚀 ~ file: route.ts:18 ~ GET ~ whereClause:", whereClause)
 
-    let programs: any;
+    let programs: StudyProgram[];
     //retreive all universities that match fronm db 
     try {
         programs = await prisma.studyProgram.findMany({
