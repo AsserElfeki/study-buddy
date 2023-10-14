@@ -1,7 +1,7 @@
 import { PrismaClient, studyProgramLanguage, Prisma } from "@prisma/client";
 import { hashPassword } from '../src/lib/hashPasswords';
 import cuid from 'cuid';
-import { getDisciplinesSeedData, getUniversitySeedData, getDataArray, extractTuitionInfo } from '../src/utils/dataPrep';
+import { getDisciplinesSeedData, getUniversitySeedData, getDataArray, extractTuitionInfo, extractDuration } from '../src/utils/dataPrep';
 
 
 const prisma = new PrismaClient();
@@ -52,10 +52,13 @@ async function seed() {
         const tuitionInfo = extractTuitionInfo(studyProgramSeedData[i]["studyProgram"].tuition_fee);
         // console.log("🚀 ~ file: seed.ts:53 ~ seed ~ tuitionInfo:", tuitionInfo)
         const amount : number = tuitionInfo.amount;
-        const paymentCycle : string = tuitionInfo.paymentCycle;
-        // console.log("================================================/n")
-        // console.log(studyProgramSeedData[i]["studyProgram"].tuition_fee)
-        // console.log(amount, paymentCycle)
+        const paymentCycle: string = tuitionInfo.paymentCycle;
+        
+        const languageRequirement = studyProgramSeedData[i]["studyProgram"]["languageRequirments"]
+        const IELTS = parseFloat(languageRequirement.ieltsScore) || null;
+        const TOEFL = parseInt(languageRequirement.toeflScore) || null;
+        const programDuration = extractDuration(studyProgramSeedData[i]["studyProgram"].duration);
+
         const newProgram = await prisma.studyProgram.create({
             data: {
                 id: cuid(),
@@ -64,13 +67,15 @@ async function seed() {
                 studyProgramLink: studyProgramSeedData[i]["studyProgram"].studyProgramLink.trim().toLowerCase(),
                 tuitionFee: amount,
                 paymentCycle: paymentCycle.toLowerCase(),
-                duration: studyProgramSeedData[i]["studyProgram"].duration.trim().toLowerCase(),
+                duration: programDuration,
                 format: studyProgramSeedData[i]["studyProgram"].format.trim().toLowerCase(),
                 attendance: studyProgramSeedData[i]["studyProgram"].attendance.trim().toLowerCase(),
                 degreeType: studyProgramSeedData[i]["studyProgram"].degreeType.trim().toLowerCase(),
                 studyProgramLanguage: studyProgramSeedData[i]["studyProgram"].studyProgramLanguage.trim() == "English" ? studyProgramLanguage.EN : studyProgramLanguage.PL,
                 applyDate: studyProgramSeedData[i]["studyProgram"].applyDate.trim().toLowerCase(),
                 startDate: studyProgramSeedData[i]["studyProgram"].startDate.trim().toLowerCase(),
+                IELTSScore: IELTS,
+                TOEFLScore: TOEFL,
                 university: {
                     connect: {
                         id: universityIDs.find((uni) => uni.name === studyProgramSeedData[i]["university"].universityName.trim().toLowerCase()).id

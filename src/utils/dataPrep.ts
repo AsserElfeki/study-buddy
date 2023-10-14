@@ -38,16 +38,14 @@ export function getUniversitySeedData() {
     const seeds: Program["university"][] = [];
     for (const program of data) {
         //check if university already exists
-        if (seeds.find((seed) => seed.universityName === program.university.universityName)) {
+        if (seeds.find((seed) => seed.universityName === program.university.universityName
+            && seed.location === program.university.location)) {
             continue;
         }
         seeds.push(program.university);
     }
     return seeds;
 }
-
-
-
 
 export function extractTuitionInfo(str: string): TuitionInfo {
     if (str.trim().toLowerCase() === "free") {
@@ -59,7 +57,6 @@ export function extractTuitionInfo(str: string): TuitionInfo {
     }
 
     // Match 3 to 5 digit numbers, allowing for commas
-    // const amountMatch = str.match(/\d{3,5}(?:,\d{3})*/);
     const amountMatch = str.match(/(\d{1,3}(?:,\d{3})*)/);
     const amount = amountMatch ? parseInt(amountMatch[0].replace(',', '')) : null;
 
@@ -71,3 +68,35 @@ export function extractTuitionInfo(str: string): TuitionInfo {
     return { amount, paymentCycle };
 }
 
+
+//function to extract the number of semesters from the duration string
+export function extractDuration(str: string): number {
+    if (!str) return null;
+
+    // Match digits and special fraction characters
+    const match = str.match(/(\d+)(½|¼|¾)?/);
+
+    if (!match) return null;
+
+    let number = parseFloat(match[1]);
+
+    // Handle special fraction characters
+    if (match[2]) {
+        switch (match[2]) {
+            case '½':
+                number += 0.5;
+                break;
+            case '¼':
+                number += 0.25;
+                break;
+            case '¾':
+                number += 0.75;
+                break;
+        }
+    }
+    if (number > 6) {
+        number = 0.7
+    }
+
+    return number;
+}
