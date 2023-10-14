@@ -1,5 +1,6 @@
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearch"]
 }
 
 datasource db {
@@ -13,9 +14,9 @@ model User {
   id              String            @id @default(cuid())
   email           String?           @unique @db.VarChar(64)
   password        String?
-  emailVerified   DateTime?         @map("email_verified")
+  emailVerified    DateTime?         @map("email_verified")
   image           String?
-  firstName       String?           @map("first_name") @db.VarChar(32)
+  firstName        String?           @map("first_name") @db.VarChar(32)
   isActive        Boolean           @default(true)
   lastName        String?           @map("last_name") @db.VarChar(32)
   role            Role              @default(NEW_STUDENT)
@@ -81,27 +82,28 @@ enum Role {
 }
 
 model University {
-  id             String         @id @default(cuid())
-  name           String
-  location       String
-  studyPrograms  StudyProgram[]
+  id            String         @id @default(cuid())
+  name          String
+  location      String
+  studyPrograms StudyProgram[]
 }
 
 model StudyProgram {
   id                   String                @id @default(cuid())
   name                 String
   description          String
-  tuition_fee          String
+  tuitionFee           Int?                  @map("tuition_fee")
+  paymentCycle         String                @map("payment_cycle")
   duration             String
-  studyProgramLink     String
+  studyProgramLink     String                @map("study_program_link")
   degreeType           String
   format               String
   attendance           String
   applyDate            String?
   startDate            String?
   studyProgramLanguage studyProgramLanguage  @default(EN)
-  universityId         String
-  university           University            @relation(fields: [universityId], references: [id])
+  universityId         String                @map("university_id")
+  university           University            @relation(fields: [universityId], references: [id], onDelete: Cascade)
   discipline           DisciplineOnProgram[]
   applications         Application[]
 }
@@ -114,10 +116,10 @@ model Discipline {
 
 // junction table for many-to-many relationship
 model DisciplineOnProgram {
+  disciplineId   String       @map("discipline_id")
   discipline     Discipline   @relation(fields: [disciplineId], references: [id])
-  disciplineId   String
-  studyProgram   StudyProgram @relation(fields: [studyProgramId], references: [id])
-  studyProgramId String
+  studyProgramId String       @map("study_program_id")
+  studyProgram   StudyProgram @relation(fields: [studyProgramId], references: [id], onDelete: Cascade)
 
   @@id([disciplineId, studyProgramId])
 }
@@ -127,29 +129,10 @@ enum studyProgramLanguage {
   PL
 }
 
-enum Format {
-  FULL_TIME
-  PART_TIME
-}
-
-enum Attendance {
-  ON_CAMPUS
-  ONLINE
-  BLENDED
-}
-
-enum Degree {
-  BA
-  BSC
-  BACHELOR
-  MASTER
-  DOCTORAL
-}
-
 model Application {
   id             String       @id @default(cuid())
-  userId         String
-  studyProgramId String
+  userId         String       @map("user_id")
+  studyProgramId String       @map("study_program_id")
   user           User         @relation(fields: [userId], references: [id])
   studyProgram   StudyProgram @relation(fields: [studyProgramId], references: [id])
   forms          Form[]
@@ -158,12 +141,12 @@ model Application {
 
 model Form {
   id            String      @id @default(cuid())
-  applicationId String
+  applicationId String      @map("application_id")
   application   Application @relation(fields: [applicationId], references: [id])
 }
 
 model Document {
   id            String      @id @default(cuid())
-  applicationId String
+  applicationId String      @map("application_id")
   application   Application @relation(fields: [applicationId], references: [id])
 }

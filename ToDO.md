@@ -1,30 +1,9 @@
-- [ ] auth : 
-  - [√] credentials 
-  - [√] google signin (from the article)
-  - [ ] register with google 
-  - [ ] route guarding
-  - [√] solve send verification email 
-  - [x] facebook (like google?)
-- [ ] seeds: 
-  - [ ] disciplines junction table
-  - [ ] reading data 
-  - [ ] creating seeds 
-- [ ] routes 
-- [ ] components :
-  - [ ] navbar
-  - [ ] navbar items 
-  - [ ] 
-- [√] users model
-- [ ] uni programs model
-- [ ] uni programs EPs
-- [x] forum model 
-- [x] forum EPs 
+- [x] create one endpoint fully (start with video) 
+- [ ] copy paste for the rest of the endpoints
+- [ ] fix home page 
+- [ ] fix navbar 
+- [ ] create list of components
+- [ ] 
 
 
-
-- [ ] finish auth
-- [ ] sync repo with priv repo 
-- [ ] db schema 
-- [ ] endpoints
-
-
+the unis EP should destructure query and find whatever needed

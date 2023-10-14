@@ -21,9 +21,13 @@ export interface Program {
     university: {
         universityName: string;
         location: string;
-        studyProgramLink: string;
     };
     discipline: {
         programDisciplines: string[];
     };
 }
+
+export type TuitionInfo = {
+    amount: number | null;
+    paymentCycle: string | "unknown";
+};
