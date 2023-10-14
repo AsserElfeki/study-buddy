@@ -1,14 +1,14 @@
 import prisma from '@lib/prisma';
 import { getServerSession } from 'next-auth';
 import { authOptions } from "@lib/auth";
-import { Role, StudyProgram } from '@prisma/client';
+import { Role, StudyProgram, studyProgramLanguage } from '@prisma/client';
 import { type NextRequest } from 'next/server';
 
 export async function GET(req: NextRequest) {
     const searchParams = req.nextUrl.searchParams
     const programName = searchParams.get('name')
-    const programTuition = searchParams.get('tuition')
-    // const programDuration = searchParams.get('duration')
+    const programTuition: number = parseFloat(searchParams.get('tuition'))
+    const programDuration: number = parseFloat(searchParams.get('duration'))
     const programDegree = searchParams.get('degree')
     const programLanguage = searchParams.get('language')
     const programAttendance = searchParams.get('attendance')
@@ -16,10 +16,10 @@ export async function GET(req: NextRequest) {
 
     let whereClause: {
         name?: {},
-        tuition?: {},
-        // duration?: {},
-        degree?: {},
-        language?: {},
+        tuitionFee?: {},
+        duration?: {},
+        degreeType?: {},
+        language?: string,
         attendance?: {},
         format?: {}
     } = {}
@@ -31,27 +31,27 @@ export async function GET(req: NextRequest) {
         }
     }
     if (programTuition) {
-        whereClause.tuition = {
-            contains: programTuition,
-            mode: "insensitive"
+        whereClause.tuitionFee = {
+            lte: programTuition,
         }
     }
-    // if (programDuration) {
-    //     whereClause.duration = {
-    //         contains: programDuration,
-    //         mode: "insensitive"
-    //     }
-    // }
+    if (programDuration) {
+        whereClause.duration = {
+            lte: programDuration,
+        }
+    }
     if (programDegree) {
-        whereClause.degree = {
+        whereClause.degreeType = {
             contains: programDegree,
             mode: "insensitive"
         }
     }
     if (programLanguage) {
-        whereClause.language = {
-            contains: programLanguage,
-            mode: "insensitive"
+        if (programLanguage.includes("en")) {
+            whereClause.language = studyProgramLanguage.EN
+        }
+        else if (programLanguage.includes("pl")) {
+            whereClause.language = studyProgramLanguage.PL
         }
     }
     if (programAttendance) {
@@ -93,6 +93,66 @@ export async function GET(req: NextRequest) {
     }
     return Response.json(programs, {
         status: 200,
-        statusText: "programs found"
+        statusText: `Found ${programs.length} programs`
+    });
+}
+
+//post only for admin
+export async function POST(req: NextRequest) {
+    const session = await getServerSession({ req, ...authOptions })
+    if (!session || session.user.role !== Role.ADMIN) {
+        return Response.json({
+            message: 'Unauthorized',
+        }, {
+            status: 401,
+        });
+    }
+    const body = await req.json()
+    let program: StudyProgram;
+    const lang = body.studyProgramLanguage
+    if (lang){
+        if (lang.includes("en")) {
+            body.language = studyProgramLanguage.EN
+        }
+        else {
+            body.language = studyProgramLanguage.PL
+        }
+    }
+    try {
+        program = await prisma.studyProgram.create({
+            data: {
+                name: body.name,
+                description: body.description,
+                startDate: body.startDate,
+                studyProgramLanguage: body.language,
+                degreeType: body.degreeType,
+                format: body.format,
+                attendance: body.attendance,
+                applyDate: body.applyDate,
+                paymentCycle: body.paymentCycle,
+                studyProgramLink: body.studyProgramLink,
+                tuitionFee: body.tuitionFee,
+                IELTSScore: body.IELTSScore,
+                TOEFLScore: body.TOEFLScore,
+                duration: body.duration,
+                university: {
+                    connect: {
+                        id: body.universityId
+                    }
+                }
+            }
+        });
+    }
+    catch (error) {
+        console.log("🚀 ~ file: route.ts:21 ~ GET ~ error", error)
+        return Response.json({
+            message: 'error while retrieving data',
+        }, {
+            status: 400,
+        });
+    }
+    return Response.json(program, {
+        status: 200,
+        statusText: `Created program ${program.name}`
     });
 }
