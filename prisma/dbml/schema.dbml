@@ -1,0 +1,162 @@
+//// ------------------------------------------------------
+//// THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+//// ------------------------------------------------------
+
+Table users {
+  id String [pk]
+  email String [unique]
+  password String
+  emailVerified DateTime
+  image String
+  firstName String
+  isActive Boolean [not null, default: true]
+  lastName String
+  role Role [not null, default: 'NEW_STUDENT']
+  sex String
+  applications Application [not null]
+  accounts accounts [not null]
+  ActivationToken activation_tokens [not null]
+  Session sessions [not null]
+}
+
+Table activation_tokens {
+  id String [pk]
+  token String [unique, not null]
+  activatedAt DateTime
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  userId String [not null]
+  user users [not null]
+}
+
+Table accounts {
+  id String [pk]
+  userId String [not null]
+  type String
+  provider String [not null]
+  providerAccountId String [not null]
+  token_type String
+  refresh_token String
+  access_token String
+  expires_at Int
+  scope String
+  id_token String
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  user users [not null]
+
+  indexes {
+    (provider, providerAccountId) [unique]
+  }
+}
+
+Table sessions {
+  id String [pk]
+  userId String
+  sessionToken String [unique, not null]
+  accessToken String
+  expires DateTime [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  user users
+}
+
+Table University {
+  id String [pk]
+  name String [not null]
+  location String [not null]
+  studyPrograms StudyProgram [not null]
+}
+
+Table StudyProgram {
+  id String [pk]
+  name String [not null]
+  description String [not null]
+  startDate String
+  studyProgramLanguage studyProgramLanguage [not null, default: 'EN']
+  degreeType String [not null]
+  format String [not null]
+  attendance String [not null]
+  applyDate String
+  paymentCycle String [not null]
+  studyProgramLink String
+  universityId String [not null]
+  tuitionFee Int
+  IELTSScore Float
+  TOEFLScore Int
+  duration Float
+  applications Application [not null]
+  discipline DisciplineOnProgram [not null]
+  university University [not null]
+}
+
+Table Discipline {
+  id String [pk]
+  name String [not null]
+  studyPrograms DisciplineOnProgram [not null]
+}
+
+Table DisciplineOnProgram {
+  disciplineId String [not null]
+  studyProgramId String [not null]
+  discipline Discipline [not null]
+  studyProgram StudyProgram [not null]
+
+  indexes {
+    (disciplineId, studyProgramId) [pk]
+  }
+}
+
+Table Application {
+  id String [pk]
+  studyProgramId String [not null]
+  userId String [not null]
+  studyProgram StudyProgram [not null]
+  user users [not null]
+  documents Document [not null]
+  forms Form [not null]
+}
+
+Table Form {
+  id String [pk]
+  applicationId String [not null]
+  application Application [not null]
+}
+
+Table Document {
+  id String [pk]
+  applicationId String [not null]
+  application Application [not null]
+}
+
+Enum Role {
+  NEW_STUDENT
+  ACCEPTED_STUDENT
+  COMMUNITY_ANGEL
+  ADMIN
+}
+
+Enum studyProgramLanguage {
+  EN
+  PL
+}
+
+Ref: activation_tokens.userId > users.id
+
+Ref: accounts.userId > users.id [delete: Cascade]
+
+Ref: sessions.userId > users.id [delete: Cascade]
+
+Ref: StudyProgram.universityId > University.id [delete: Cascade]
+
+Ref: DisciplineOnProgram.disciplineId > Discipline.id
+
+Ref: DisciplineOnProgram.studyProgramId > StudyProgram.id [delete: Cascade]
+
+Ref: Application.studyProgramId > StudyProgram.id
+
+Ref: Application.userId > users.id
+
+Ref: Form.applicationId > Application.id
+
+Ref: Document.applicationId > Application.id

@@ -1,0 +1,452 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": {
+    "User": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "email": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "password": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "emailVerified": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "image": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "firstName": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "isActive": {
+          "type": "boolean",
+          "default": true
+        },
+        "lastName": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "role": {
+          "type": "string",
+          "default": "NEW_STUDENT",
+          "enum": [
+            "NEW_STUDENT",
+            "ACCEPTED_STUDENT",
+            "COMMUNITY_ANGEL",
+            "ADMIN"
+          ]
+        },
+        "sex": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "applications": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Application"
+          }
+        },
+        "accounts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Account"
+          }
+        },
+        "ActivationToken": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ActivationToken"
+          }
+        },
+        "Session": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Session"
+          }
+        }
+      }
+    },
+    "ActivationToken": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "token": {
+          "type": "string"
+        },
+        "activatedAt": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "user": {
+          "$ref": "#/definitions/User"
+        }
+      }
+    },
+    "Account": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "provider": {
+          "type": "string"
+        },
+        "providerAccountId": {
+          "type": "string"
+        },
+        "token_type": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "refresh_token": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "access_token": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "expires_at": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "scope": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "id_token": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "user": {
+          "$ref": "#/definitions/User"
+        }
+      }
+    },
+    "Session": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "sessionToken": {
+          "type": "string"
+        },
+        "accessToken": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "expires": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "user": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/User"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "University": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "location": {
+          "type": "string"
+        },
+        "studyPrograms": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/StudyProgram"
+          }
+        }
+      }
+    },
+    "StudyProgram": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "startDate": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "studyProgramLanguage": {
+          "type": "string",
+          "default": "EN",
+          "enum": [
+            "EN",
+            "PL"
+          ]
+        },
+        "degreeType": {
+          "type": "string"
+        },
+        "format": {
+          "type": "string"
+        },
+        "attendance": {
+          "type": "string"
+        },
+        "applyDate": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "paymentCycle": {
+          "type": "string"
+        },
+        "studyProgramLink": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "tuitionFee": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "IELTSScore": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "TOEFLScore": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "duration": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "applications": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Application"
+          }
+        },
+        "discipline": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DisciplineOnProgram"
+          }
+        },
+        "university": {
+          "$ref": "#/definitions/University"
+        }
+      }
+    },
+    "Discipline": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "studyPrograms": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DisciplineOnProgram"
+          }
+        }
+      }
+    },
+    "DisciplineOnProgram": {
+      "type": "object",
+      "properties": {
+        "discipline": {
+          "$ref": "#/definitions/Discipline"
+        },
+        "studyProgram": {
+          "$ref": "#/definitions/StudyProgram"
+        }
+      }
+    },
+    "Application": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "studyProgram": {
+          "$ref": "#/definitions/StudyProgram"
+        },
+        "user": {
+          "$ref": "#/definitions/User"
+        },
+        "documents": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Document"
+          }
+        },
+        "forms": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Form"
+          }
+        }
+      }
+    },
+    "Form": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "application": {
+          "$ref": "#/definitions/Application"
+        }
+      }
+    },
+    "Document": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "application": {
+          "$ref": "#/definitions/Application"
+        }
+      }
+    }
+  },
+  "type": "object",
+  "properties": {
+    "user": {
+      "$ref": "#/definitions/User"
+    },
+    "activationToken": {
+      "$ref": "#/definitions/ActivationToken"
+    },
+    "account": {
+      "$ref": "#/definitions/Account"
+    },
+    "session": {
+      "$ref": "#/definitions/Session"
+    },
+    "university": {
+      "$ref": "#/definitions/University"
+    },
+    "studyProgram": {
+      "$ref": "#/definitions/StudyProgram"
+    },
+    "discipline": {
+      "$ref": "#/definitions/Discipline"
+    },
+    "disciplineOnProgram": {
+      "$ref": "#/definitions/DisciplineOnProgram"
+    },
+    "application": {
+      "$ref": "#/definitions/Application"
+    },
+    "form": {
+      "$ref": "#/definitions/Form"
+    },
+    "document": {
+      "$ref": "#/definitions/Document"
+    }
+  }
+}
