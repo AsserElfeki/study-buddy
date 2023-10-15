@@ -20,7 +20,7 @@ app/
     │   ├── route.ts  // Handles GET for listing all universities and POST for creating a new university
     │   └── [id].ts   // Handles GET, PUT, DELETE for a specific university by ID
     │
-    ├── study-programs/
+    ├──√ study-programs/
     │   ├── route.ts  // Handles GET for listing all study programs and POST for creating a new one
     │   └── [id].ts   // Handles GET, PUT, DELETE for a specific study program by ID
     │

@@ -72,7 +72,7 @@ export default function Navbar() {
               className='min-w-max border-white border-2 rounded-full hover:border-red-900'
             >
             <Image
-              src={session.user.image}
+              src={session?.user.image? session?.user.image : '/user.png'}
               alt='user profile picture'
               width={60}
               height={60}

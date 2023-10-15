@@ -3,9 +3,6 @@ import prisma from '@lib/prisma';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@src/lib/auth';
 
-
-
-
 export async function GET(req: Request, { params }: { params: { programId: string } }) {
     let studyProgram : StudyProgram;
     //get the study program from db
