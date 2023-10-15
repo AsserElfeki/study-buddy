@@ -14,32 +14,7 @@ export default async function Home() {
   // console.log(session);
   return (
     <>
-      <main
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "70vh",
-          width: "500px",
-          border: "red 15px"
-        }}
-      >
-        <div className="flex flex-col flex-wrap border-2 border-red-400 rounded-xl overflow-visible">
-          <div>
-            <LoginButton />
-            <RegisterButton />
-            <LogoutButton />
-            <ProfileButton />
-          </div>
-          <br />
-          
-          <h1>Server Session</h1>
-          <pre className="whitespace-pre-wrap ">{JSON.stringify(session)}</pre>
-          <br />
-
-          <User />
-        </div>
-      </main>
+      
     </>
   );
 }

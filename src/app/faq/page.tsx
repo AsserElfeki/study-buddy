@@ -1,5 +1,5 @@
-import FaqItem from "@components/faqItem";
-import Navbar from "@components/navbar";
+import FaqItem from "@src/components/FaqItem";
+import Navbar from "@src/components/Navbar";
 
 function Faq() {
   return (
