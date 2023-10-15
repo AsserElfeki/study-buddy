@@ -1,41 +1,38 @@
+import { Role, StudyProgram } from '@prisma/client';
 import prisma from '@lib/prisma';
 import { getServerSession } from 'next-auth';
-import { authOptions } from "@lib/auth";
-import { Role, University } from '@prisma/client';
-import { type NextRequest } from 'next/server';
+import { authOptions } from '@src/lib/auth';
 
 
-export async function GET(req: Request, { params } : { params: { universityId: string } }) {
-    let data : University;
-    //retreive university that match fronm db
+
+
+export async function GET(req: Request, { params }: { params: { programId: string } }) {
+    let studyProgram : StudyProgram;
+    //get the study program from db
+    console.log("Get request")
     try {
-        data = await prisma.university.findUnique({
+        studyProgram = await prisma.studyProgram.findUnique({
             where: {
-                id: params.universityId,
+                id: params.programId
             }
         });
-    } catch (error) {
+    }
+    catch (error) {
         console.log("🚀 ~ file: route.ts:21 ~ GET ~ error", error)
         return Response.json({
-            message: 'error while retrieving data',
+            message: 'error while fetching data',
         }, {
             status: 400,
         });
     }
-
-    if (!data) {
-        return Response.json({
-            message: 'No university found',
-        }, {
-            status: 404,
-        });
-    }
-    return Response.json(data, {
+    return Response.json(studyProgram, {
         status: 200,
+        statusText : 'Study program fetched successfully'
     });
 }
+    
 
-export async function PUT(req: Request, { params }: { params: { universityId: string } }) {
+export async function PUT(req: Request, { params }: { params: { programId: string } }) {
     //check if the user is an admin
     const session = await getServerSession(authOptions);
     const role = session?.user?.role;
@@ -49,12 +46,12 @@ export async function PUT(req: Request, { params }: { params: { universityId: st
 
     //get the body of the request
     const data = await req.json();
-    let updatedUniversity : University;
-    //add new university to db
+    let updatedStudyProgram : StudyProgram;
+    //add new study program to db
     try {
-        updatedUniversity = await prisma.university.update({
+        updatedStudyProgram = await prisma.studyProgram.update({
         where: {
-            id: params.universityId
+            id: params.programId
         },
         data: data
         });
@@ -67,14 +64,14 @@ export async function PUT(req: Request, { params }: { params: { universityId: st
             status: 400,
         });
     }
-    return Response.json(updatedUniversity, {
+    return Response.json(updatedStudyProgram, {
         status: 201,
-        statusText : 'University updated successfully'
+        statusText : 'Study program updated successfully'
     });
 }
 
 //delete for admin only
-export async function DELETE(req: Request, { params }: { params: { universityId: string } }) {
+export async function DELETE(req: Request, { params }: { params: { programId: string } }) {
     //check if the user is an admin
     const session = await getServerSession(authOptions);
     const role = session?.user?.role;
@@ -85,25 +82,25 @@ export async function DELETE(req: Request, { params }: { params: { universityId:
             status: 401,
         });
     }
-    let deletedUniversity : University;
-    //delete university from db
+    let deletedStudyProgram : StudyProgram;
+    //delete study program from db
     try {
-        deletedUniversity = await prisma.university.delete({
-            where: {
-                id: params.universityId
-            }
+        deletedStudyProgram = await prisma.studyProgram.delete({
+        where: {
+            id: params.programId
+        }
         });
     }
     catch (error) {
         console.log("🚀 ~ file: route.ts:21 ~ GET ~ error", error)
         return Response.json({
-            message: 'error while retreiving data',
+            message: 'error while deleting data',
         }, {
             status: 400,
         });
     }
-    return Response.json(deletedUniversity ,{
-        statusText: 'University deleted successfully',
-        status: 200,
+    return Response.json(deletedStudyProgram, {
+        status: 201,
+        statusText : 'Study program deleted successfully'
     });
 }

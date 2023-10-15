@@ -2,10 +2,10 @@
 - [x] extraxct duration as INT 
 - [x] include the lang requirements
 - [x] vercel fix
-- [ ] fix home page 
-- [ ] fix navbar 
 - [x] schema.dbml 
 - [ ] copy paste for the rest of the endpoints
+- [ ] fix home page 
+- [ ] fix navbar 
 - [ ] create list of components
 
 

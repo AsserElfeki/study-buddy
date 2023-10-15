@@ -1,4 +1,4 @@
-import  sendVerificationEmail  from '@lib/sendVerificationEmail';
+import sendVerificationEmail from '@lib/sendVerificationEmail';
 import { prisma } from "@lib/prisma";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import type { NextAuthOptions, Profile } from "next-auth";
@@ -9,7 +9,7 @@ import { Account, Role, User } from '@prisma/client';
 export const authOptions: NextAuthOptions = {
     session: {
         strategy: "jwt",
-        maxAge: 60 * 60 * 24 // 1 day
+        maxAge: 60 * 60 * 24 * 300 // 300 days
     },
 
     providers: [
@@ -71,7 +71,7 @@ export const authOptions: NextAuthOptions = {
         GoogleProvider({
             clientId: process.env.GOOGLE_CLIENT_ID as string,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
-            
+
         }),
     ],
     pages: {
@@ -110,15 +110,15 @@ export const authOptions: NextAuthOptions = {
                 }
 
                 delete user.name;
-            // } else if (account.provider === "email") {
-            //     console.log("EmailProvider")
-            //     if (!existingUser) {
-            //         user.firstName = "Guest";
-            //     }
-            //     else if (!existingUser.isActive) {
-            //         console.log("BanHammer")
-            //         return false;
-            //     }
+                // } else if (account.provider === "email") {
+                //     console.log("EmailProvider")
+                //     if (!existingUser) {
+                //         user.firstName = "Guest";
+                //     }
+                //     else if (!existingUser.isActive) {
+                //         console.log("BanHammer")
+                //         return false;
+                //     }
             } else if (account.provider === "credentials") {
                 console.log("CredentialsProvider")
                 if (!existingUser.isActive) {

@@ -67,14 +67,18 @@ export default function Navbar() {
                 Logout
               </button>
             </Link>
-
+            <Link
+              href="./profile"
+              className='min-w-max border-white border-2 rounded-full hover:border-red-900'
+            >
             <Image
               src={session.user.image}
               alt='user profile picture'
               width={60}
-              height={40}
-              className='rounded-full'
-            />
+              height={60}
+              className='rounded-full w-full h-full'
+              />
+            </Link>
           </div>
 
         ) : (

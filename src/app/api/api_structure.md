@@ -16,7 +16,7 @@ app/
     │   ├── route.ts  // Handles GET for listing all sessions (Admin only)
     │   └── [id].ts   // Handles DELETE for invalidating a specific session
     │
-    ├── universities/
+    ├──√ universities/
     │   ├── route.ts  // Handles GET for listing all universities and POST for creating a new university
     │   └── [id].ts   // Handles GET, PUT, DELETE for a specific university by ID
     │
