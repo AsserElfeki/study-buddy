@@ -1,5 +1,4 @@
-import FaqItem from "@src/components/FaqItem";
-import Navbar from "@src/components/Navbar";
+import FaqItem from "@components/FaqItem";
 
 function Faq() {
   return (
