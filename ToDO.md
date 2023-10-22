@@ -3,7 +3,11 @@
 - [x] include the lang requirements
 - [x] vercel fix
 - [x] schema.dbml 
-- [ ] copy paste for the rest of the endpoints
+- [ ] EPs: 
+  - [ ] applications
+  - [ ] forms 
+  - [ ] documents
+- [ ] 
 - [x] implement search params in USERS EP
 - [ ] fix home page 
 - [ ] fix navbar 

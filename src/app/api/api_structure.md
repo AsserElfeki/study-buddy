@@ -1,7 +1,7 @@
 
 app/
 └── api/ 
-    ├── users/
+    ├── √ users/
     │   ├── route.ts  // Handles GET for listing all users and POST for creating a new user
     │   └── [id].ts   // Handles GET, PUT, DELETE for a specific user by ID
     │   
