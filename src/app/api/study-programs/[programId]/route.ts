@@ -1,7 +1,7 @@
 import { Role, StudyProgram } from '@prisma/client';
 import prisma from '@lib/prisma';
 import { getServerSession } from 'next-auth';
-import { authOptions } from '@src/lib/auth';
+import { authOptions } from '@lib/auth';
 
 export async function GET(req: Request, { params }: { params: { programId: string } }) {
     let studyProgram : StudyProgram;

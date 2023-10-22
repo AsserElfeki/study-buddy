@@ -38,6 +38,7 @@ export async function GET(req: NextRequest) {
     }
     return Response.json(universities, {
         status: 200,
+        statusText: `Found ${universities.length} universities`
     });
 }
 

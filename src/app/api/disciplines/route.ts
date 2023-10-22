@@ -1,5 +1,6 @@
-import { StudyProgram } from '@prisma/client';
+import { authOptions } from '@src/lib/auth'
 import prisma from '@src/lib/prisma'
+import { getServerSession } from 'next-auth'
 import { NextRequest } from 'next/server'
 
 
@@ -52,5 +53,41 @@ export async function GET(req: NextRequest) {
     return Response.json(disciplines, {
         status: 200,
         statusText: `Found ${disciplines.length} disciplines`
+    });
+}
+
+// add a new discipline for admins only
+export async function POST(req: NextRequest) {
+    //check if the user is an admin
+    const session = await getServerSession({ req, ...authOptions })
+    const role = session?.user?.role;
+    if (!session || role != 'ADMIN') {
+        return Response.json({
+            message: 'You are not authorized to perform this action',
+        }, {
+            status: 401,
+        });
+    }
+
+    //get the body of the request
+    const data = await req.json();
+    let newDiscipline;
+    //add new discipline to db
+    try {
+        newDiscipline = await prisma.discipline.create({
+            data: data
+        });
+    }
+    catch (error) {
+        console.log("🚀 ~ file: disciplines/route.ts:32 ~ GET ~ error", error)
+        return Response.json({
+            message: 'error while adding data',
+        }, {
+            status: 400,
+        });
+    }
+    return Response.json(newDiscipline, {
+        status: 200,
+        statusText: 'Discipline added successfully'
     });
 }
