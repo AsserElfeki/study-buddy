@@ -4,7 +4,13 @@ import { authOptions } from '@src/lib/auth';
 import { User, getServerSession } from 'next-auth';
 import { NextRequest } from 'next/server';
 
-//handle GET requests to list all users, admin only
+/**
+ * Retrieves a list of users based on the provided search parameters.
+ * access: admin only
+ *
+ * @param {NextRequest} req - The request object containing the search parameters.
+ * @return {Promise<Response>} - A promise that resolves to the response containing the list of users.
+ */
 export async function GET(req: NextRequest) {
     //check if the user is an admin
     const session = await getServerSession(authOptions);
@@ -87,7 +93,14 @@ export async function GET(req: NextRequest) {
     });
 }
 
-//handle POST requests to create a new user, admin only
+/**
+ * A function to handle a POST request.
+ * access: admin only
+ * Creates a new user if the user to be created does not already exist.
+ *
+ * @param {Request} req - The request object.
+ * @return {Promise<Response>} A promise that resolves to a response object.
+ */
 export async function POST(req: Request) {
     //check if the user is an admin
     const session = await getServerSession(authOptions);

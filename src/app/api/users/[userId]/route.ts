@@ -6,6 +6,15 @@ import { Role, University, User } from '@prisma/client';
 import { type NextRequest } from 'next/server';
 
 
+/**
+ * Retrieves the user data for a given user ID.
+ * access: admin only
+ *
+ * @param {Request} req - the HTTP request object
+ * @param {Object} params - the parameters object
+ * @param {string} params.userId - the ID of the user to retrieve
+ * @return {Promise<Response>} - a promise that resolves with the user data or an error response
+ */
 export async function GET(req: Request, { params }: { params: { userId: string } }) {
     //check if the user is an admin
     const session = await getServerSession(authOptions);
@@ -50,7 +59,15 @@ export async function GET(req: Request, { params }: { params: { userId: string }
 }
 
 
-// PUT for admin only
+/**
+ * Updates a user in the database.
+ * access: admin only
+ *
+ * @param {Request} req - The request object.
+ * @param {Object} params - The parameters object.
+ * @param {string} params.userId - The ID of the user to update.
+ * @return {Promise<Response>} The response object containing the updated user.
+ */
 export async function PUT(req: Request, { params }: { params: { userId: string } }) {
     //check if the user is an admin
     const session = await getServerSession(authOptions);
@@ -103,7 +120,14 @@ export async function PUT(req: Request, { params }: { params: { userId: string }
     });
 }
 
-// DELETE for admin only
+/**
+ * Deletes a user from the database.
+ * access: admin only
+ *
+ * @param {Request} req - the HTTP request object
+ * @param {{ params: { userId: string } }} params - the request parameters containing the user ID
+ * @return {Promise<Response>} a response with the deleted user object or an error message
+ */
 export async function DELETE(req: Request, { params }: { params: { userId: string } }) {
     //check if the user is an admin
     const session = await getServerSession(authOptions);

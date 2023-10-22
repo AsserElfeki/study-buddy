@@ -4,6 +4,13 @@ import { authOptions } from "@lib/auth";
 import { Role, StudyProgram, studyProgramLanguage } from '@prisma/client';
 import { type NextRequest } from 'next/server';
 
+/**
+ * Retrieves study programs based on the given search parameters.
+ * access: public
+ *
+ * @param {NextRequest} req - The NextRequest object containing the search parameters.
+ * @return {Promise<Response>} A promise that resolves to a response containing the matched study programs.
+ */
 export async function GET(req: NextRequest) {
     const searchParams = req.nextUrl.searchParams
     const programName = searchParams.get('name')
@@ -97,7 +104,13 @@ export async function GET(req: NextRequest) {
     });
 }
 
-//post only for admin
+/**
+ * Performs a POST request and creates a new study program.
+ * access: admin only
+ *
+ * @param {NextRequest} req - the request object
+ * @return {Promise<Response>} the response object
+ */
 export async function POST(req: NextRequest) {
     const session = await getServerSession({ req, ...authOptions })
     if (!session || session.user.role !== Role.ADMIN) {

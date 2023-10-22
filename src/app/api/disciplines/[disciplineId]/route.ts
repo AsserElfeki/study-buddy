@@ -3,6 +3,14 @@ import { authOptions } from '@lib/auth';
 import { Discipline, Role, StudyProgram } from '@prisma/client';
 import prisma from '@lib/prisma';
 
+/**
+ * Retrieves a discipline from the database based on the given discipline ID.
+ * access: public
+ *
+ * @param {Request} req - the request object
+ * @param {{ params: { disciplineId: string } }} - an object containing the discipline ID
+ * @return {Promise<Response>} - a Promise that resolves to the fetched discipline
+ */
 export async function GET(req: Request, { params }: { params: { disciplineId: string } }) {
     let discipline: Discipline;
     //get the discipline from db
@@ -27,7 +35,14 @@ export async function GET(req: Request, { params }: { params: { disciplineId: st
     });
 }
 
-
+/**
+ * Updates a discipline in the database.
+ * access: admin only
+ *
+ * @param {Request} req - the HTTP request object
+ * @param {{ params: { disciplineId: string } }} - an object containing the disciplineId parameter
+ * @return {Promise} a promise that resolves to the updated discipline object
+ */
 export async function PUT(req: Request, { params }: { params: { disciplineId: string } }) {
     //check if the user is an admin
     const session = await getServerSession(authOptions);
@@ -66,7 +81,14 @@ export async function PUT(req: Request, { params }: { params: { disciplineId: st
     });
 }
 
-//delete for admin only
+/**
+ * Deletes a discipline from the database. and cascades to all its relations.
+ * access: admin only
+ *
+ * @param {Request} req - The request object.
+ * @param {{ params: { disciplineId: string } }} - The parameters object containing the discipline ID.
+ * @return {Promise<Response>} - A Promise that resolves to a Response object with the result of the deletion.
+ */
 export async function DELETE(req: Request, { params }: { params: { disciplineId: string } }) {
     //check if the user is an admin
     const session = await getServerSession(authOptions);

@@ -7,6 +7,13 @@ import { Role } from '@prisma/client';
 import { type NextRequest } from 'next/server';
 
 
+/**
+ * Retrieves universities from the database based on the provided search parameters.
+ * access: public
+ *
+ * @param {NextRequest} req - The request object containing the search parameters.
+ * @return {Promise<Response>} - The response object containing the retrieved universities or an error message.
+ */
 export async function GET(req: NextRequest) {
     const searchParams = req.nextUrl.searchParams
     const uniName = searchParams.get('name')
@@ -42,8 +49,13 @@ export async function GET(req: NextRequest) {
     });
 }
 
-
-//post for admin only
+/**
+ * Creates a new university if the user is an admin and the university does not already exist.
+ * access: admin only
+ *
+ * @param {Request} req - The request object containing the details of the HTTP request.
+ * @return {Promise<Response>} The response object containing the result of the operation.
+ */
 export async function POST(req: Request) {
     //check if the user is an admin
     const session = await getServerSession(authOptions);

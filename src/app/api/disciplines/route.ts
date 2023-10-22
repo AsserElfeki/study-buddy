@@ -3,9 +3,13 @@ import prisma from '@src/lib/prisma'
 import { getServerSession } from 'next-auth'
 import { NextRequest } from 'next/server'
 
-
-
-// get all disciplines
+/**
+ * Retrieves disciplines based on the provided search parameters.
+ * access: public
+ *
+ * @param {NextRequest} req - The request object.
+ * @return {Promise<Response>} A promise that resolves to the response object.
+ */
 export async function GET(req: NextRequest) {
     const searchParams = req.nextUrl.searchParams
     const disciplineName = searchParams.get('name')
@@ -56,7 +60,13 @@ export async function GET(req: NextRequest) {
     });
 }
 
-// add a new discipline for admins only
+/**
+ * Handles the POST request for creating a new discipline.
+ * access: admin only
+ *
+ * @param {NextRequest} req - The request object.
+ * @return {Promise<Response>} The response with the created discipline or an error message.
+ */
 export async function POST(req: NextRequest) {
     //check if the user is an admin
     const session = await getServerSession({ req, ...authOptions })

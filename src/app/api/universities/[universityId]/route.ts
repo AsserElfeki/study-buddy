@@ -5,6 +5,14 @@ import { Role, University } from '@prisma/client';
 import { type NextRequest } from 'next/server';
 
 
+/**
+ * Retrieves a specific university from the database based on the provided university ID.
+ * access: public
+ *
+ * @param {Request} req - The HTTP request object.
+ * @param {{ params: { universityId: string } }} - The object containing the university ID as a parameter.
+ * @return {Promise<Response>} - The response object containing the retrieved university data.
+ */
 export async function GET(req: Request, { params } : { params: { universityId: string } }) {
     let data : University;
     //retreive university that match fronm db
@@ -37,6 +45,15 @@ export async function GET(req: Request, { params } : { params: { universityId: s
     });
 }
 
+/**
+ * Update a university in the database.
+ * access: admin only
+ *
+ * @param {Request} req - The request object.
+ * @param {Object} params - The parameters object containing the universityId.
+ * @param {string} params.universityId - The ID of the university to update.
+ * @return {Promise<Response>} The response containing the updated university.
+ */
 export async function PUT(req: Request, { params }: { params: { universityId: string } }) {
     //check if the user is an admin
     const session = await getServerSession(authOptions);
@@ -75,7 +92,15 @@ export async function PUT(req: Request, { params }: { params: { universityId: st
     });
 }
 
-//delete for admin only
+
+/**
+ * Deletes a university from the database.
+ * access: admin only
+ *
+ * @param {Request} req - The request object.
+ * @param {{ params: { universityId: string } }} params - The parameters object containing the university ID to delete.
+ * @return {Promise<Response>} The response object.
+ */
 export async function DELETE(req: Request, { params }: { params: { universityId: string } }) {
     //check if the user is an admin
     const session = await getServerSession(authOptions);
