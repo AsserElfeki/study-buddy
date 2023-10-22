@@ -4,8 +4,7 @@
 - [x] vercel fix
 - [x] schema.dbml 
 - [ ] copy paste for the rest of the endpoints
-- [ ] implement search params in USERS EP
-- [ ] implement put in USERS EP with lots of validations
+- [x] implement search params in USERS EP
 - [ ] fix home page 
 - [ ] fix navbar 
 - [ ] create list of components

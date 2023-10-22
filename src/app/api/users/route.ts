@@ -135,6 +135,6 @@ export async function POST(req: Request) {
     }
     return Response.json(createdUser, {
         status: 201,
-        statusText: 'User created successfully'
+        statusText: 'User updated successfully'
     });
 }

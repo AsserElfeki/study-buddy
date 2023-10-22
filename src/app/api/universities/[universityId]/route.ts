@@ -28,10 +28,12 @@ export async function GET(req: Request, { params } : { params: { universityId: s
             message: 'No university found',
         }, {
             status: 404,
+            statusText: `could not find university with id ${params.universityId}`
         });
     }
     return Response.json(data, {
         status: 200,
+        statusText: `Found university with id ${params.universityId}`
     });
 }
 
