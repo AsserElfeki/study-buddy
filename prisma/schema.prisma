@@ -134,7 +134,7 @@ model Discipline {
 model DisciplineOnProgram {
   disciplineId   String       @map("discipline_id")
   studyProgramId String       @map("study_program_id")
-  discipline     Discipline   @relation(fields: [disciplineId], references: [id])
+  discipline     Discipline   @relation(fields: [disciplineId], references: [id], onDelete: Cascade)
   studyProgram   StudyProgram @relation(fields: [studyProgramId], references: [id], onDelete: Cascade)
 
   @@id([disciplineId, studyProgramId])
