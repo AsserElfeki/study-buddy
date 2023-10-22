@@ -2,12 +2,15 @@ generator client {
   provider        = "prisma-client-js"
   previewFeatures = ["fullTextSearch"]
 }
+
 generator dbml {
   provider = "prisma-dbml-generator"
 }
+
 generator docs {
   provider = "node node_modules/prisma-docs-generator"
 }
+
 generator jsonSchema {
   provider = "prisma-json-schema-generator"
   //By default, the JSON Schema that's generated will output only objects for related model records. If set to "true", this will cause the generator to also output foreign key fields for related records
@@ -22,6 +25,7 @@ generator jsonSchema {
   // If this flag is "true" the original type will be outputed under the property key "originalType"
   // persistOriginalType = "true"
 }
+
 datasource db {
   provider          = "postgresql"
   url               = env("DATABASE_URL")
@@ -122,9 +126,9 @@ model StudyProgram {
 }
 
 model Discipline {
-  id            String                @id @default(cuid())
-  name          String
-  studyPrograms DisciplineOnProgram[]
+  id                  String                @id @default(cuid())
+  name                String
+  disciplineOnProgram DisciplineOnProgram[] 
 }
 
 model DisciplineOnProgram {
