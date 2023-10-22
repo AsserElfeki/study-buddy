@@ -93,7 +93,7 @@ Table StudyProgram {
 Table Discipline {
   id String [pk]
   name String [not null]
-  studyPrograms DisciplineOnProgram [not null]
+  disciplineOnProgram DisciplineOnProgram [not null]
 }
 
 Table DisciplineOnProgram {

@@ -345,7 +345,7 @@
         "name": {
           "type": "string"
         },
-        "studyPrograms": {
+        "disciplineOnProgram": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/DisciplineOnProgram"
