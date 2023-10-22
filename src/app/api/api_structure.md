@@ -4,8 +4,7 @@ app/
     ├── users/
     │   ├── route.ts  // Handles GET for listing all users and POST for creating a new user
     │   └── [id].ts   // Handles GET, PUT, DELETE for a specific user by ID
-    │   └── login.ts  // Handles POST for user login
-    │   └── logout.ts // Handles POST for user logout
+    │   
     │
     ├── accounts/
     │   ├── route.ts  // Handles GET for listing all accounts (if needed)
@@ -24,7 +23,7 @@ app/
     │   ├── route.ts  // Handles GET for listing all study programs and POST for creating a new one
     │   └── [id].ts   // Handles GET, PUT, DELETE for a specific study program by ID
     │
-    ├── disciplines/
+    ├── √ disciplines/
     │   ├── route.ts  // Handles GET for listing all disciplines and POST for creating a new one
     │   └── [id].ts   // Handles GET, PUT, DELETE for a specific discipline by ID
     │

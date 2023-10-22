@@ -101,6 +101,8 @@ model University {
   name          String
   location      String
   studyPrograms StudyProgram[]
+
+  @@map("universities")
 }
 
 model StudyProgram {
@@ -123,12 +125,16 @@ model StudyProgram {
   applications         Application[]
   discipline           DisciplineOnProgram[]
   university           University            @relation(fields: [universityId], references: [id], onDelete: Cascade)
+
+  @@map("study_programs")
 }
 
 model Discipline {
   id                  String                @id @default(cuid())
   name                String
   disciplineOnProgram DisciplineOnProgram[] 
+
+  @@map("disciplines")
 }
 
 model DisciplineOnProgram {
@@ -138,6 +144,8 @@ model DisciplineOnProgram {
   studyProgram   StudyProgram @relation(fields: [studyProgramId], references: [id], onDelete: Cascade)
 
   @@id([disciplineId, studyProgramId])
+
+  @@map("disciplines_on_programs")
 }
 
 model Application {
@@ -148,18 +156,24 @@ model Application {
   user           User         @relation(fields: [userId], references: [id])
   documents      Document[]
   forms          Form[]
+
+  @@map("applications")
 }
 
 model Form {
   id            String      @id @default(cuid())
   applicationId String      @map("application_id")
   application   Application @relation(fields: [applicationId], references: [id])
+
+  @@map("forms")
 }
 
 model Document {
   id            String      @id @default(cuid())
   applicationId String      @map("application_id")
   application   Application @relation(fields: [applicationId], references: [id])
+
+  @@map("documents")
 }
 
 enum Role {
