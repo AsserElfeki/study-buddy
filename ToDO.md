@@ -9,4 +9,3 @@
 - [ ] create list of components
 
 
-the unis EP should destructure query and find whatever needed
