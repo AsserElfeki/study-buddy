@@ -149,7 +149,7 @@ Ref: sessions.userId > users.id [delete: Cascade]
 
 Ref: StudyProgram.universityId > University.id [delete: Cascade]
 
-Ref: DisciplineOnProgram.disciplineId > Discipline.id
+Ref: DisciplineOnProgram.disciplineId > Discipline.id [delete: Cascade]
 
 Ref: DisciplineOnProgram.studyProgramId > StudyProgram.id [delete: Cascade]
 
