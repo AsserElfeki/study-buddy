@@ -1,4 +1,3 @@
-import Navbar from "@src/components/navbar";
 import UniversityCard from "@src/components/universityCard";
 
 function About() {

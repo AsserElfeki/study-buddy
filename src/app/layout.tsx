@@ -28,13 +28,12 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <NextAuthProvider>
-          <Navbar />
-          <div className="main">
-            <div className="gradient" />
+            <Navbar />
+          <div className='main-container '>
+            <main className="app z-10 max-w-7xl flex justify-center items-center ">
+              {children}
+            </main>
           </div>
-          <main className="app">
-            {children}
-          </main>
         </NextAuthProvider>
       </body>
     </html>

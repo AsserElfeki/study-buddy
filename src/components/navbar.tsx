@@ -3,80 +3,79 @@
 import Image from "next/image";
 import logo from "/public/Icon.jpg";
 import Link from "next/link";
-import Sidebar from "./sidebar";
-import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { signOut, useSession } from 'next-auth/react';
 
 export default function Navbar() {
   const { data: session } = useSession();
 
-  const [openSidebar, SetOpenSidebar] = useState<boolean>(false);
   const pathname = usePathname();
   const isActive = pathname;
-
-  const handleOpen = () => {
-    //reverse the previoust state
-    SetOpenSidebar(!openSidebar);
-  };
+  console.log(isActive)
   return (
-    <div className=" md:w-screen max-w-5xl mx-auto bg-white  z-10 top-0 ">
+    <div className="w-full flex bg-stone-200 justify-center sticky z-10 top-0 mb-2 ">
 
-      <div className=" flex justify-between  items-center py-5 px-5 md:px-10 z-50 bg-white border-2 border-green-700">
-        <Link href="/" className="flex items-center gap-3">
+      <div className="flex max-w-7xl flex-grow justify-between place-items-center items-center ">
+        <Link
+          href="/"
+          className="flex flex-row place-items-center justify-center gap-2 min-w-fit ">
           <Image src={logo} alt="Logo" width={46} height={46} />
-          <h1 className="font-bold">StudyBuddy</h1>
+          <h1 className="font-bold inline-block">StudyBuddy</h1>
         </Link>
 
-        <ul className="hidden md:flex md:w-full justify-around items-center align-items-center h-6 border-4 border-blue-900">
+        <ul className="flex flex-col items-center md:flex-row  md:w-full justify-around ">
           <li
-            className={`hover:border-b-2 hover:border-red-800 transition-all duration-150 ${isActive === "/about" ? "border-b-2 border-red-900" : ""
+            className={`fadeInBorder hover:border-b-2 hover:cursor-pointer hover:animate-bounce ${isActive === "/about" ? "border-red-900" : "border-red-900"
               }`}
           >
-            <Link href="/about" className=" active">
-              About
+            <Link href="/about"
+              className="active p-2">About
             </Link>
           </li>
           <li
-            className={`hover:border-b-2 hover:border-red-800 transition-all duration-150 ${isActive === "/search" ? "border-b-2 border-red-900" : ""
+            className={`fadeInBorder hover:border-b-2 hover:cursor-pointer hover:animate-bounce ${isActive === "/about" ? "border-b-2 border-red-900" : ""
               }`}
           >
-            <Link href="/search"> Search</Link>
+            <Link
+              href="/search"
+              className='p-2'>Search</Link>
           </li>
           <li
-            className={`hover:border-b-2 hover:border-red-800 transition-all duration-150 ${isActive === "/faq" ? "border-b-2 border-red-900" : ""
+            className={`fadeInBorder hover:border-b-2 hover:cursor-pointer hover:animate-bounce ${isActive === "/about" ? "border-b-2 border-red-900" : ""
               }`}
           >
-            <Link href="/faq"> Faq</Link>
+            <Link href="/faq" className='p-2'>Faq</Link>
           </li>
           <li
-            className={`hover:border-b-2 hover:border-red-900 transition-all duration-150 ${isActive === "/testimonials" ? "border-b-2 border-red-900" : ""
+            className={`fadeInBorder hover:border-b-2 hover:cursor-pointer hover:animate-bounce ${isActive === "/about" ? "border-b-2 border-red-900" : ""
               }`}
           >
-            <Link href="/testimonials"> Testimonials</Link>
+            <Link href="/testimonials" className='p-2'>Testimonials</Link>
           </li>
         </ul>
 
         {session?.user ? (
-          <div className='flex flex-col justify-center items-center md:flex-row'>
+          <div className='flex flex-row justify-center items-center gap-2'>
             <Link href="/">
               <button
                 onClick={() => signOut()}
-                className="px-8 py-1 text-white rounded-2xl mr-2 my-3 bg-red-800"
+                className="px-8 py-1 border-2 border-red-800 text-red-800 bg-white hover:bg-red-800 hover:text-white rounded-2xl "
               >
                 Logout
               </button>
             </Link>
             <Link
               href="./profile"
-              className='min-w-max border-white border-2 rounded-full hover:border-red-900'
+              className='rounded-full hover:shadow-2xl border-4 '
             >
-            <Image
-              src={session?.user.image? session?.user.image : '/user.png'}
-              alt='user profile picture'
-              width={60}
-              height={60}
-              className='rounded-full w-full h-full'
+              <Image
+                src={session?.user.image ? session?.user.image : '/profile.jpg'}
+                alt='user profile picture'
+                width={40}
+                height={40}
+                quality={100}
+                style={{ objectFit: 'cover' }}
+                className='rounded-full w-16 h-16 md:w-20 md:h-20'
               />
             </Link>
           </div>
@@ -86,18 +85,10 @@ export default function Navbar() {
             <Link href="/register" className="bg-red-900 rounded-lg font-medium p-2 text-white">
               Join now
             </Link>
-            <button className="text-3xl md:hidden" onClick={handleOpen}>
-              {openSidebar ? (
-                <div className="w-2">&#128473;</div>
-              ) : (
-                <div className="w-2">&#9776;</div>
-              )}
-            </button>
           </div>
         )}
 
       </div>
-      {openSidebar && <Sidebar />}
     </div>
   );
 }
