@@ -3,7 +3,7 @@
 import Image from "next/image";
 import logo from "/public/Icon.jpg";
 import Link from "next/link";
-import Sidebar from "./Sidebar";
+import Sidebar from "./sidebar";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { signOut, useSession } from 'next-auth/react';

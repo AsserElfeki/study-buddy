@@ -1,5 +1,5 @@
-import Navbar from "@src/components/Navbar";
-import TestimonialsCard from "@src/components/TestimonialsCard";
+import Navbar from "@src/components/navbar";
+import TestimonialsCard from "@src/components/testimonialCard";
 import React from "react";
 
 function Testimonials() {

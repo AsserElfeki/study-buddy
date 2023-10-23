@@ -1,4 +1,4 @@
-import FaqItem from "@components/FaqItem";
+import FaqItem from "@src/components/faqItem";
 
 function Faq() {
   return (

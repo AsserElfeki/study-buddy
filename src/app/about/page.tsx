@@ -1,5 +1,5 @@
-import Navbar from "@src/components/Navbar";
-import UniversityCard from "@src/components/UniversityCard";
+import Navbar from "@src/components/navbar";
+import UniversityCard from "@src/components/universityCard";
 
 function About() {
   return (
