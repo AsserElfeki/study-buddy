@@ -13,7 +13,7 @@ Table users {
   lastName String
   role Role [not null, default: 'NEW_STUDENT']
   sex String
-  applications Application [not null]
+  applications applications [not null]
   accounts accounts [not null]
   ActivationToken activation_tokens [not null]
   Session sessions [not null]
@@ -61,14 +61,14 @@ Table sessions {
   user users
 }
 
-Table University {
+Table universities {
   id String [pk]
   name String [not null]
   location String [not null]
-  studyPrograms StudyProgram [not null]
+  studyPrograms study_programs [not null]
 }
 
-Table StudyProgram {
+Table study_programs {
   id String [pk]
   name String [not null]
   description String [not null]
@@ -85,48 +85,48 @@ Table StudyProgram {
   IELTSScore Float
   TOEFLScore Int
   duration Float
-  applications Application [not null]
-  discipline DisciplineOnProgram [not null]
-  university University [not null]
+  applications applications [not null]
+  discipline disciplines_on_programs [not null]
+  university universities [not null]
 }
 
-Table Discipline {
+Table disciplines {
   id String [pk]
   name String [not null]
-  disciplineOnProgram DisciplineOnProgram [not null]
+  disciplineOnProgram disciplines_on_programs [not null]
 }
 
-Table DisciplineOnProgram {
+Table disciplines_on_programs {
   disciplineId String [not null]
   studyProgramId String [not null]
-  discipline Discipline [not null]
-  studyProgram StudyProgram [not null]
+  discipline disciplines [not null]
+  studyProgram study_programs [not null]
 
   indexes {
     (disciplineId, studyProgramId) [pk]
   }
 }
 
-Table Application {
+Table applications {
   id String [pk]
   studyProgramId String [not null]
   userId String [not null]
-  studyProgram StudyProgram [not null]
+  studyProgram study_programs [not null]
   user users [not null]
-  documents Document [not null]
-  forms Form [not null]
+  documents documents [not null]
+  forms forms [not null]
 }
 
-Table Form {
+Table forms {
   id String [pk]
   applicationId String [not null]
-  application Application [not null]
+  application applications [not null]
 }
 
-Table Document {
+Table documents {
   id String [pk]
   applicationId String [not null]
-  application Application [not null]
+  application applications [not null]
 }
 
 Enum Role {
@@ -147,16 +147,16 @@ Ref: accounts.userId > users.id [delete: Cascade]
 
 Ref: sessions.userId > users.id [delete: Cascade]
 
-Ref: StudyProgram.universityId > University.id [delete: Cascade]
+Ref: study_programs.universityId > universities.id [delete: Cascade]
 
-Ref: DisciplineOnProgram.disciplineId > Discipline.id [delete: Cascade]
+Ref: disciplines_on_programs.disciplineId > disciplines.id [delete: Cascade]
 
-Ref: DisciplineOnProgram.studyProgramId > StudyProgram.id [delete: Cascade]
+Ref: disciplines_on_programs.studyProgramId > study_programs.id [delete: Cascade]
 
-Ref: Application.studyProgramId > StudyProgram.id
+Ref: applications.studyProgramId > study_programs.id
 
-Ref: Application.userId > users.id
+Ref: applications.userId > users.id
 
-Ref: Form.applicationId > Application.id
+Ref: forms.applicationId > applications.id
 
-Ref: Document.applicationId > Application.id
+Ref: documents.applicationId > applications.id

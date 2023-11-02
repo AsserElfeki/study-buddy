@@ -26,7 +26,6 @@ async function seed() {
     // console.log("🚀 ~ file: seed.ts:27 ~ seed ~ disciplineIDs:", disciplineIDs)
 
     //================================================
-
     //create universities
     const universitySeedData = getUniversitySeedData();
     //used as a placeholder for university ids
@@ -46,7 +45,6 @@ async function seed() {
     }
     //================================================
     // create StudyPrograms
-
     const studyProgramIDs = []
     for (let i = 0; i < amountOfData; i++) {
         const tuitionInfo = extractTuitionInfo(studyProgramSeedData[i]["studyProgram"].tuition_fee);
@@ -215,8 +213,6 @@ async function main(): Promise<void> {
     console.log(`created user with id ${user.id} and email ${user.email}`);
 
     await seed();
-
-
 }
 
 

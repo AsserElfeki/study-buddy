@@ -5,9 +5,11 @@ import logo from "/public/Icon.jpg";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { signOut, useSession } from 'next-auth/react';
+import { Avatar } from '@mui/material';
 
 export default function Navbar() {
   const { data: session } = useSession();
+  // console.log("🚀 ~ file: navbar.tsx:12 ~ Navbar ~ session:", session.user)
 
   const pathname = usePathname();
   const isActive = pathname;
@@ -68,15 +70,8 @@ export default function Navbar() {
               href="./profile"
               className='rounded-full hover:shadow-2xl border-4 '
             >
-              <Image
-                src={session?.user.image ? session?.user.image : '/profile.jpg'}
-                alt='user profile picture'
-                width={40}
-                height={40}
-                quality={100}
-                style={{ objectFit: 'cover' }}
-                className='rounded-full w-16 h-16 md:w-20 md:h-20'
-              />
+              <Avatar alt={session?.user.name} src={session?.user?.image} />
+              
             </Link>
           </div>
 

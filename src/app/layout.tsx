@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { NextAuthProvider } from "@src/components/providers";
 import Navbar from "@src/components/navbar";
+import CssBaseline from '@mui/material/CssBaseline';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -28,6 +29,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <NextAuthProvider>
+          <CssBaseline />
             <Navbar />
           <div className='main-container '>
             <main className="app z-10 max-w-7xl flex justify-center items-center ">
