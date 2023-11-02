@@ -5,7 +5,7 @@ import { Discipline } from '@prisma/client'
 
 async function DisciplineContainer() {
 
-  const [isOpen, setIsOpen] = useState(false);
+  // const [isOpen, setIsOpen] = useState(false);
   
   const disciplinesList : Discipline[] = await getAllDisciplines() || [];
   const disciplines = disciplinesList.map((discipline) => 
