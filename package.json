@@ -22,7 +22,6 @@
     "@vercel/postgres": "^0.4.1",
     "autoprefixer": "10.4.14",
     "axios": "^1.5.0",
-    "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
     "check-package-lock": "^1.10.0",
     "cheerio": "^1.0.0-rc.12",
