@@ -15,7 +15,7 @@ export default function Navbar() {
   const isActive = pathname;
   console.log(isActive)
   return (
-    <div className="w-full flex bg-stone-200 justify-center sticky z-10 top-0 mb-2 ">
+    <div className="w-full flex bg-stone-200 justify-center sticky z-10 top-0 mb-2 py-2">
 
       <div className="flex max-w-7xl flex-grow justify-between place-items-center items-center ">
         <Link

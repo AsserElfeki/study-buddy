@@ -18,6 +18,13 @@ export async function GET(req: Request, { params }: { params: { disciplineId: st
         discipline = await prisma.discipline.findUnique({
             where: {
                 id: params.disciplineId
+            }, 
+            include: {
+                disciplineOnProgram: {
+                    include: {
+                        studyProgram: true
+                    }
+                }
             }
         });
     }

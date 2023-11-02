@@ -32,7 +32,7 @@ export default function RootLayout({
           <CssBaseline />
             <Navbar />
           <div className='main-container '>
-            <main className="app z-10 max-w-7xl flex justify-center items-center ">
+            <main className="app z-10 max-w-7xl flex justify-center items-center min-h-screen">
               {children}
             </main>
           </div>

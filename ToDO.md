@@ -4,13 +4,29 @@
 - [x] vercel fix
 - [x] schema.dbml 
 - [ ] fix home page 
-- [ ] fix navbar 
-- [ ] create list of components
+- [x] fix navbar 
+- [ ] search page UI
+- [ ] searching functions
+- [ ] 
+- [ ] create list of components : 
+  - [ ] sideBar : container for all the side bar search components
+  - [ ] disciplineList : list of all the disciplines (togglaeable)
+    - [ ] disciplineCard : card for each discipline
+  - [ ] LocationList : list of all the locations (togglaeable)
+    - [ ] LocationCard : card for each location 
+  - [ ] tuitionCard : card with a lide bar and 2 numeric inputs (toggleable)
+  - [ ] DurationCard : card with checkboxes (toggleable)
+  - [ ] FormatCard : card with checkboxes (toggleable)
+  - [ ] AttendanceCard : card with checkboxes (toggleable)
+  - [ ] LanguageCard : card with checkboxes (toggleable)
+  - [ ] DegreeCard : card with checkboxes (toggleable)
 - [ ] EPs: 
   - [ ] applications
   - [ ] forms 
   - [ ] documents
 - [ ] 
 - [x] implement search params in USERS EP
+- [ ] skeletons 
+- [ ] 
 
 
