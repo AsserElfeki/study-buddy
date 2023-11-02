@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import { NextAuthProvider } from "@src/components/providers";
 import Navbar from "@src/components/navbar";
 import CssBaseline from '@mui/material/CssBaseline';
+import { Container } from '@mui/material';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -30,12 +31,14 @@ export default function RootLayout({
       <body className={inter.className}>
         <NextAuthProvider>
           <CssBaseline />
-            <Navbar />
-          <div className='main-container '>
-            <main className="app z-10 max-w-7xl flex justify-center items-center min-h-screen">
+          <Container maxWidth={false} disableGutters={true}  >
+          <Navbar />
+            <Container maxWidth={'xl'} disableGutters={true} className='flex mx-auto justify-center h-[110vh]'>
+            <main className="max-w-7xl flex flex-row items-center justify-center h-full w-screen border-2 border-red-600  relative overflow-hidden">
               {children}
             </main>
-          </div>
+          </Container>  
+          </Container>
         </NextAuthProvider>
       </body>
     </html>

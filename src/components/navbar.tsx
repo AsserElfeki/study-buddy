@@ -22,7 +22,7 @@ export default function Navbar() {
           href="/"
           className="flex flex-row place-items-center justify-center gap-2 min-w-fit ">
           <Image src={logo} alt="Logo" width={46} height={46} />
-          <h1 className="font-bold inline-block">StudyBuddy</h1>
+          <h1 className="font-bold hidden md:block">StudyBuddy</h1>
         </Link>
 
         <ul className="flex flex-col items-center md:flex-row  md:w-full justify-around ">

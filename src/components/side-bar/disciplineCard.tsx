@@ -7,12 +7,9 @@ type Props = {
 };
 
 export default async function DisciplineCard(props: Props) {
-// console.log("🚀 ~ file: disciplineCard.tsx:10 ~ DisciplineCard ~ props:", props)
-
     const count = await getProgramCount(props.id);
-
     return (
-        <div className='flex justify-between'>
+        <div className='flex justify-between px-8'>
             <span>{props.name}</span>
             <span>{count}</span>
         </div>
