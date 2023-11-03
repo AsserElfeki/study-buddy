@@ -64,12 +64,6 @@
             "null"
           ]
         },
-        "applications": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Application"
-          }
-        },
         "accounts": {
           "type": "array",
           "items": {
@@ -80,6 +74,12 @@
           "type": "array",
           "items": {
             "$ref": "#/definitions/ActivationToken"
+          }
+        },
+        "applications": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Application"
           }
         },
         "Session": {
@@ -263,31 +263,11 @@
             "null"
           ]
         },
-        "studyProgramLanguage": {
-          "type": "string",
-          "default": "EN",
-          "enum": [
-            "EN",
-            "PL"
-          ]
-        },
         "degreeType": {
           "type": "string"
         },
-        "format": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
         "attendance": {
           "type": "string"
-        },
-        "applyDate": {
-          "type": [
-            "string",
-            "null"
-          ]
         },
         "paymentCycle": {
           "type": "string"
@@ -321,6 +301,26 @@
             "number",
             "null"
           ]
+        },
+        "applyDate": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "studyProgramLanguage": {
+          "type": "string",
+          "default": "EN",
+          "enum": [
+            "EN",
+            "PL"
+          ]
+        },
+        "format": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         },
         "applications": {
           "type": "array",

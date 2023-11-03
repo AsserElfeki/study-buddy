@@ -1,11 +1,5 @@
 import { getPrograms } from '@src/lib/searchFilters';
 
-function splitFormats(format: string) {
-    const arr = format.split(',');
-    const formats = arr.map((item: string) => item.trim());
-    return formats;
-}
-
 export default async function SearchResults({
     query,
 }: {
@@ -21,14 +15,11 @@ export default async function SearchResults({
 
     const duration = query?.duration ? query.duration.toString() : '';
     const format = query?.format ? query.format.toString() : '';
-    //chek how many items result from splitting format by comma
-    const formatList = splitFormats(format);
-
     const attendance = query?.attendance ? query.attendance.toString() : '';
     const degree = query?.degree ? query.degree.toString() : '';
     // console.log("🚀 ~ file: searchResults.tsx:20 ~ degree:", degree)
 
-    const programs = await getPrograms(t1, t2, discipline, language, duration, formatList, attendance, degree)
+    const programs = await getPrograms(t1, t2, discipline, language, duration, format, attendance, degree)
     console.log("🚀 ~ file: searchResults.tsx:26 ~ programs:", programs.length)
 
     return (

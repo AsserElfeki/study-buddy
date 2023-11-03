@@ -13,9 +13,9 @@ Table users {
   lastName String
   role Role [not null, default: 'NEW_STUDENT']
   sex String
-  applications applications [not null]
   accounts accounts [not null]
   ActivationToken activation_tokens [not null]
+  applications applications [not null]
   Session sessions [not null]
 }
 
@@ -73,11 +73,8 @@ Table study_programs {
   name String [not null]
   description String [not null]
   startDate String
-  studyProgramLanguage studyProgramLanguage [not null, default: 'EN']
   degreeType String [not null]
-  format String[] [not null]
   attendance String [not null]
-  applyDate String
   paymentCycle String [not null]
   studyProgramLink String
   universityId String [not null]
@@ -85,6 +82,9 @@ Table study_programs {
   IELTSScore Float
   TOEFLScore Int
   duration Float
+  applyDate String
+  studyProgramLanguage studyProgramLanguage [not null, default: 'EN']
+  format String[] [not null]
   applications applications [not null]
   discipline disciplines_on_programs [not null]
   university universities [not null]

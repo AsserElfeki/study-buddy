@@ -23,7 +23,6 @@ export async function GET(req: NextRequest) {
     const programAttendance = searchParams.get('attendance')
     const programFormat = searchParams.get('format')
     const programDiscipline = searchParams.get('discipline')
-    console.log("🚀 ~ file: route.ts:26 ~ GET ~ programDiscipline:", programDiscipline)
     const programMinTuition: number = parseFloat(searchParams.get('minTuition'))
     const programMaxTuition: number = parseFloat(searchParams.get('maxTuition'))
 
