@@ -11,7 +11,7 @@ export default async function DisciplineContainer() {
   const programCounts: number[] = await Promise.all(programCountsPromises);
 
   const disciplines = disciplinesList.map((discipline, index) =>
-    <DisciplineCard key={discipline.id} name={discipline.name} count={programCounts[index]} />
+    <DisciplineCard key={discipline.id} name={discipline.name}  id={discipline.id} count={programCounts[index]} />
   );
 
   return (

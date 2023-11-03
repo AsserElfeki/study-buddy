@@ -2,16 +2,16 @@
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
-//react component that accepts prop of type string
 type Props = {
     name: string,
+    id: string,
     count: number,
+
 };
 
 export default function DisciplineCard(props: Props) {
     const searchParams = useSearchParams();
     const pathname = usePathname();
-    // console.log("🚀 ~ file: disciplineCard.tsx:14 ~ DisciplineCard ~ pathname:", pathname)
     const router = useRouter();
 
     function handleSearch(term: string) {
@@ -25,8 +25,12 @@ export default function DisciplineCard(props: Props) {
     }
 
     return (
+        
         <div className='flex justify-between px-8'>
-            <button onClick={() => handleSearch(props.name)}>{props.name}</button>
+            <button
+                className='font-inter font-bold text-start hover:shadow-md'
+                onClick={() => handleSearch(props.id)}>{props.name}
+            </button>
             <span>{props.count}</span>
         </div>
     )

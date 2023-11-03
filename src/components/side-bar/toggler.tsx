@@ -14,7 +14,7 @@ export default function Toggler({
     return (
         <div className="flex flex-col w-80">
             <div className="flex justify-between items-center w-full px-2">
-                <h2 className='font-bold font-inter underline'>{displayName}</h2>
+                <h2 className={`font-bold font-inter ${isOpen? "underline" : ""}`}>{displayName}</h2>
                 <IconButton
                     onClick={() => setIsOpen(!isOpen)}
                     aria-label="expand"
