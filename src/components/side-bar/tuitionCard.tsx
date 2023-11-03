@@ -37,8 +37,11 @@ export default function TuitionCard(props: Props) {
         const params = new URLSearchParams(searchParams);
         if (min && max)
             params.set("tuition", `[${min}, ${max}]`);
-        else
-            params.delete("tuition");
+        else if (min)
+            params.set("tuition", `[${min}, ${currentValues[1]}]`);
+        else if (max)
+            params.set("tuition", `[${currentValues[0]}, ${max}]`);
+            // params.delete("tuition");
 
         router.replace(`${pathname}?${params.toString()}`);
     }

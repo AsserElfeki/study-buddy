@@ -1,21 +1,30 @@
-import { Program, TuitionInfo } from './../types/dataPrep.d';
+import { studyProgramPath } from './../lib/apiPaths';
+import { data } from 'cheerio/lib/api/attributes';
+import { Program, RawProgram, TuitionInfo } from './../types/dataPrep.d';
 import * as fs from 'fs';
+import { StudyProgram } from '@prisma/client';
 
 const universityDataFile = './src/utils/Data.json';
 const disciplineDataFile = './src/utils/Disciplines.json';
 
+// function transform(rawPrograms: RawProgram[]): Program[] {
+    
+// }
+
 
 export function getDataArray(): Program[] {
     const rawData = fs.readFileSync(universityDataFile, 'utf-8');
-    const jsonData = JSON.parse(rawData) as Record<string, Program>;
+    const jsonData = JSON.parse(rawData) as RawProgram[];
 
-    const dataArray: Program[] = Object.values(jsonData).map((data) => ({
-        studyProgram: data.studyProgram,
-        university: data.university,
-        discipline: data.discipline,
+    return jsonData.map(rawProgram => ({
+        ...rawProgram,
+        studyProgram: {
+            ...rawProgram.studyProgram,
+            format: rawProgram.studyProgram.format.includes(',')
+                ? rawProgram.studyProgram.format.split(', ')
+                : [rawProgram.studyProgram.format],
+        },
     }));
-
-    return dataArray;
 }
 
 
@@ -67,7 +76,6 @@ export function extractTuitionInfo(str: string): TuitionInfo {
 
     return { amount, paymentCycle };
 }
-
 
 //function to extract the number of semesters from the duration string
 export function extractDuration(str: string): number {

@@ -1,5 +1,7 @@
 import Sidebar from '@src/components/side-bar/sidebar';
+import { getPrograms } from '@lib/searchFilters';
 import React from "react";
+import SearchResults from '@src/components/searchResults';
 
 
 // this should be server page 
@@ -7,8 +9,22 @@ import React from "react";
 // Side Bar should change the URL 
 // here fetching the URL, and fetching data accordingly ?
 
-function Search() {
-  return <Sidebar />;
+async function Search({
+  searchParams,
+}: {
+  searchParams?: { [key: string]: string | string[] | undefined };
+}) {
+  //get the search params from the URL 
+  const query = searchParams;
+  // console.log("🚀 ~ file: page.tsx:18 ~ query:", query)
+  
+  
+  return (
+    <div className='flex flex-row'>
+      <Sidebar />
+      <SearchResults query={query} />
+    </div>
+  )
 }
 
 export default Search;

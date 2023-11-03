@@ -1,7 +1,8 @@
+import { Program } from './../../../types/dataPrep.d';
 import prisma from '@lib/prisma';
 import { getServerSession } from 'next-auth';
 import { authOptions } from "@lib/auth";
-import { Role, StudyProgram, studyProgramLanguage } from '@prisma/client';
+import { Role, StudyProgram, studyProgramLanguage, Discipline } from '@prisma/client';
 import { type NextRequest } from 'next/server';
 
 /**
@@ -13,13 +14,23 @@ import { type NextRequest } from 'next/server';
  */
 export async function GET(req: NextRequest) {
     const searchParams = req.nextUrl.searchParams
+    console.log("🚀 ~ file: route.ts:16 ~ GET ~ searchParams:", searchParams)
     const programName = searchParams.get('name')
-    const programTuition: number = parseFloat(searchParams.get('tuition'))
+    // const programTuition: number = parseFloat(searchParams.get('tuition'))
     const programDuration: number = parseFloat(searchParams.get('duration'))
     const programDegree = searchParams.get('degree')
     const programLanguage = searchParams.get('language')
     const programAttendance = searchParams.get('attendance')
     const programFormat = searchParams.get('format')
+    const programDiscipline = searchParams.get('discipline')
+    console.log("🚀 ~ file: route.ts:26 ~ GET ~ programDiscipline:", programDiscipline)
+    const programMinTuition: number = parseFloat(searchParams.get('minTuition'))
+    const programMaxTuition: number = parseFloat(searchParams.get('maxTuition'))
+
+    //ToDo:
+
+    // 3. add different duration options duration
+
 
     let whereClause: {
         name?: {},
@@ -28,7 +39,8 @@ export async function GET(req: NextRequest) {
         degreeType?: {},
         language?: string,
         attendance?: {},
-        format?: {}
+        format?: {},
+        discipline?: {},
     } = {}
 
     if (programName) {
@@ -37,9 +49,15 @@ export async function GET(req: NextRequest) {
             mode: "insensitive"
         }
     }
-    if (programTuition) {
+    if (programMinTuition) {
         whereClause.tuitionFee = {
-            lte: programTuition,
+            gte: programMinTuition,
+        }
+    }
+    if (programMaxTuition) {
+        whereClause.tuitionFee = {
+            ...whereClause.tuitionFee,
+            lte: programMaxTuition,
         }
     }
     if (programDuration) {
@@ -73,6 +91,14 @@ export async function GET(req: NextRequest) {
             mode: "insensitive"
         }
     }
+    if (programDiscipline) {
+        whereClause.discipline = {
+            some: {
+                disciplineId: programDiscipline
+            }
+        }
+    }
+
 
     console.log("🚀 ~ file: route.ts:18 ~ GET ~ whereClause:", whereClause)
 
@@ -123,7 +149,7 @@ export async function POST(req: NextRequest) {
     const body = await req.json()
     let program: StudyProgram;
     const lang = body.studyProgramLanguage
-    if (lang){
+    if (lang) {
         if (lang.includes("en")) {
             body.language = studyProgramLanguage.EN
         }

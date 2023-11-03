@@ -110,11 +110,11 @@ model StudyProgram {
   name                 String
   description          String
   startDate            String?
-  studyProgramLanguage studyProgramLanguage  @default(EN)
+  studyProgramLanguage studyProgramLanguage  @default(EN) @map("study_program_language")
   degreeType           String
-  format               String
+  format               String []
   attendance           String
-  applyDate            String?
+  applyDate            String?               @map("apply_date")
   paymentCycle         String                @map("payment_cycle")
   studyProgramLink     String?               @map("study_program_link")
   universityId         String                @map("university_id")
@@ -132,7 +132,7 @@ model StudyProgram {
 model Discipline {
   id                  String                @id @default(cuid())
   name                String
-  disciplineOnProgram DisciplineOnProgram[] 
+  disciplineOnProgram DisciplineOnProgram[]
 
   @@map("disciplines")
 }
@@ -144,7 +144,6 @@ model DisciplineOnProgram {
   studyProgram   StudyProgram @relation(fields: [studyProgramId], references: [id], onDelete: Cascade)
 
   @@id([disciplineId, studyProgramId])
-
   @@map("disciplines_on_programs")
 }
 
@@ -189,10 +188,10 @@ enum studyProgramLanguage {
 }
 
 enum searchQueryParamKeys {
-    TuitionFees
-    Duration
-    Discipline
-    Format
-    Attendance
-    Degree
+  TuitionFees
+  Duration
+  Discipline
+  Format
+  Attendance
+  Degree
 }

@@ -37,3 +37,14 @@ export async function getMaxTuition() : Promise<number> {
     let max = Math.max(...fees);
     return max;
 }
+
+//get program based on filters in search query
+export async function getPrograms(tuMin : number, tuMax: number, disciplineId : string, language : string, duration: string, format : string[], attendance : string, degree : string) : Promise<Array<StudyProgram>> {
+    const res: Response = await fetch(`${studyProgramPath}?degree=${degree}&language=${language}&attendance=${attendance}&format=${format}&minTuition=${tuMin}&maxTuition=${tuMax}&discipline=${disciplineId}`, {
+        method: 'GET',
+        // cache: 'no-cache',
+    });
+
+    const data: Array<StudyProgram> = await res.json();
+    return data;
+}

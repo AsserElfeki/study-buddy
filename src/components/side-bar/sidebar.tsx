@@ -4,7 +4,7 @@ import TuitionContainer from './tuitionContainer';
 
 function Sidebar() {
     return (
-        <div className=' absolute left-0 top-0'>
+        <div className=' absolute left-0 top-0 border-4 border-blue-400'>
             <Toggler displayName='Disciplines'>
                 <DisciplineContainer />
             </Toggler>
@@ -13,9 +13,9 @@ function Sidebar() {
                 <TuitionContainer />
             </Toggler>
 
-            <Toggler displayName='Duration'>
+            {/* <Toggler displayName='Duration'>
                 <DisciplineContainer />
-            </Toggler>
+            </Toggler> */}
 
             <Toggler displayName='Format'>
                 <DisciplineContainer />
@@ -26,6 +26,9 @@ function Sidebar() {
             </Toggler>
 
             <Toggler displayName='Degree Type'>
+                <DisciplineContainer />
+            </Toggler>
+            <Toggler displayName='Langyage'>
                 <DisciplineContainer />
             </Toggler>
         </div>
