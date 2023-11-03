@@ -35,6 +35,5 @@ export async function getMaxTuition() : Promise<number> {
     //filter data to extract the highest tuition
     let fees = data.map((program) => program.tuitionFee);
     let max = Math.max(...fees);
-    console.log("🚀 ~ file: searchFilters.ts:35 ~ getMaxTuition ~ max:", max)
     return max;
 }

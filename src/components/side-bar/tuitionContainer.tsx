@@ -7,7 +7,7 @@ export default async function TuitionContainer() {
     const maxFee = await getMaxTuition();
     const inputProps = {
         step: 100,
-        shrink: true,
+        shrink: "true",
         min: 0,
         max: maxFee
     };
