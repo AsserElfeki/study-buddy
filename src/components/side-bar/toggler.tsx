@@ -12,14 +12,15 @@ export default function Toggler({
 
     
     return (
-        <div className="flex flex-col w-80">
+        <div className="flex flex-col w-80 ">
             <div className="flex justify-between items-center w-full px-2">
-                <h2 className={`font-bold font-inter ${isOpen? "underline" : ""}`}>{displayName}</h2>
                 <IconButton
+                    className="flex justify-between items-center w-full px-2"
                     onClick={() => setIsOpen(!isOpen)}
                     aria-label="expand"
                 >
-                    <ExpandMoreIcon />
+                <h2 className={`font-bold font-inter text-sm ${isOpen? "underline" : ""}`}>{displayName}</h2>
+                    <ExpandMoreIcon className={`${isOpen ? " -rotate-90" : ""}`} />
                 </IconButton>
             </div>
             {isOpen ? (children) : null}

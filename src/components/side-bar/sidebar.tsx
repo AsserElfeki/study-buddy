@@ -1,16 +1,16 @@
 import DisciplineContainer from './disciplineContainer';
 import Toggler from './toggler';
+import TuitionContainer from './tuitionContainer';
 
 function Sidebar() {
     return (
-        <div className='border-4 border-black absolute left-0 top-0'>
-            Hello from side bar
+        <div className=' absolute left-0 top-0'>
             <Toggler displayName='Disciplines'>
                 <DisciplineContainer />
             </Toggler>
 
             <Toggler displayName='Tuition Fees'>
-                <DisciplineContainer />
+                <TuitionContainer />
             </Toggler>
 
             <Toggler displayName='Duration'>

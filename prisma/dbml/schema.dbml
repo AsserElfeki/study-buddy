@@ -141,6 +141,15 @@ Enum studyProgramLanguage {
   PL
 }
 
+Enum searchQueryParamKeys {
+  TuitionFees
+  Duration
+  Discipline
+  Format
+  Attendance
+  Degree
+}
+
 Ref: activation_tokens.userId > users.id
 
 Ref: accounts.userId > users.id [delete: Cascade]

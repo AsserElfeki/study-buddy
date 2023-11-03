@@ -187,3 +187,12 @@ enum studyProgramLanguage {
   EN
   PL
 }
+
+enum searchQueryParamKeys {
+    TuitionFees
+    Duration
+    Discipline
+    Format
+    Attendance
+    Degree
+}
