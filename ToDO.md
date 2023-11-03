@@ -7,7 +7,7 @@
 - [x] fix navbar 
 - [ ] search page UI
 - [ ] searching functions
-- [ ] 
+- [ ] change toggler icon to change on toggle
 - [ ] create list of components : 
   - [ ] sideBar : container for all the side bar search components
   - [ ] disciplineList : list of all the disciplines (togglaeable)
