@@ -275,7 +275,10 @@
           "type": "string"
         },
         "format": {
-          "type": "string"
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         },
         "attendance": {
           "type": "string"

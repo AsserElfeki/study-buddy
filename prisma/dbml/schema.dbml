@@ -75,7 +75,7 @@ Table study_programs {
   startDate String
   studyProgramLanguage studyProgramLanguage [not null, default: 'EN']
   degreeType String [not null]
-  format String [not null]
+  format String[] [not null]
   attendance String [not null]
   applyDate String
   paymentCycle String [not null]
