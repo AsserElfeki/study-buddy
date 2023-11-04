@@ -28,7 +28,8 @@ function Sidebar() {
             <Toggler displayName='Degree Type'>
                 <DisciplineContainer />
             </Toggler>
-            <Toggler displayName='Langyage'>
+
+            <Toggler displayName='Language'>
                 <DisciplineContainer />
             </Toggler>
         </div>
