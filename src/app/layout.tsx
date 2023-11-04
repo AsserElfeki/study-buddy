@@ -34,7 +34,7 @@ export default function RootLayout({
           <Container maxWidth={false} disableGutters={true}  >
           <Navbar />
             <Container maxWidth={'xl'} disableGutters={true} className='flex mx-auto justify-center h-[110vh]'>
-            <main className="max-w-7xl flex flex-row items-center justify-center h-full w-screen border-2 border-red-600  relative overflow-hidden">
+            <main className="max-w-7xl flex flex-row justify-center w-screen border-2 border-red-600 relative overflow-hidden items-start">
               {children}
             </main>
           </Container>  

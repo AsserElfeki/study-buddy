@@ -4,7 +4,7 @@ import TuitionContainer from './tuitionContainer';
 
 function Sidebar() {
     return (
-        <div className=' absolute left-0 top-0 border-4 border-blue-400'>
+        <div className='self-start '>
             <Toggler displayName='Disciplines'>
                 <DisciplineContainer />
             </Toggler>

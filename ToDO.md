@@ -12,11 +12,13 @@
     - [ ] AttendanceCard : card with checkboxes (toggleable)
     - [ ] LanguageCard : card with checkboxes (toggleable)
     - [ ] DegreeCard : card with checkboxes (toggleable)
-  - [ ] Hero 
-  - [ ] general search bar
+  - [x] Hero 
+  - [x] general search bar
   - [ ] program card 
   - [ ] program details page: 
     - [ ] .............. 
+  - [ ] university details page: 
+    - [ ] ..............
   - [ ] profile page: 
     - [ ] my posts
     - [ ] my applications 

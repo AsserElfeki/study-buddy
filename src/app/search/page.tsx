@@ -20,9 +20,9 @@ async function Search({
   
   
   return (
-    <div className='flex flex-row'>
+    <div className='flex flex-row w-full'>
       <Sidebar />
-      <SearchResults query={query} />
+      <SearchResults query={query}  />
     </div>
   )
 }

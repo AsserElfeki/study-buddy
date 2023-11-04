@@ -9,11 +9,9 @@ import { Avatar } from '@mui/material';
 
 export default function Navbar() {
   const { data: session } = useSession();
-  // console.log("🚀 ~ file: navbar.tsx:12 ~ Navbar ~ session:", session.user)
 
   const pathname = usePathname();
   const isActive = pathname;
-  console.log(isActive)
   return (
     <div className="w-full flex bg-stone-200 justify-center sticky z-10 top-0 mb-2 py-2">
 

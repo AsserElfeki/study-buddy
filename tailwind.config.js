@@ -12,9 +12,11 @@ module.exports = {
         inter: ['Inter', 'sans-serif'],
       },
       colors: {
-        'primary-orange': '#FF5722',
-      }
+        'primary': '#7F001D',
+        'secondary': '#000000',
+      },  
     },
   },
+  darkMode: 'class',
   plugins: [],
 }
