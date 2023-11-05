@@ -6,6 +6,7 @@ import { Discipline } from '@prisma/client'
 export default async function DisciplineContainer() {
 
   const disciplinesList: Discipline[] = await getAllDisciplines() || [];
+  // console.log("🚀 ~ file: disciplineContainer.tsx:9 ~ DisciplineContainer ~ disciplinesList:", disciplinesList)
 
   const programCountsPromises = disciplinesList.map(discipline => getProgramCountinDiscipline(discipline.id));
   const programCounts: number[] = await Promise.all(programCountsPromises);

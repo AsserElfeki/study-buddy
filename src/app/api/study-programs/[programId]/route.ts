@@ -15,7 +15,7 @@ import { authOptions } from '@lib/auth';
 export async function GET(req: Request, { params }: { params: { programId: string } }) {
     let studyProgram: StudyProgram;
     //get the study program from db
-    console.log("Get request")
+    // console.log("Get request")
     try {
         studyProgram = await prisma.studyProgram.findUnique({
             where: {

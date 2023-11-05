@@ -29,7 +29,7 @@ export async function GET(req: Request, { params }: { params: { disciplineId: st
         });
     }
     catch (error) {
-        console.log("🚀 ~ file: route.ts:21 ~ GET ~ error", error)
+        // console.log("🚀 ~ file: route.ts:21 ~ GET ~ error", error)
         return Response.json({
             message: 'error while fetching data',
         }, {
@@ -75,7 +75,7 @@ export async function PUT(req: Request, { params }: { params: { disciplineId: st
         });
     }
     catch (error) {
-        console.log("🚀 ~ file: route.ts:21 ~ GET ~ error", error)
+        // console.log("🚀 ~ file: route.ts:21 ~ GET ~ error", error)                                   
         return Response.json({
             message: 'error while updating data',
         }, {
@@ -117,7 +117,7 @@ export async function DELETE(req: Request, { params }: { params: { disciplineId:
         });
     }
     catch (error) {
-        console.log("🚀 ~ file: route.ts:21 ~ GET ~ error", error)
+        // console.log("🚀 ~ file: route.ts:21 ~ GET ~ error", error)
         return Response.json({
             message: 'error while deleting data',
         }, {

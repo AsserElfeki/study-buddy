@@ -23,7 +23,7 @@ export default async function SearchResults({
     // console.log("🚀 ~ file: searchResults.tsx:20 ~ degree:", degree)
 
     const programs: StudyProgram[] = await getPrograms(t1, t2, discipline, language, duration, format, attendance, degree)
-    console.log("🚀 ~ file: searchResults.tsx:26 ~ programs:", programs)
+    console.log("✅✅✅ ~ file: searchResults.tsx:26 ~ programs:", programs)
 
     return (
         <div className='p-4 w-full flex justify-center'>

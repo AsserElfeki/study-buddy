@@ -4,7 +4,7 @@ import { comparePassword } from '../../../lib/hashPasswords'
 import { NextResponse } from 'next/server'
 
 export async function POST(req: Request,) {
-    console.log("LOGIN POST func fired")
+    // console.log("LOGIN POST func fired")
     const { email, password } = await req.json()
     const user = await prisma.user.findUnique({
         where: {

@@ -14,7 +14,7 @@ import { type NextRequest } from 'next/server';
  */
 export async function GET(req: NextRequest) {
     const searchParams = req.nextUrl.searchParams
-    console.log("🚀 ~ file: route.ts:16 ~ GET ~ searchParams:", searchParams)
+    // console.log("🚀 ~ file: route.ts:16 ~ GET ~ searchParams:", searchParams)
     const programName = searchParams.get('name')
     // const programTuition: number = parseFloat(searchParams.get('tuition'))
     const programDuration: number = parseFloat(searchParams.get('duration'))
@@ -99,13 +99,17 @@ export async function GET(req: NextRequest) {
     }
 
 
-    console.log("🚀 ~ file: route.ts:18 ~ GET ~ whereClause:", whereClause)
+    console.log("👉👉👉 ~ file: route.ts:18 ~ GET ~ whereClause:", whereClause)
 
     let programs: StudyProgram[];
     //retreive all universities that match fronm db 
     try {
         programs = await prisma.studyProgram.findMany({
-            where: whereClause
+            where: whereClause,
+            include: {
+                university: true,
+                discipline: true,
+            }
         });
     }
     catch (error) {

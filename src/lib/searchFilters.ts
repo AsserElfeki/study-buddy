@@ -6,18 +6,22 @@ import prisma from './prisma';
 export async function getProgramCountinDiscipline(disciplineId: string): Promise<number> {
     const res: Response = await fetch(`${disciplinePath}/${disciplineId}`, {
         method: "GET",
+        cache: 'no-cache',
     })
 
+    console.log("🤦🏻‍♀️dis ID in get dis count: ", disciplineId)
     const data = await res.json();
-    return data.disciplineOnProgram.length;
+    console.log("🛜data in get dis count: ", data.disciplineOnProgram)
+    return data.disciplineOnProgram.length; 
 }
 
-export async function getAllDisciplines(): Promise<Array<Discipline>> {
+export async function getAllDisciplines() {
     const res: Response = await fetch(`${disciplinePath}`, {
         method: 'GET',
+        // cache: 'no-cache',
     });
 
-    const data: Array<Discipline> = await res.json();
+    const data = await res.json();
     return data;
 }
 
@@ -70,7 +74,7 @@ export async function getProgramNames() {
 
     const data: Array<StudyProgram> = await res.json();
     let names = data.map((program) => program.name);
-    console.log("🚀 ~ file: searchFilters.ts:73 ~ getProgramNames ~ names:", names.length)
+    // console.log("🚀 ~ file: searchFilters.ts:73 ~ getProgramNames ~ names:", names.length)
     return names;
 }
 

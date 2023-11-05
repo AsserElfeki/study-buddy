@@ -31,16 +31,12 @@ export async function GET(req: NextRequest) {
         disciplines = await prisma.discipline.findMany({
             where: whereClause,
             include: {
-                disciplineOnProgram: {
-                    include: {
-                        studyProgram: true,
-                    }
-                }
+                disciplineOnProgram: true,
             }
         })
     }
     catch (error) {
-        console.log("🚀 ~ file: disciplines/route.ts:32 ~ GET ~ error", error)
+        // console.log("🚀 ~ file: disciplines/route.ts:32 ~ GET ~ error", error)
         return Response.json({
             message: 'error while retrieving data',
         }, {
@@ -89,7 +85,7 @@ export async function POST(req: NextRequest) {
         });
     }
     catch (error) {
-        console.log("🚀 ~ file: disciplines/route.ts:32 ~ GET ~ error", error)
+        // console.log("🚀 ~ file: disciplines/route.ts:32 ~ GET ~ error", error)
         return Response.json({
             message: 'error while adding data',
         }, {

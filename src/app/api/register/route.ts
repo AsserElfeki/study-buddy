@@ -31,7 +31,7 @@ export async function POST(req: Request) {
             
         });
     } catch (error: any) {
-        console.log("error in register function")
+        // console.log("error in register function")
         return new NextResponse(
             JSON.stringify({
                 status: "error",

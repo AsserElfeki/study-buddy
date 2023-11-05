@@ -21,11 +21,12 @@ function HomeSearch({ disciplineNames } : HomeSearchProps) {
 
     
     const [selectedDiscipline, setSelectedDiscipline] = useState("");
-    const { replace } = useRouter();
+    console.log("🚀 ~ file: homeSearch.tsx:24 ~ HomeSearch ~ selectedDiscipline:", selectedDiscipline)
+    const router = useRouter();
     
     const handleSearch = () => {
         if(selectedDiscipline)
-        replace(`/search?discipline=${selectedDiscipline}`);
+        router.push(`/search?discipline=${selectedDiscipline}`);
     }
     return (
         <div className="flex flex-col justify-center">
