@@ -23,11 +23,11 @@ export default async function SearchResults({
     // console.log("🚀 ~ file: searchResults.tsx:20 ~ degree:", degree)
 
     const programs: StudyProgram[] = await getPrograms(t1, t2, discipline, language, duration, format, attendance, degree)
-    console.log("✅✅✅ ~ file: searchResults.tsx:26 ~ programs:", programs)
+    console.log("✅✅✅ ~ file: searchResults.tsx:26 ~ programs:", programs.length)
 
     return (
-        <div className='p-4 w-full flex justify-center'>
-            {/* {programs.map((program) => (
+        <div className='p-4 w-full ml-[300px] flex justify-center'>
+            {programs.map((program) => (
                 <StudyProgramCard
                     key={program.id}
                     title={program.name}
@@ -37,7 +37,7 @@ export default async function SearchResults({
                     duration={program.duration}
                     tuitionCycle={program.paymentCycle}
                 />
-            ))} */}
+            ))}
         </div>
     )
 }

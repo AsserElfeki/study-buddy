@@ -99,7 +99,7 @@ export async function GET(req: NextRequest) {
     }
 
 
-    console.log("👉👉👉 ~ file: route.ts:18 ~ GET ~ whereClause:", whereClause)
+    // console.log("👉👉👉 ~ file: route.ts:18 ~ GET ~ whereClause:", whereClause)
 
     let programs: StudyProgram[];
     //retreive all universities that match fronm db 

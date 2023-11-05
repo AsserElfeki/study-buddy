@@ -2,9 +2,10 @@
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import { Button } from '@mui/material';
-import { useState } from 'react';
+import { use, useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Discipline } from '@prisma/client';
+import { getAllDisciplines } from '@src/lib/searchFilters';
 
 type DisciplineOption = {
     label: string;
@@ -17,17 +18,34 @@ interface HomeSearchProps {
 }
 
 function HomeSearch({ disciplineNames } : HomeSearchProps) {
-    // console.log("🚀 ~ file: homeSearch.tsx:16 ~ HomeSearch ~ disciplineNames:", disciplineNames)
 
+    const [disciplines, setDisciplines] = useState<DisciplineOptionsArray>([]);
+
+    // useEffect( () => {
+    //     const fetchData = async () => {
+    //         const disciplines = await getAllDisciplines();
+    //         const disciplineNames = disciplines.map((discipline) => {
+    //             return {
+    //                 label: discipline.name,
+    //                 id: discipline.id
+    //             }
+    //         })
+    //         setDisciplines(disciplineNames);
+    //     }
+    //     fetchData();
+    // }, [])
     
     const [selectedDiscipline, setSelectedDiscipline] = useState("");
-    console.log("🚀 ~ file: homeSearch.tsx:24 ~ HomeSearch ~ selectedDiscipline:", selectedDiscipline)
+    // console.log("🚀 ~ file: homeSearch.tsx:24 ~ HomeSearch ~ selectedDiscipline:", selectedDiscipline)
     const router = useRouter();
     
     const handleSearch = () => {
         if(selectedDiscipline)
         router.push(`/search?discipline=${selectedDiscipline}`);
     }
+
+    
+
     return (
         <div className="flex flex-col justify-center">
             <div className='flex flex-row mt-4 justify-around'>

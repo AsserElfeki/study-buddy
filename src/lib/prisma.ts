@@ -11,7 +11,7 @@ const globalForPrisma = global as unknown as { prisma: PrismaClient }
 
 // /This line checks if there's already an instance of PrismaClient on the global object. If there is, it reuses that instance. If not, it creates a new instance with the logging option set to log queries.
 export const prisma = globalForPrisma.prisma || new PrismaClient({
-    log: ["query"],
+    log: ["warn", "error"],
 })
 
 if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma
