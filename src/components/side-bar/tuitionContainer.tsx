@@ -1,4 +1,4 @@
-import { getAllDisciplines, getMaxTuition, getProgramCount } from '@src/lib/searchFilters'
+import { getAllDisciplines, getMaxTuition } from '@src/lib/searchFilters'
 import DisciplineCard from './disciplineCard'
 import { Discipline } from '@prisma/client'
 import TuitionCard from './tuitionCard';

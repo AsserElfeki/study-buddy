@@ -30,19 +30,31 @@ export default function TuitionCard(props: Props) {
     const maxFee = searchParams.get('tuition') ? Number(searchParams.get('tuition').split(',')[1].slice(0, -1)) : inputProps.max;
 
     const [currentValues, setCurrentValues] = useState([minFee, maxFee]);
-    
+
 
     function handleSearch(min: number, max: number) {
         setCurrentValues([min, max]);
+        // console.log("min, max", min, max);
         const params = new URLSearchParams(searchParams);
-        if (min && max)
-            params.set("tuition", `[${min}, ${max}]`);
-        else if (min)
-            params.set("tuition", `[${min}, ${currentValues[1]}]`);
-        else if (max)
-            params.set("tuition", `[${currentValues[0]}, ${max}]`);
-            // params.delete("tuition");
+        if (min > -1) {
+            console.log("min in tuitioncard", min.toString());
+            if (min == 0) {
+                let stringMin = String(0);
+                params.set("tuition", `[${stringMin}, ${currentValues[1]}]`);
+            }
+            else
+                params.set("tuition", `[${min.toString()}, ${currentValues[1]}]`);
+        }
+        console.log("🚀 ~ file: tuitionCard.tsx:48 ~ handleSearch ~ params:", params.toString())
 
+        if (max < inputProps.max)
+            params.set("tuition", `[${currentValues[0]}, ${max.toString()}]`);
+        if (min == 0 && max == inputProps.max)
+            params.delete("tuition");
+        // console.log(params.toString());
+
+
+        
         router.replace(`${pathname}?${params.toString()}`);
     }
 
@@ -68,7 +80,7 @@ export default function TuitionCard(props: Props) {
                     value={currentValues[1]}
                     inputProps={props.inputProps}
                     onChange={(e) => handleSearch(minFee, Number(e.target.value))}
-                    // onChangeCommitted={(e) => setCurrentValues([Number(e.target.value), maxFee])}
+                // onChangeCommitted={(e) => setCurrentValues([Number(e.target.value), maxFee])}
                 />
             </div>
             <Box className="flex justify-center w-4/5">
@@ -82,7 +94,7 @@ export default function TuitionCard(props: Props) {
                     valueLabelFormat={valuetext}
                     min={inputProps.min}
                     max={inputProps.max}
-                // step={inputProps.step}
+                    step={inputProps.step}
                 // size='small'
                 />
             </Box>

@@ -23,25 +23,35 @@ const StudyProgramCard: React.FC<StudyProgramCardProps> = ({
     duration,
 }) => {
 
-    const universityPath = `/university/`;
+    
+
+    description = description.charAt(0).toUpperCase() + description.slice(1);
+    title = title.charAt(0).toUpperCase() + title.slice(1);
+    university.name = university.name.charAt(0).toUpperCase() + university.name.slice(1);
 
     return (
-        <div className='flex flex-col justify-between'>
-            <div >
-                <h3>{title}</h3>
-                <p>{description}</p>
+        <article className="border bg-white p-4 rounded-lg shadow-md  w-full ">
+            <header className="mb-4">
+                <h2 className="text-3xl font-bold mb-2">{title}</h2>
                 <Link
-                    href={{
-                        pathname: `${universityPath}`,
-                    }}
-                >{university.name}
-                </Link>
-            </div>
-            <div>
-
-            </div>
-
-        </div>
+                    href = {`university/${university.id}`}
+                    className="text-primary hover:underline hover:bg-slate-100 hover:shadow-sm rounded-lg">{university.name}</Link>
+            </header>
+            <section className="mb-4">
+                <p className=" text-gray-800">{description}</p>
+            </section>
+            <footer>
+                <div className="mb-2">
+                    <strong className="text-gray-900">Tuition Fee:</strong>
+                    <span className="text-gray-700 ml-2">{tuition} EUR /</span>
+                    <span className=" text-sm text-gray-500 ml-1">{tuitionCycle}</span>
+                </div>
+                <div className="">
+                    <strong className="text-gray-900">Duration:</strong>
+                    <span className="text-gray-700 ml-2">{duration} Years</span>
+                </div>
+            </footer>
+        </article>
     );
 };
 

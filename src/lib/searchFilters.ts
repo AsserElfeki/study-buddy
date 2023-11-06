@@ -6,12 +6,8 @@ import prisma from './prisma';
 export async function getProgramCountinDiscipline(disciplineId: string): Promise<number> {
     const res: Response = await fetch(`${disciplinePath}/${disciplineId}`, {
         method: "GET",
-        // cache: 'no-cache',
     })
-
-    // console.log("🤦🏻‍♀️dis ID in get dis count: ", disciplineId)
     const data = await res.json();
-    // console.log("🛜data in get dis count: ", data.disciplineOnProgram)
     return data.disciplineOnProgram.length; 
 }
 
@@ -39,12 +35,10 @@ export async function getMaxTuition(): Promise<number> {
     return max;
 }
 
-//get program based on filters in search query
 export async function getPrograms(tuMin: number, tuMax: number, disciplineId: string, language: string, duration: string, format: string, attendance: string, degree: string): Promise<Array<StudyProgram>> {
     console.log("get programs func 🎉")
     const res: Response = await fetch(`${studyProgramPath}?degree=${degree}&language=${language}&attendance=${attendance}&format=${format}&minTuition=${tuMin}&maxTuition=${tuMax}&discipline=${disciplineId}`, {
         method: 'GET',
-        // cache: 'no-cache',
     });
     console.log(`🌍${studyProgramPath}?degree=${degree}&language=${language}&attendance=${attendance}&format=${format}&minTuition=${tuMin}&maxTuition=${tuMax}&discipline=${disciplineId}`)
 
@@ -94,8 +88,6 @@ export async function getDisciplineNames() {
         method: 'GET',
     });
     const data = await res.json();
-    // console.log("🚀 ~ file: searchFilters.ts:90 ~ getDisciplineNames ~ data:", data)
     let names = data.map((discipline: Discipline) => discipline.name);
-    // console.log("🚀 ~ file: searchFilters.ts:92 ~ getDisciplineNames ~ names:", names)
     return names;
 }
