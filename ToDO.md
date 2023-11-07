@@ -5,12 +5,14 @@
   - [ ] tuition filter delay 
   - [ ] add a "have acount?" in register
   - [ ] add settings icon in navbar when logged in
+  - [ ] fix search page in mobile vp
+  - [ ] 
 
 - [ ] ADDONS: 
   - [ ] sort results by
-  - [ ] 
+  - [ ] cloudinary 
 
-- [ ] FrontEnd: 
+- [ ] FrontEnd:   
   - [x] sideBar : container for all the side bar search components
     - [x] disciplineList : list of all the disciplines (togglaeable)
       - [x] disciplineCard : card for each discipline
