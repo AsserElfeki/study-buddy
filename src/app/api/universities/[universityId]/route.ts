@@ -20,6 +20,9 @@ export async function GET(req: Request, { params } : { params: { universityId: s
         data = await prisma.university.findUnique({
             where: {
                 id: params.universityId,
+            },
+            include: {
+                studyPrograms: true,
             }
         });
     } catch (error) {

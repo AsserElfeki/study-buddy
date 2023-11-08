@@ -91,3 +91,11 @@ export async function getDisciplineNames() {
     let names = data.map((discipline: Discipline) => discipline.name);
     return names;
 }
+
+export async function getUniversity(id: string) {
+    const res: Response = await fetch(`${universityPath}/${id}`, {
+        method: 'GET',
+    });
+    const data = await res.json();
+    return data;
+}
