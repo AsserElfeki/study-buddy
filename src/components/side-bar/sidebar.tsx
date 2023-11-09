@@ -15,25 +15,6 @@ function Sidebar() {
                 <TuitionContainer />
             </Toggler>
 
-            {/* <Toggler displayName='Duration'>
-                <DisciplineContainer />
-            </Toggler> */}
-
-            <Toggler displayName='Format'>
-                <DisciplineContainer />
-            </Toggler>
-
-            <Toggler displayName='Attendance'>
-                <DisciplineContainer />
-            </Toggler>
-
-            <Toggler displayName='Degree Type'>
-                <DisciplineContainer />
-            </Toggler>
-
-            <Toggler displayName='Language'>
-                <DisciplineContainer />
-            </Toggler>
         </div>
     )
 }

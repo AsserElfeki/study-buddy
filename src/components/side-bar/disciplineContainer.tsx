@@ -1,15 +1,27 @@
+"use client";
 import { getAllDisciplines, getProgramCountinDiscipline } from '@src/lib/searchFilters'
 import DisciplineCard from './disciplineCard'
 import { Discipline } from '@prisma/client'
+import { useEffect, useState } from 'react';
 
 
-export default async function DisciplineContainer() {
+export default function DisciplineContainer() {
 
-  const disciplinesList: Discipline[] = await getAllDisciplines() || [];
-  // console.log("🚀 ~ file: disciplineContainer.tsx:9 ~ DisciplineContainer ~ disciplinesList:", disciplinesList)
+  const [disciplinesList, setDisciplinesList] = useState<Discipline[]>([]);
+  const [programCounts, setProgramCounts] = useState<number[]>([]);
 
-  const programCountsPromises = disciplinesList.map(discipline => getProgramCountinDiscipline(discipline.id));
-  const programCounts: number[] = await Promise.all(programCountsPromises);
+  useEffect(() => {
+    const fetchData = async () => {
+      const disciplines: Discipline[] = await getAllDisciplines() || [];
+      setDisciplinesList(disciplines);
+
+      const countsPromises = disciplines.map(discipline => getProgramCountinDiscipline(discipline.id));
+      const counts: number[] = await Promise.all(countsPromises);
+      setProgramCounts(counts);
+    };
+
+    fetchData();
+  }, []);
 
   const disciplines = disciplinesList.map((discipline, index) =>
     <DisciplineCard key={discipline.id} name={discipline.name} id={discipline.id} count={programCounts[index]} />

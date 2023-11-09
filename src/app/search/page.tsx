@@ -1,5 +1,5 @@
-// import Sidebar from '@src/components/side-bar/sidebar';
-// import SearchResults from '@src/components/searchResults';
+import Sidebar from '@src/components/side-bar/sidebar';
+import SearchResults from '@src/components/searchResults';
 
 
 // this should be server page 
@@ -11,8 +11,8 @@ export default function SearchTwo() {
 
   return (
     <div className='flex flex-row w-full gap-2 '>
-      {/* <Sidebar />
-      <SearchResults /> */}
+      <Sidebar />
+      <SearchResults />
     </div>
   )
 }
