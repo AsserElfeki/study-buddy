@@ -18,7 +18,7 @@ async function SearchBox() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 my-12">
             <div className="text-center">
                 <h2 className="text-3xl tracking-tight font-extrabold text-gray-900 sm:text-4xl">
-                    Bachelor's degrees from all around Poland
+                    Bachelor&apos;s degrees from all around Poland
                 </h2>
                 <div className='mt-4'>
                     <span className="font-bold text-xl">
