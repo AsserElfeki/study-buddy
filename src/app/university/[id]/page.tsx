@@ -4,7 +4,7 @@ import { getUniversity } from '@src/lib/searchFilters';
 import React from 'react'
 import { type } from 'os';
 
-async function University({ params }: { params: { id: string } }) {
+async function University({ params }: { params: { id: string } | null }) {
 
     const uni = await getUniversity(params.id);
     // console.log("🚀 ~ file: page.tsx:9 ~ University ~ uni:", uni)

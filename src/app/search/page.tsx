@@ -1,6 +1,5 @@
-import Sidebar from '@src/components/side-bar/sidebar';
-import React from "react";
-import SearchResults from '@src/components/searchResults';
+// import Sidebar from '@src/components/side-bar/sidebar';
+// import SearchResults from '@src/components/searchResults';
 
 
 // this should be server page 
@@ -8,22 +7,13 @@ import SearchResults from '@src/components/searchResults';
 // Side Bar should change the URL 
 // here fetching the URL, and fetching data accordingly ?
 
-async function Search({
-  searchParams,
-}: {
-  searchParams?: { [key: string]: string | string[] | undefined };
-}) {
-  //get the search params from the URL 
-  const query = searchParams;
-  // console.log("🚀 ~ file: page.tsx:18 ~ query:", query)
-  
-  
+export default function SearchTwo() {
+
   return (
     <div className='flex flex-row w-full gap-2 '>
-      <Sidebar />
-      <SearchResults />
+      {/* <Sidebar />
+      <SearchResults /> */}
     </div>
   )
 }
 
-export default Search;

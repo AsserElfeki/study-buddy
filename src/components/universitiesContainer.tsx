@@ -1,15 +1,13 @@
 "use client";
 
-import { IconButton, Pagination } from '@mui/material';
-import React, { use, useEffect, useState } from 'react';
+import { IconButton } from '@mui/material';
+import React, { useEffect, useState } from 'react';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import { StudyProgram, University } from '@prisma/client';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import StudyProgramCard from './studyProgramCard';
-import Media from './cardSkeleton';
-import { get } from 'http';
-import { getPrograms } from '@src/lib/searchFilters';
+
 
 
 
@@ -55,8 +53,7 @@ const PaginationContainer: React.FC<PaginationContainerProps> = ({ studyPrograms
     }
     return (
         <>
-            {loading && <Media loading />}
-            {!loading && <div>
+            <div>
                 <div className='flex flex-col justify-center items-center gap-4 p-4 self-start w-full'>
 
                     {currentItems.map((program) => (
@@ -86,7 +83,7 @@ const PaginationContainer: React.FC<PaginationContainerProps> = ({ studyPrograms
                         <NavigateNextIcon />
                     </IconButton>
                 </div>
-            </div>}
+            </div>
         </>
     );
 };
