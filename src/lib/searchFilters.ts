@@ -35,15 +35,47 @@ export async function getMaxTuition(): Promise<number> {
     return max;
 }
 
-export async function getPrograms(tuMin: number, tuMax: number, disciplineId: string, language: string, duration: string, format: string, attendance: string, degree: string): Promise<Array<StudyProgram>> {
-    console.log("get programs func 🎉")
-    const res: Response = await fetch(`${studyProgramPath}?degree=${degree}&language=${language}&attendance=${attendance}&format=${format}&minTuition=${tuMin}&maxTuition=${tuMax}&discipline=${disciplineId}`, {
-        method: 'GET',
-    });
-    console.log(`🌍${studyProgramPath}?degree=${degree}&language=${language}&attendance=${attendance}&format=${format}&minTuition=${tuMin}&maxTuition=${tuMax}&discipline=${disciplineId}`)
+export async function getPrograms({
+  tuMin,
+  tuMax,
+  disciplineId,
+  language,
+  duration,
+  format,
+  attendance,
+  degree,
+  universityId,
+}: {
+  tuMin?: number;
+  tuMax?: number;
+  disciplineId?: string;
+  language?: string;
+  duration?: string;
+  format?: string;
+  attendance?: string;
+  degree?: string;
+  universityId?: string;
+} = {}): Promise<Array<StudyProgram>> {
+  console.log("get programs func 🎉");
 
-    const data: Array<StudyProgram> = await res.json();
-    return data;
+  const queryParams = new URLSearchParams();
+    if (degree) queryParams.append('degree', degree);
+    if (language) queryParams.append('language', language);
+    if (attendance) queryParams.append('attendance', attendance);
+    if (format) queryParams.append('format', format);
+    if (tuMin) queryParams.append('minTuition', tuMin.toString());
+    if (tuMax) queryParams.append('maxTuition', tuMax.toString());
+    if (disciplineId) queryParams.append('discipline', disciplineId);
+    if (universityId) queryParams.append('universityId', universityId);
+  const url = `${studyProgramPath}?${queryParams.toString()}`;
+  console.log(`🌍${url}`);
+
+  const res: Response = await fetch(url, {
+    method: "GET",
+  });
+
+  const data: Array<StudyProgram> = await res.json();
+  return data;
 }
 
 export async function getProgramsCount() {
@@ -93,9 +125,12 @@ export async function getDisciplineNames() {
 }
 
 export async function getUniversity(id: string) {
+    console.log("woohoooo 🎉");
     const res: Response = await fetch(`${universityPath}/${id}`, {
         method: 'GET',
+        cache: 'no-cache',
     });
     const data = await res.json();
+    console.log("🚀 ~ file: searchFilters.ts:132 ~ getUniversity ~ data:", data)
     return data;
 }

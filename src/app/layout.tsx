@@ -5,6 +5,8 @@ import { NextAuthProvider } from "@src/components/providers";
 import Navbar from "@src/components/navbar";
 import CssBaseline from '@mui/material/CssBaseline';
 import { Container } from '@mui/material';
+import { Suspense } from 'react';
+import Loading from './loading';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -31,13 +33,15 @@ export default function RootLayout({
       <body className={inter.className}>
         <NextAuthProvider>
           <CssBaseline />
-          <Container maxWidth={false} disableGutters={true}  className='bg-slate-100'>
-          <Navbar />
+          <Container maxWidth={false} disableGutters={true} className='bg-slate-100'>
+            <Navbar />
             <Container maxWidth={'xl'} disableGutters={true} className='flex mx-auto justify-center min-h-[110vh]'>
-            <main className="max-w-7xl flex flex-row justify-center w-screen  relative overflow-hidden items-start">
-              {children}
-            </main>
-          </Container>  
+              <Suspense fallback={<Loading />}>
+                <main className="max-w-7xl flex flex-row justify-center w-screen  relative overflow-hidden items-start">
+                  {children}
+                </main>
+              </Suspense>
+            </Container>
           </Container>
         </NextAuthProvider>
       </body>

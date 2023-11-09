@@ -1,5 +1,4 @@
 import Sidebar from '@src/components/side-bar/sidebar';
-import { getPrograms } from '@lib/searchFilters';
 import React from "react";
 import SearchResults from '@src/components/searchResults';
 

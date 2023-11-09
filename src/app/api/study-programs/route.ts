@@ -25,7 +25,7 @@ export async function GET(req: NextRequest) {
     const programDiscipline = searchParams.get('discipline')
     const programMinTuition: number = parseFloat(searchParams.get('minTuition'))
     const programMaxTuition: number = parseFloat(searchParams.get('maxTuition'))
-
+    const universityId = searchParams.get('universityId')
     //ToDo:
 
     // 3. add different duration options duration
@@ -40,7 +40,14 @@ export async function GET(req: NextRequest) {
         attendance?: {},
         format?: {},
         discipline?: {},
+        universityId?: {}
     } = {}
+
+    if (universityId) {
+        whereClause.universityId = {
+            equals: universityId
+        }
+    }
 
     if (programName) {
         whereClause.name = {
@@ -99,7 +106,7 @@ export async function GET(req: NextRequest) {
     }
 
 
-    // console.log("👉👉👉 ~ file: route.ts:18 ~ GET ~ whereClause:", whereClause)
+    console.log("👉👉👉 ~ file: route.ts:18 ~ GET ~ whereClause:", whereClause)
 
     let programs: StudyProgram[];
     //retreive all universities that match fronm db 

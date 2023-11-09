@@ -25,6 +25,7 @@ export async function GET(req: Request, { params } : { params: { universityId: s
                 studyPrograms: true,
             }
         });
+        console.log("🚀 ~ file: route.ts:28 ~ GET ~ data:", data)
     } catch (error) {
         console.log("🚀 ~ file: route.ts:21 ~ GET ~ error", error)
         return Response.json({
@@ -42,6 +43,7 @@ export async function GET(req: Request, { params } : { params: { universityId: s
             statusText: `could not find university with id ${params.universityId}`
         });
     }
+    
     return Response.json(data, {
         status: 200,
         statusText: `Found university with id ${params.universityId}`

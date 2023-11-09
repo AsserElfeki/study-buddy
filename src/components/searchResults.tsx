@@ -22,7 +22,16 @@ export default function SearchResults() {
 
     useEffect(() => {
         const fetchPrograms = async () => {
-            const fetchedPrograms: StudyProgram[] = await getPrograms(minFee, maxFee, discipline, language, duration, format, attendance, degreeType);
+            const fetchedPrograms: StudyProgram[] = await getPrograms({
+                tuMin: minFee,
+                tuMax: maxFee,
+                disciplineId: discipline,
+                language,
+                duration,
+                format,
+                attendance,
+                degree: degreeType
+            });
             // console.log("✅✅✅ ~ file: searchResults.tsx:26 ~ programs:", fetchedPrograms.length);
             setPrograms(fetchedPrograms);
         };
@@ -50,7 +59,7 @@ export default function SearchResults() {
 
     return (
         <div className='flex flex-col justify-center items-center gap-4 p-4 self-start w-full'>
-            <h1 className='text-4xl font-bold text-primary'>Found {programs.length} program(s) matching your criteria</h1>
+            <h1 className='text-4xl font-bold text-primary'>Found {programs.length? programs.length : 0} program(s) matching your criteria</h1>
             {currentItems.map((program) => (
                 <StudyProgramCard
                     key={program.id}
