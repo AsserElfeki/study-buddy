@@ -29,10 +29,8 @@ const PaginationContainer: React.FC<PaginationContainerProps> = ({ studyPrograms
     const pathname = usePathname();
     const router = useRouter();
     const [currentItems, setCurrentItems] = useState([]);
-    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        setLoading(true);
         const indexOfLastItem = currentPage * itemsPerPage;
         const indexOfFirstItem = indexOfLastItem - itemsPerPage;
         const endIndex = indexOfLastItem > (items ? items.length : 0) ? (items ? items.length : 0) : indexOfLastItem;
@@ -41,7 +39,6 @@ const PaginationContainer: React.FC<PaginationContainerProps> = ({ studyPrograms
         setCurrentPage(pageNumber);
         if (items && items.length > 0)
             setCurrentItems(items.slice(indexOfFirstItem, endIndex));
-        setLoading(false);
     }, [currentPage, items, searchParams, itemsPerPage]);
 
 

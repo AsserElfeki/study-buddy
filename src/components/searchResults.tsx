@@ -15,13 +15,15 @@ export default function SearchResults() {
     const [currentPage, setCurrentPage] = useState(1);
     const searchParams = useSearchParams();
     const pathname = usePathname();
-
+    
     const router = useRouter();
+    
+    const { minFee, maxFee, discipline, language, duration, format, attendance, degreeType} = useHandleSearchParams(searchParams);
 
-    const { minFee, maxFee, discipline, language, duration, format, attendance, degreeType } = useHandleSearchParams(searchParams);
-
+    
     useEffect(() => {
         const fetchPrograms = async () => {
+            console.log("useEffect fired ")
             const fetchedPrograms: StudyProgram[] = await getPrograms({
                 tuMin: minFee,
                 tuMax: maxFee,
@@ -34,9 +36,11 @@ export default function SearchResults() {
             });
             // console.log("✅✅✅ ~ file: searchResults.tsx:26 ~ programs:", fetchedPrograms.length);
             setPrograms(fetchedPrograms);
+            
         };
-        setCurrentPage(1);
+        handlePageChange(1);
         fetchPrograms();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [minFee, maxFee, discipline, language, duration, format, attendance, degreeType]);
 
     const itemsPerPage = 10;
@@ -71,7 +75,7 @@ export default function SearchResults() {
                     tuitionCycle={program.paymentCycle}
                 />
             ))}
-            <div className={`${programs.length > 10 ? 'flex' : 'hidden'}  flex-row justify-center items-center gap-2 `}>
+            <div className={`${programs.length > 10 ? 'flex' : 'hidden'}  flex-row justify-center items-center gap-2  bottom-0`}>
                 <IconButton
                     onClick={() => handlePageChange(currentPage - 1)}
                     disabled={currentPage === 1}

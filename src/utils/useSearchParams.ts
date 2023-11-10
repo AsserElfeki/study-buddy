@@ -10,6 +10,7 @@ export function useHandleSearchParams(searchParams : any ) {
     const format = searchParams?.get("format") ? searchParams.get("format").toString() : '';
     const attendance = searchParams?.get("attendance") ? searchParams.get("attendance").toString() : '';
     const degreeType = searchParams?.get("degree") ? searchParams.get("degree").toString() : '';
+    const page = searchParams?.get("page") ? Number(searchParams.get("page")) : 1;
     
-    return {minFee, maxFee, discipline, language, duration, format, attendance, degreeType}
+    return {minFee, maxFee, discipline, language, duration, format, attendance, degreeType, page}
 }

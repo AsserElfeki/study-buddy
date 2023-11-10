@@ -8,7 +8,7 @@ export async function getProgramCountinDiscipline(disciplineId: string): Promise
         method: "GET",
     })
     const data = await res.json();
-    return data.disciplineOnProgram.length; 
+    return data.disciplineOnProgram.length;
 }
 
 export async function getAllDisciplines() {
@@ -36,29 +36,29 @@ export async function getMaxTuition(): Promise<number> {
 }
 
 export async function getPrograms({
-  tuMin,
-  tuMax,
-  disciplineId,
-  language,
-  duration,
-  format,
-  attendance,
-  degree,
-  universityId,
+    tuMin,
+    tuMax,
+    disciplineId,
+    language,
+    duration,
+    format,
+    attendance,
+    degree,
+    universityId,
 }: {
-  tuMin?: number;
-  tuMax?: number;
-  disciplineId?: string;
-  language?: string;
-  duration?: string;
-  format?: string;
-  attendance?: string;
-  degree?: string;
-  universityId?: string;
+    tuMin?: number;
+    tuMax?: number;
+    disciplineId?: string;
+    language?: string;
+    duration?: string;
+    format?: string;
+    attendance?: string;
+    degree?: string;
+    universityId?: string;
 } = {}): Promise<Array<StudyProgram>> {
-  console.log("get programs func 🎉");
+    console.log("get programs func 🎉");
 
-  const queryParams = new URLSearchParams();
+    const queryParams = new URLSearchParams();
     if (degree) queryParams.append('degree', degree);
     if (language) queryParams.append('language', language);
     if (attendance) queryParams.append('attendance', attendance);
@@ -67,15 +67,15 @@ export async function getPrograms({
     if (tuMax) queryParams.append('maxTuition', tuMax.toString());
     if (disciplineId) queryParams.append('discipline', disciplineId);
     if (universityId) queryParams.append('universityId', universityId);
-  const url = `${studyProgramPath}?${queryParams.toString()}`;
-  console.log(`🌍${url}`);
+    const url = `${studyProgramPath}?${queryParams.toString()}`;
+    console.log(`🌍${url}`);
 
-  const res: Response = await fetch(url, {
-    method: "GET",
-  });
+    const res: Response = await fetch(url, {
+        method: "GET",
+    });
 
-  const data: Array<StudyProgram> = await res.json();
-  return data;
+    const data: Array<StudyProgram> = await res.json();
+    return data;
 }
 
 export async function getProgramsCount() {
