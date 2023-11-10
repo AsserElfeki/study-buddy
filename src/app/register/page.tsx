@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { RegisterForm } from "./form";
 
 export default function RegisterPage() {
@@ -8,7 +9,9 @@ export default function RegisterPage() {
           <div className="w-full px-8 py-10">
             <RegisterForm />
           </div>
-          {/* <HaveAccount /> */}
+          <Link href="/login">
+            Already have an account? Login
+          </Link>
         </div>
       </section>
     </>

@@ -1,26 +1,55 @@
 "use client";
 
 import { useHandleSearchParams } from '@src/utils/useSearchParams';
-import { useRouter, useSearchParams } from 'next/navigation';
-
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
+import { useEffect } from 'react';
+import DeleteIcon from '@mui/icons-material/Delete';
 // ...
 
-function CurrentFilters() {
+function CurrentFilters({ fee }: { fee: number }) {
     const searchParams = useSearchParams();
-
+    const pathname = usePathname();
+    const router = useRouter();
     const { minFee, maxFee, discipline, language, duration, format, attendance, degreeType } = useHandleSearchParams(searchParams);
 
+    // const { fixedMaxFee } = fee ;
     const props = { discipline, minFee, maxFee, format, language, degreeType };
+    console.log("🚀 ~ file: currentFilters.tsx:19 ~ CurrentFilters ~ maxFixedFee:", fee)
+    // console.log(fixedMaxFee)
+
+
+    const handleCandelParam = (key: string) => () => {
+        const params = new URLSearchParams(searchParams);
+        if (key === 'minFee' || key === 'maxFee') {
+            params.delete('tuition')
+        }
+
+        params.delete(key);
+        router.push(`${pathname}?${params.toString()}`);
+    }
 
     // console.log("🚀 ~ file: currentFilters.tsx:15 ~ CurrentFilters ~ props:", props)
     return (
         <div>
-            {Object.entries(props).map(([key, value]) => value && (
-                <div key={key} className="flex flex-row">
-                    <span>{`${key}: ${value}`}</span>
-                    <button onClick={() => console.log(`Remove ${key}`)}>x</button>
-                </div>
-            ))}
+            <Stack spacing={2} className='flex contenr-center flex-col justify-around items-center mt-2'>
+                {Object.entries(props).map(([key, value]) => value != 0 && value != null && (
+                    <div key={key} >
+                        <Button
+                            variant="outlined"
+                            onClick={handleCandelParam(key)}
+                            className='text-sm border-gray-500 text-primary '
+                            size='small'
+                            endIcon={<DeleteIcon
+                                sx={{ color: 'gray' }}
+                            />}
+                        >
+                            {key} : {value}
+                        </Button>
+                    </div>
+                ))}
+            </Stack>
         </div>
     )
 }

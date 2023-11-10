@@ -1,15 +1,18 @@
 - [ ]FIXES:
-  - [ ] register page 
+  - [x] register page 
   - [ ] verification (auth) 
-  - [ ] clear filter in side bar 
+  - [√] clear filter in side bar 
   - [√] tuition filter delay 
-  - [ ] add a "have acount?" in register
+  - [√] add a "have acount?" in register
   - [ ] add settings icon in navbar when logged in
   - [ ] fix search page in mobile vp
   - [√] waiting for disciplines 
+  - [ ] make fee as min and max not Tuition
+  - [ ] make discipline appear as name
+  - [ ] copy about page to home page 
 
 - [ ] ADDONS: 
-  - [ ] sort results by
+  - [ ] sort results by (in prisma)
   - [ ] cloudinary 
 
 - [ ] FrontEnd:   

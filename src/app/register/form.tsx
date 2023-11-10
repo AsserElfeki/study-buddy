@@ -1,7 +1,6 @@
 "use client";
 
 import { signIn } from "next-auth/react";
-import { redirect } from 'next/dist/server/api-utils';
 import { ChangeEvent, useState } from "react";
 
 export const RegisterForm = () => {

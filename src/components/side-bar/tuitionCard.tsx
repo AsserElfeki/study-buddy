@@ -39,21 +39,12 @@ export default function TuitionCard(props: Props) {
         setCurrentValues([min, max]);
         // console.log("min, max", min, max);
         const params = new URLSearchParams(searchParams);
-        if (min > -1) {
-            console.log("min in tuitioncard", min.toString());
-            if (min == 0) {
-                let stringMin = String(0);
-                params.set("tuition", `[${stringMin}, ${currentValues[1]}]`);
-            }
-            else
-                params.set("tuition", `[${min.toString()}, ${currentValues[1]}]`);
+        if (min == 0 && max == inputProps.max) {
+            params.delete('tuition');
+            router.replace(`${pathname}?${params.toString()}`);
+            return;
         }
-        console.log("🚀 ~ file: tuitionCard.tsx:48 ~ handleSearch ~ params:", params.toString())
-
-        if (max < inputProps.max)
-            params.set("tuition", `[${currentValues[0]}, ${max.toString()}]`);
-        if (min == 0 && max == inputProps.max)
-            params.delete("tuition");
+        params.set("tuition", `[${min}, ${max}]`);
         router.replace(`${pathname}?${params.toString()}`);
     }
 
@@ -68,7 +59,7 @@ export default function TuitionCard(props: Props) {
                     size='small'
                     value={currentValues[0]}
                     inputProps={props.inputProps}
-                    onChange={(e) => handleSearch(Number(e.target.value), maxFee)}
+                    onChange={(e) => handleSearch(Number(e.target.value), currentValues[1])}
                 />
                 <TextField
                     id="standard-number"
@@ -78,7 +69,7 @@ export default function TuitionCard(props: Props) {
                     size='small'
                     value={currentValues[1]}
                     inputProps={props.inputProps}
-                    onChange={(e) => handleSearch(minFee, Number(e.target.value))}
+                    onChange={(e) => handleSearch(currentValues[0], Number(e.target.value))}
                 // onChangeCommitted={(e) => setCurrentValues([Number(e.target.value), maxFee])}
                 />
             </div>

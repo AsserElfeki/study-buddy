@@ -1,4 +1,3 @@
-import UniversityCard from "@src/components/universityCard";
 
 function About() {
   return (
@@ -34,7 +33,8 @@ function About() {
               placeholder="City"
               className="bg-gray-100 px-5 py-1 rounded-lg focus:outline-none mt-1 md:mr-2 "
             />
-            <button className=" bg-red-900 text-white px-10 py-1  rounded-lg cursor-pointer mt-2">
+            <button
+              className=" bg-red-900 text-white px-10 py-1  rounded-lg cursor-pointer mt-2">
               Search
             </button>
           </form>
