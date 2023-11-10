@@ -128,7 +128,7 @@ export async function getUniversity(id: string) {
     console.log("woohoooo 🎉");
     const res: Response = await fetch(`${universityPath}/${id}`, {
         method: 'GET',
-        cache: 'no-cache',
+        // cache: 'no-cache',
         next: {
             revalidate: 10,
         }
