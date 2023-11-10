@@ -1,16 +1,16 @@
 "use client";
-import { getAllDisciplines, getMaxTuition } from '@src/lib/searchFilters'
-import DisciplineCard from './disciplineCard'
-import { Discipline } from '@prisma/client'
+import {  getMaxTuition } from '@src/lib/searchFilters'
 import TuitionCard from './tuitionCard';
 import { useEffect, useState } from 'react';
 
 export default  function TuitionContainer() {
     const [maxFee, setMaxFee] = useState(0);
+    console.log("🚀 ~ file: tuitionContainer.tsx:10 ~ TuitionContainer ~ maxFee:", maxFee)
 
     useEffect(() => {
         const fetchMaxTuition = async () => {
             const maxTuition = await getMaxTuition();
+            
             setMaxFee(maxTuition);
         };
 

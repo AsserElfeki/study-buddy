@@ -2,9 +2,8 @@
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import { Button } from '@mui/material';
-import { use, useEffect, useState } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { Discipline } from '@prisma/client';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { getAllDisciplines } from '@src/lib/searchFilters';
 
 
@@ -20,11 +19,13 @@ type DisciplineOptionsArray = DisciplineOption[];
 function HomeSearch( ) {
 
     const [disciplines, setDisciplines] = useState<DisciplineOptionsArray>();
+    console.log("🚀 ~ file: homeSearch.tsx:22 ~ HomeSearch ~ disciplines:", disciplines)
+    const [selectedDiscipline, setSelectedDiscipline] = useState("");
 
     useEffect( () => {
         const fetchData = async () => {
             const disciplines = await getAllDisciplines();
-            const disciplineNames = disciplines.map((discipline) => {
+            const disciplineNames = disciplines.map((discipline: { name: any; id: any; }) => {
                 return {
                     label: discipline.name,
                     id: discipline.id
@@ -35,7 +36,6 @@ function HomeSearch( ) {
         fetchData();
     }, [])
     
-    const [selectedDiscipline, setSelectedDiscipline] = useState("");
     console.log("🚀 ~ file: homeSearch.tsx:24 ~ HomeSearch ~ selectedDiscipline:", selectedDiscipline)
     const router = useRouter();
     
@@ -52,7 +52,7 @@ function HomeSearch( ) {
                 <Autocomplete
                     disablePortal
                     id="combo-box-demo"
-                    options={disciplines}
+                    options={disciplines || []}
                     clearOnEscape
                     autoComplete={true}
                     includeInputInList={true}

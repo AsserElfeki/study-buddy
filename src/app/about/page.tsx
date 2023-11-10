@@ -41,7 +41,7 @@ function About() {
         </div>
       </div>
 
-      <UniversityCard />
+      {/* <UniversityCard /> */}
     </div>
   );
 }

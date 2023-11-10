@@ -8,20 +8,17 @@ import { StudyProgram, University } from '@prisma/client';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import StudyProgramCard from './studyProgramCard';
 
-
-
-
 interface PaginationContainerProps {
     studyPrograms: StudyProgram[];
     university?: University;
     itemsPerPage: number;
 }
 
-const PaginationContainer: React.FC<PaginationContainerProps> = ({ studyPrograms, university, itemsPerPage }) => {
+const UniversitiesContainer: React.FC<PaginationContainerProps> = ({ studyPrograms, university, itemsPerPage }) => {
     const [items, setItems] = useState(studyPrograms);
-    // useEffect(() => {
-    //     setItems(studyPrograms);
-    // }, []);
+    useEffect(() => {
+        setItems(studyPrograms);
+    }, [studyPrograms]);
 
     console.log("🚀 ~ file: universitiesContainer.tsx:23 ~ items:", items)
     const [currentPage, setCurrentPage] = useState(1);
@@ -37,8 +34,13 @@ const PaginationContainer: React.FC<PaginationContainerProps> = ({ studyPrograms
         const page = searchParams.get('page');
         const pageNumber = Number(page) || 1;
         setCurrentPage(pageNumber);
-        if (items && items.length > 0)
-            setCurrentItems(items.slice(indexOfFirstItem, endIndex));
+        if (items && items.length > 0) {
+            console.log("stuff")
+        }
+        setCurrentItems(items.slice(indexOfFirstItem, endIndex));
+            
+        console.log("🚀 ~ file: universitiesContainer.tsx:39 ~ useEffect ~ items:", items)
+        
     }, [currentPage, items, searchParams, itemsPerPage]);
 
 
@@ -53,7 +55,7 @@ const PaginationContainer: React.FC<PaginationContainerProps> = ({ studyPrograms
             <div>
                 <div className='flex flex-col justify-center items-center gap-4 p-4 self-start w-full'>
 
-                    {currentItems.map((program) => (
+                    {currentItems && currentItems.map((program) => (
                         <StudyProgramCard
                             key={program.id}
                             title={program.name}
@@ -65,7 +67,7 @@ const PaginationContainer: React.FC<PaginationContainerProps> = ({ studyPrograms
                         />
                     ))}
                 </div>
-                <div className={`${items && items.length > 10 ? 'flex' : 'hidden'}  flex-row justify-center items-center gap-2 `}>
+                <div className={`${items && items.length > itemsPerPage ? 'flex' : 'hidden'}  flex-row justify-center items-center gap-2 `}>
                     <IconButton
                         onClick={() => handlePageChange(currentPage - 1)}
                         disabled={currentPage === 1}
@@ -85,4 +87,4 @@ const PaginationContainer: React.FC<PaginationContainerProps> = ({ studyPrograms
     );
 };
 
-export default PaginationContainer;
+export default UniversitiesContainer;

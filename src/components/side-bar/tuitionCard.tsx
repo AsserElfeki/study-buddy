@@ -2,7 +2,7 @@
 import TextField from '@mui/material/TextField';
 import Slider from '@mui/material/Slider';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 
 type Props = {
@@ -31,6 +31,9 @@ export default function TuitionCard(props: Props) {
 
     const [currentValues, setCurrentValues] = useState([minFee, maxFee]);
 
+    useEffect(() => {
+        setCurrentValues([minFee, maxFee]);
+    }, [minFee, maxFee])
 
     function handleSearch(min: number, max: number) {
         setCurrentValues([min, max]);
@@ -51,10 +54,6 @@ export default function TuitionCard(props: Props) {
             params.set("tuition", `[${currentValues[0]}, ${max.toString()}]`);
         if (min == 0 && max == inputProps.max)
             params.delete("tuition");
-        // console.log(params.toString());
-
-
-        
         router.replace(`${pathname}?${params.toString()}`);
     }
 

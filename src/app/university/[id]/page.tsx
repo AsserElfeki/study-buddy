@@ -1,19 +1,23 @@
-import PaginationContainer from '@src/components/universitiesContainer';
+import UniversitiesContainer from '@src/components/universitiesContainer';
 import StudyProgramCard from '@src/components/studyProgramCard';
 import { getUniversity } from '@src/lib/searchFilters';
 import React from 'react'
 import { type } from 'os';
+import UniversityCard from '@src/components/universityCard';
 
 async function University({ params }: { params: { id: string } | null }) {
 
     const uni = await getUniversity(params.id);
-    // console.log("🚀 ~ file: page.tsx:9 ~ University ~ uni:", uni)
-    const programs = uni.studyPrograms;
-    
+    console.log("🚀 ~ file: page.tsx:10 ~ University ~ uni:", uni)
+
+
     return (
-        <div className='flex flex-col gap-4'>
-            <PaginationContainer studyPrograms={uni.studyPrograms} university={uni} itemsPerPage={2} /> 
-        </div>
+        <section>
+            <UniversityCard university={uni} />
+            <div className='flex flex-col gap-4'>
+                <UniversitiesContainer studyPrograms={uni.studyPrograms} university={uni} itemsPerPage={10} />
+            </div>
+        </section>
     );
 
 }

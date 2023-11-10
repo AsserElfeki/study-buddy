@@ -6,7 +6,7 @@
   - [ ] add a "have acount?" in register
   - [ ] add settings icon in navbar when logged in
   - [ ] fix search page in mobile vp
-  - [ ] 
+  - [√] waiting for disciplines 
 
 - [ ] ADDONS: 
   - [ ] sort results by

@@ -5,7 +5,6 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 type Props = {
     name: string,
     id: string,
-    count: number,
 
 };
 
@@ -31,7 +30,6 @@ export default function DisciplineCard(props: Props) {
                 className='font-inter font-bold text-start hover:shadow-md'
                 onClick={() => handleSearch(props.id)}>{props.name}
             </button>
-            <span>{props.count}</span>
         </div>
     )
 }
