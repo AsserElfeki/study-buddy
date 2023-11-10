@@ -2,7 +2,7 @@
   - [ ] register page 
   - [ ] verification (auth) 
   - [ ] clear filter in side bar 
-  - [ ] tuition filter delay 
+  - [√] tuition filter delay 
   - [ ] add a "have acount?" in register
   - [ ] add settings icon in navbar when logged in
   - [ ] fix search page in mobile vp
@@ -24,10 +24,10 @@
     - [ ] DegreeCard : card with checkboxes (toggleable)
   - [√] Hero 
   - [√] general search bar
-  - [ ] program card 
-  - [ ] program details page: 
+  - [√] program card 
+  - [√] program details page: 
     - [ ] .............. 
-  - [ ] university details page: 
+  - [√] university details page: 
     - [ ] ..............
   - [ ] profile page: 
     - [ ] my posts
@@ -46,10 +46,7 @@
   - [ ] applications
   - [ ] forms 
   - [ ] documents
-- [ ] functions: 
-  - [√] getAllDisciplines
-  - [√] getPrograms
-  - [ ] 
+
 
 - [ ] UI / UX:
   - [ ] skeletons 

@@ -141,8 +141,10 @@ export async function getUniversity(id: string) {
 export async function getProgram(id: string) {
     const res: Response = await fetch(`${studyProgramPath}/${id}`, {
         method: 'GET',
-        cache: 'no-cache',
+        // cache: 'no-cache',
     });
+    // console.log("🚀 ~ file: searchFilters.ts:144 ~ getProgram ~ `${studyProgramPath}/${id}`:", `${studyProgramPath}/${id}`)
+    
     const data = await res.json();
     return data;
 }

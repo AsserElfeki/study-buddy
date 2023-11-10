@@ -68,6 +68,7 @@ export default function SearchResults() {
                 <StudyProgramCard
                     key={program.id}
                     title={program.name}
+                    id = {program.id}
                     description={program.description}
                     university={program["university"]}
                     tuition={program.tuitionFee}
