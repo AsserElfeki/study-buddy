@@ -7,36 +7,36 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { Discipline } from '@prisma/client';
 import { getAllDisciplines } from '@src/lib/searchFilters';
 
+
+
 type DisciplineOption = {
     label: string;
     id: string; 
 };
 type DisciplineOptionsArray = DisciplineOption[];
 
-interface HomeSearchProps {
-    disciplineNames: DisciplineOptionsArray;
-}
 
-function HomeSearch({ disciplineNames } : HomeSearchProps) {
 
-    const [disciplines, setDisciplines] = useState<DisciplineOptionsArray>([]);
+function HomeSearch( ) {
 
-    // useEffect( () => {
-    //     const fetchData = async () => {
-    //         const disciplines = await getAllDisciplines();
-    //         const disciplineNames = disciplines.map((discipline) => {
-    //             return {
-    //                 label: discipline.name,
-    //                 id: discipline.id
-    //             }
-    //         })
-    //         setDisciplines(disciplineNames);
-    //     }
-    //     fetchData();
-    // }, [])
+    const [disciplines, setDisciplines] = useState<DisciplineOptionsArray>();
+
+    useEffect( () => {
+        const fetchData = async () => {
+            const disciplines = await getAllDisciplines();
+            const disciplineNames = disciplines.map((discipline) => {
+                return {
+                    label: discipline.name,
+                    id: discipline.id
+                }
+            })
+            setDisciplines(disciplineNames);
+        }
+        fetchData();
+    }, [])
     
     const [selectedDiscipline, setSelectedDiscipline] = useState("");
-    // console.log("🚀 ~ file: homeSearch.tsx:24 ~ HomeSearch ~ selectedDiscipline:", selectedDiscipline)
+    console.log("🚀 ~ file: homeSearch.tsx:24 ~ HomeSearch ~ selectedDiscipline:", selectedDiscipline)
     const router = useRouter();
     
     const handleSearch = () => {
@@ -52,7 +52,7 @@ function HomeSearch({ disciplineNames } : HomeSearchProps) {
                 <Autocomplete
                     disablePortal
                     id="combo-box-demo"
-                    options={disciplineNames}
+                    options={disciplines}
                     clearOnEscape
                     autoComplete={true}
                     includeInputInList={true}

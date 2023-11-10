@@ -1,6 +1,8 @@
 import HomeSearch from '@src/components/homeSearch';
 import { getAllDisciplines, getDisciplineNames, getProgramNames, getProgramsCount, getUniversityCount } from '@src/lib/searchFilters';
+import dynamic from 'next/dynamic'
 
+const NoSSR = dynamic(() => import('@components/homeSearch'), { ssr: false })
 async function SearchBox() {
 
     const programCount = await getProgramsCount();
@@ -11,6 +13,7 @@ async function SearchBox() {
             id: discipline.id
         }
     })
+    // console.log("🚀 ~ file: searchBox.tsx:14 ~ disciplines ~ disciplines:", disciplines)
     
     // const programNames = await getProgramNames();
 
@@ -31,7 +34,7 @@ async function SearchBox() {
                     <span className="text-lg font-normal"> Universities</span>
                 </div>
             </div>
-            <HomeSearch disciplineNames={disciplines} />
+            <NoSSR />
             
         </div>
     );
