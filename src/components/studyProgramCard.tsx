@@ -2,6 +2,7 @@ import Link from 'next/link';
 import React from 'react';
 
 type StudyProgramCardProps = {
+    id: string;
     title: string;
     description: string;
     university: {
@@ -15,6 +16,7 @@ type StudyProgramCardProps = {
 };
 
 const StudyProgramCard: React.FC<StudyProgramCardProps> = ({
+    id,
     title,
     description,
     university,
@@ -30,12 +32,17 @@ const StudyProgramCard: React.FC<StudyProgramCardProps> = ({
     university.name = university.name.charAt(0).toUpperCase() + university.name.slice(1);
 
     return (
-        <article className="border bg-white p-4 rounded-lg shadow-md  w-full ">
+        <article className="border bg-white p-4 rounded-lg shadow-md  w-full">
             <header className="mb-4">
-                <h2 className="text-3xl font-bold mb-2">{title}</h2>
                 <Link
-                    href = {`university/${university.id}`}
-                    className="text-primary hover:underline hover:bg-slate-100 hover:shadow-sm rounded-lg">{university.name}</Link>
+                    href = {`/study-programs/${id}`}
+                    className="text-primary hover:underline hover:bg-slate-100 hover:shadow-sm rounded-lg"
+                >
+                    <h2 className="text-3xl font-bold mb-2">{title}</h2>
+                </Link>
+                <Link
+                    href = {`/university/${university.id}`}
+                    className="text-secondary hover:underline hover:bg-slate-100 hover:shadow-sm rounded-lg">#{university.name}</Link>
             </header>
             <section className="mb-4">
                 <p className=" text-gray-800">{description}</p>

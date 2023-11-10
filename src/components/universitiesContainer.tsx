@@ -58,6 +58,7 @@ const UniversitiesContainer: React.FC<PaginationContainerProps> = ({ studyProgra
                     {currentItems && currentItems.map((program) => (
                         <StudyProgramCard
                             key={program.id}
+                            id={program.id}
                             title={program.name}
                             description={program.description}
                             university={university}

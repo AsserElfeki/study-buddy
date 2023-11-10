@@ -137,3 +137,12 @@ export async function getUniversity(id: string) {
     console.log("🚀 ~ file: searchFilters.ts:132 ~ getUniversity ~ data:", data)
     return data;
 }
+
+export async function getProgram(id: string) {
+    const res: Response = await fetch(`${studyProgramPath}/${id}`, {
+        method: 'GET',
+        cache: 'no-cache',
+    });
+    const data = await res.json();
+    return data;
+}

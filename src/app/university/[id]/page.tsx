@@ -1,8 +1,6 @@
 import UniversitiesContainer from '@src/components/universitiesContainer';
-import StudyProgramCard from '@src/components/studyProgramCard';
 import { getUniversity } from '@src/lib/searchFilters';
 import React from 'react'
-import { type } from 'os';
 import UniversityCard from '@src/components/universityCard';
 
 async function University({ params }: { params: { id: string } | null }) {
