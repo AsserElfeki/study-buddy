@@ -21,7 +21,7 @@ export default  function TuitionContainer() {
         step: 100,
         shrink: "true",
         min: 0,
-        max: maxFee
+        max: maxFee || 100000
     };
 
     return (
