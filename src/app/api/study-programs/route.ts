@@ -1,4 +1,4 @@
-import { Program } from './../../../types/dataPrep.d';
+
 import prisma from '@lib/prisma';
 import { getServerSession } from 'next-auth';
 import { authOptions } from "@lib/auth";
@@ -13,6 +13,7 @@ import { type NextRequest } from 'next/server';
  * @return {Promise<Response>} A promise that resolves to a response containing the matched study programs.
  */
 export async function GET(req: NextRequest) {
+    
     const searchParams = req.nextUrl.searchParams
     // console.log("🚀 ~ file: route.ts:16 ~ GET ~ searchParams:", searchParams)
     const programName = searchParams.get('name')

@@ -1,3 +1,4 @@
+"use server"
 import { disciplinePath, studyProgramPath, universityPath } from './apiPaths';
 import { Discipline, StudyProgram } from '@prisma/client';
 
@@ -60,7 +61,7 @@ export async function getPrograms({
         const desciplineRes: Response = await fetch(`${disciplinePath}?name=${disciplineName}`, {
             method: "GET",
         });
-        
+
         const desciplineData = await desciplineRes.json();
         console.log("🌈 ~ file: searchFilters.ts:62 ~ desciplineRes:", desciplineData)
         if (desciplineData) {
