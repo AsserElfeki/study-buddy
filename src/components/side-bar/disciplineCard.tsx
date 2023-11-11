@@ -28,7 +28,7 @@ export default function DisciplineCard(props: Props) {
         <div className='flex justify-between px-8'>
             <button
                 className='font-inter font-bold text-start hover:shadow-md'
-                onClick={() => handleSearch(props.id)}>{props.name}
+                onClick={() => handleSearch(props.name)}>{props.name}
             </button>
         </div>
     )

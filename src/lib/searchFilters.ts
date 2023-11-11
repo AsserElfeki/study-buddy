@@ -36,7 +36,7 @@ export async function getMaxTuition(): Promise<number> {
 export async function getPrograms({
     tuMin,
     tuMax,
-    disciplineId,
+    disciplineName,
     language,
     duration,
     format,
@@ -46,7 +46,7 @@ export async function getPrograms({
 }: {
     tuMin?: number;
     tuMax?: number;
-    disciplineId?: string;
+    disciplineName?: string;
     language?: string;
     duration?: string;
     format?: string;
@@ -54,8 +54,20 @@ export async function getPrograms({
     degree?: string;
     universityId?: string;
 } = {}): Promise<Array<StudyProgram>> {
-    console.log("get programs func 🎉");
-
+    console.log("💧", disciplineName)
+    let disciplineId = null;
+    if (disciplineName) {
+        const desciplineRes: Response = await fetch(`${disciplinePath}?name=${disciplineName}`, {
+            method: "GET",
+        });
+        
+        const desciplineData = await desciplineRes.json();
+        console.log("🌈 ~ file: searchFilters.ts:62 ~ desciplineRes:", desciplineData)
+        if (desciplineData) {
+            disciplineId = desciplineData[0].id;
+            console.log("🎽 ~ file: searchFilters.ts:68 ~ disciplineId:", disciplineId)
+        }
+    }
     const queryParams = new URLSearchParams();
     if (degree) queryParams.append('degree', degree);
     if (language) queryParams.append('language', language);
@@ -65,6 +77,7 @@ export async function getPrograms({
     if (tuMax) queryParams.append('maxTuition', tuMax.toString());
     if (disciplineId) queryParams.append('discipline', disciplineId);
     if (universityId) queryParams.append('universityId', universityId);
+    if (duration) queryParams.append('duration', duration);
     const url = `${studyProgramPath}?${queryParams.toString()}`;
     console.log(`🌍${url}`);
 
@@ -142,7 +155,7 @@ export async function getProgram(id: string) {
         // cache: 'no-cache',
     });
     // console.log("🚀 ~ file: searchFilters.ts:144 ~ getProgram ~ `${studyProgramPath}/${id}`:", `${studyProgramPath}/${id}`)
-    
+
     const data = await res.json();
     return data;
 }

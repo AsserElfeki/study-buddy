@@ -14,12 +14,12 @@ export default function DisciplineContainer() {
     const fetchData = async () => {
       const disciplines: Discipline[] = await getAllDisciplines() || [];
       setDisciplinesList(disciplines);
+      disciplinesRef.current = disciplines.map((discipline) =>
+        <DisciplineCard key={discipline.id} name={discipline.name} id={discipline.id} />
+      );
     };
     fetchData();
-    disciplinesRef.current = disciplinesList.map((discipline, index) =>
-      <DisciplineCard key={discipline.id} name={discipline.name} id={discipline.id} />
-    );
-  }, [disciplinesList]);
+  }, []);
 
  
 

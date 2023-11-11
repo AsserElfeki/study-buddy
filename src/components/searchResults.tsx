@@ -19,6 +19,7 @@ export default function SearchResults() {
     const router = useRouter();
     
     const { minFee, maxFee, discipline, language, duration, format, attendance, degreeType} = useHandleSearchParams(searchParams);
+    console.log("💫 ~ file: searchResults.tsx:22 ~ SearchResults ~ useHandleSearchParams:",discipline )
 
     
     useEffect(() => {
@@ -27,7 +28,7 @@ export default function SearchResults() {
             const fetchedPrograms: StudyProgram[] = await getPrograms({
                 tuMin: minFee,
                 tuMax: maxFee,
-                disciplineId: discipline,
+                disciplineName: discipline,
                 language,
                 duration,
                 format,
