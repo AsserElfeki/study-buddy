@@ -10,6 +10,8 @@
   - [ ] make fee as min and max not Tuition
   - [ ] make discipline appear as name
   - [ ] copy about page to home page 
+  - [ ] redo scraping !?
+  - [ ] program page and program language reqs component can be split into smaller components
 
 - [ ] ADDONS: 
   - [ ] sort results by (in prisma)
@@ -28,10 +30,9 @@
   - [√] Hero 
   - [√] general search bar
   - [√] program card 
-  - [√] program details page: 
-    - [ ] .............. 
-  - [√] university details page: 
-    - [ ] ..............
+  - [√] program details page
+  - [√] university details page
+  - [ ] apply page
   - [ ] profile page: 
     - [ ] my posts
     - [ ] my applications 
