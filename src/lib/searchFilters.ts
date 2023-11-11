@@ -1,7 +1,5 @@
-import { TuitionInfo } from './../types/dataPrep.d';
 import { disciplinePath, studyProgramPath, universityPath } from './apiPaths';
 import { Discipline, StudyProgram } from '@prisma/client';
-import prisma from './prisma';
 
 export async function getProgramCountinDiscipline(disciplineId: string): Promise<number> {
     const res: Response = await fetch(`${disciplinePath}/${disciplineId}`, {

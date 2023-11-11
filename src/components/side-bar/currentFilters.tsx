@@ -8,7 +8,7 @@ import { useEffect } from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
 // ...
 
-function CurrentFilters({ fee }: { fee: number }) {
+function CurrentFilters({ fee }: { fee: number | null }) {
     const searchParams = useSearchParams();
     const pathname = usePathname();
     const router = useRouter();
