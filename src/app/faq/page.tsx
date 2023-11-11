@@ -3,7 +3,7 @@ import FaqItem from "@src/components/faqItem";
 function Faq() {
   return (
     <div>
-      <div className="w-screen bg-white my-2 py-10">
+      <div className="w-full bg-white my-2 py-10">
         <div className="w-10/12 lg:w-3/5 flex flex-col mx-auto">
           <h1 className="text-xl md:text-3xl font-bold mb-3">
             Frequently asked questions

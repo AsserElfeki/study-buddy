@@ -12,10 +12,13 @@
   - [ ] copy about page to home page 
   - [ ] redo scraping !?
   - [ ] program page and program language reqs component can be split into smaller components
+  - [ ] logout should be in a burger menu of settings 
+  - [ ] notifications should be working
 
 - [ ] ADDONS: 
   - [ ] sort results by (in prisma)
   - [ ] cloudinary 
+  - [ ] footer with github and linkedin
 
 - [ ] FrontEnd:   
   - [√] sideBar : container for all the side bar search components
@@ -45,6 +48,7 @@
     - [ ] ..............
   - [ ] Admin dashboard: 
     - [ ] ..............
+  - [ ] alerts on stuff
   
 - [ ] EPs: 
   - [ ] applications

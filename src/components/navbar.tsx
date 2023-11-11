@@ -6,6 +6,13 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { signOut, useSession } from 'next-auth/react';
 import { Avatar } from '@mui/material';
+import HowToRegOutlinedIcon from '@mui/icons-material/HowToRegOutlined';
+import Tooltip from '@mui/material/Tooltip';
+import LoginOutlinedIcon from '@mui/icons-material/LoginOutlined';
+import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
+import ManageAccountsOutlinedIcon from '@mui/icons-material/ManageAccountsOutlined';
+import Badge from '@mui/material/Badge';
+import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
 
 export default function Navbar() {
   const { data: session } = useSession();
@@ -56,28 +63,51 @@ export default function Navbar() {
 
         {session?.user ? (
           <div className='flex flex-row justify-center items-center gap-2'>
-            <Link href="/">
-              <button
-                onClick={() => signOut()}
-                className="px-8 py-1 border-2 border-red-800 text-red-800 bg-white hover:bg-red-800 hover:text-white rounded-2xl "
+            <Tooltip title="Profile" placement='bottom' arrow>
+              <Link
+                href="./profile"
+                className='rounded-full hover:shadow-2xl border-4 '
               >
-                Logout
-              </button>
-            </Link>
-            <Link
-              href="./profile"
-              className='rounded-full hover:shadow-2xl border-4 '
-            >
-              <Avatar alt={session?.user.name} src={session?.user?.image} />
-              
-            </Link>
+                <Avatar alt={session?.user.name} src={session?.user?.image} />
+              </Link>
+            </Tooltip>
+
+            <Tooltip title="Settings" placement='bottom' arrow>
+              <Link href="/settings">
+                <ManageAccountsOutlinedIcon fontSize='large' color='primary' />
+              </Link>
+            </Tooltip>
+
+            <Tooltip title='Notifications' placement='bottom' arrow>
+                <Badge badgeContent={4} color="error">
+                 <NotificationsNoneOutlinedIcon fontSize='large' />
+                </Badge>
+
+              </Tooltip>
+            
+            <Tooltip title="Sign out" placement='bottom' arrow>
+              <Link href="/">
+                <button
+                  onClick={() => signOut()}
+                >
+                  <LogoutOutlinedIcon fontSize='large' color='error' />
+                </button>
+              </Link>
+            </Tooltip>
           </div>
 
         ) : (
-          <div className="flex gap-2">
-            <Link href="/register" className="bg-red-900 rounded-lg font-medium p-2 text-white">
-              Join now
-            </Link>
+          <div className="flex gap-2 items-center">
+            <Tooltip title="Sign up" placement='bottom' arrow>
+              <Link href="/register" >
+                <HowToRegOutlinedIcon color='primary' fontSize='large' />
+              </Link>
+            </Tooltip>
+            <Tooltip title="Sign in" placement='bottom' arrow>
+              <Link href="/login" >
+                <LoginOutlinedIcon color='success' fontSize='large' />
+              </Link>
+            </Tooltip>
           </div>
         )}
 
