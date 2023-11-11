@@ -6,6 +6,27 @@
 @tailwind components;
 @tailwind utilities;
 
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animated-gradient {
+  background: linear-gradient(90deg, #0000ff, #3498db, #2980b9, #e74c3c, #ff0000, rgb(127, 29, 29), rgb(127, 29, 29));
+  background-size: 600% 600%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradient 8s ease infinite;
+}
+
 .fadeInBorder {
   transition: border-color 0.5s ease-in-out;
   border-color: transparent; /* Initial border color */
