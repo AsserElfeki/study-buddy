@@ -48,7 +48,52 @@ model User {
   applications    Application[]
   Session         Session[]
 
+  createdAt DateTime @default(now())
+  favorites String[] // Array of favorite item IDs
+
   @@map("users")
+
+
+model Post {
+  id        String    @id @default(cuid())
+  title     String
+  content   String
+  createdAt DateTime  @default(now())
+  authorId  String    @map("author_id")
+  author    User      @relation(fields: [authorId], references: [id])
+  comments  Comment[]
+
+  @@map("posts")
+}
+
+model Comment {
+  id        String    @id @default(cuid())
+  content   String
+  createdAt DateTime  @default(now())
+  postId    String    @map("post_id")
+  post      Post      @relation(fields: [postId], references: [id])
+  authorId  String    @map("author_id")
+  author    User      @relation(fields: [authorId], references: [id])
+
+  @@map("comments")
+}
+
+model Notification {
+  id        String       @id @default(cuid())
+  content   String
+  createdAt DateTime     @default(now())
+  readAt    DateTime?
+  status    NotificationStatus @default(UNREAD)
+  userId    String       @map("user_id")
+  user      User         @relation(fields: [userId], references: [id])
+
+  @@map("notifications")
+}
+
+enum NotificationStatus {
+  READ
+  UNREAD
+}
 }
 
 model ActivationToken {

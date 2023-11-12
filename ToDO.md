@@ -8,7 +8,7 @@
   - [ ] fix search page in mobile vp
   - [√] waiting for disciplines 
   - [ ] make fee as min and max not Tuition
-  - [ ] make discipline appear as name
+  - [√] make discipline appear as name
   - [ ] copy about page to home page 
   - [ ] redo scraping !?
   - [ ] program page and program language reqs component can be split into smaller components
@@ -55,6 +55,17 @@
   - [ ] forms 
   - [ ] documents
 
+- [ ] DB: 
+  - [ ] posts 
+  - [ ] comments 
+  - [ ] notifications 
+  - [ ] edit users to have array of favs 
+  - [ ] 
+  - [ ] edit user to have created at and image 
+  - [ ] edit user to have notifications 
+  - [ ] 
+  - [ ] cloudinary for image 
+  - [ ] 
 
 - [ ] UI / UX:
   - [ ] skeletons 

@@ -28,7 +28,7 @@ export default function SearchResults() {
     useEffect(() => {
         const fetchPrograms = async () => {
             console.log("useEffect fired ")
-            await getCostOfLiving("krakow"); 
+            // await getCostOfLiving("krakow"); 
             const fetchedPrograms: StudyProgram[] = await getPrograms({
                 tuMin: minFee,
                 tuMax: maxFee,
