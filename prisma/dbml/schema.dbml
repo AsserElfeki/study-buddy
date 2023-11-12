@@ -17,6 +17,41 @@ Table users {
   ActivationToken activation_tokens [not null]
   applications applications [not null]
   Session sessions [not null]
+  createdAt DateTime [default: `now()`, not null]
+  favorites String[] [not null]
+  notifications notifications [not null]
+  posts posts [not null]
+  comments comments [not null]
+}
+
+Table posts {
+  id String [pk]
+  title String [not null]
+  content String [not null]
+  createdAt DateTime [default: `now()`, not null]
+  authorId String [not null]
+  author users [not null]
+  comments comments [not null]
+}
+
+Table comments {
+  id String [pk]
+  content String [not null]
+  createdAt DateTime [default: `now()`, not null]
+  postId String [not null]
+  post posts [not null]
+  authorId String [not null]
+  author users [not null]
+}
+
+Table notifications {
+  id String [pk]
+  content String [not null]
+  createdAt DateTime [default: `now()`, not null]
+  readAt DateTime
+  status NotificationStatus [not null, default: 'UNREAD']
+  userId String [not null]
+  user users [not null]
 }
 
 Table activation_tokens {
@@ -129,6 +164,11 @@ Table documents {
   application applications [not null]
 }
 
+Enum NotificationStatus {
+  READ
+  UNREAD
+}
+
 Enum Role {
   NEW_STUDENT
   ACCEPTED_STUDENT
@@ -149,6 +189,14 @@ Enum searchQueryParamKeys {
   Attendance
   Degree
 }
+
+Ref: posts.authorId > users.id
+
+Ref: comments.postId > posts.id
+
+Ref: comments.authorId > users.id
+
+Ref: notifications.userId > users.id
 
 Ref: activation_tokens.userId > users.id
 
