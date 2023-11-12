@@ -50,9 +50,11 @@ model User {
 
   createdAt DateTime @default(now())
   favorites String[] // Array of favorite item IDs
-
+  notifications Notification[]
+  posts       Post[]
+  comments    Comment[]
   @@map("users")
-
+}
 
 model Post {
   id        String    @id @default(cuid())
@@ -94,7 +96,7 @@ enum NotificationStatus {
   READ
   UNREAD
 }
-}
+
 
 model ActivationToken {
   id          String    @id @default(cuid())
