@@ -57,7 +57,7 @@ function HomeSearch( ) {
                     autoComplete={true}
                     includeInputInList={true}
                     limitTags={10}
-                    onChange={(event, value) => setSelectedDiscipline(value.id)}
+                    onChange={(event, value) => setSelectedDiscipline(value.label)}
                     sx={{ width: 300 }}
                     className='rounded-lg shadow-md'
                     renderInput={(params) => <TextField {...params} label="what do you want to study?" />}

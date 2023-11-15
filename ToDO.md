@@ -14,7 +14,7 @@
   - [ ] program page and program language reqs component can be split into smaller components
   - [ ] logout should be in a burger menu of settings 
   - [ ] notifications should be working
-  - [ ] configure cloudinary to work
+  - [ ] configure cloudinary to **work**
 
 - [ ] ADDONS: 
   - [ ] sort results by (in prisma)
