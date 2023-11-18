@@ -66,7 +66,7 @@ export async function getPrograms({
         console.log("🌈 ~ file: searchFilters.ts:62 ~ desciplineRes:", desciplineData)
         if (desciplineData) {
             console.log("🇨🇳 ~ file: searchFilters.ts:68 ~ desciplineData:", desciplineData)
-            disciplineId = desciplineData.id;
+            disciplineId = desciplineData[0].id;
             console.log("🎽 ~ file: searchFilters.ts:68 ~ disciplineId:", disciplineId)
         }
     }

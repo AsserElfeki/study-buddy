@@ -50,6 +50,14 @@ export default function Navbar() {
               className='p-2'>Search</Link>
           </li>
           <li
+            className={`hover:cursor-pointer hover:animate-bounce ${isActive === "/forum" ? "animated-gradient font-extrabold hover:animate-spin" : ""
+              }`}
+          >
+            <Link
+              href="/forum"
+              className='p-2'>Forum</Link>
+          </li>
+          <li
             className={`hover:cursor-pointer hover:animate-bounce ${isActive === "/faq" ? "animated-gradient font-extrabold hover:animate-spin" : ""
               }`}
           >

@@ -87,6 +87,7 @@ async function seed() {
 
     //================================================
     // create DisciplineOnProgram
+    
     for (const studyProgram of studyProgramSeedData) {
         // console.log("🚀 ~ file: seed.ts:81 ~ seed ~ studyProgram:", studyProgram)
 
@@ -191,6 +192,28 @@ async function seed() {
                 }
             }
         })
+    }
+
+    //================================================
+    // Create Posts and Comments
+    for (let i = 1; i <= 5; i++) {
+        const post = await prisma.post.create({
+            data: {
+                title: `Test Post ${i}`,
+                content: `This is the content for test post ${i}.`,
+                authorId: `test${i}` // Assuming authorId 'test1', 'test2', etc. exist
+            }
+        });
+
+        for (let j = 1; j <= 3; j++) {
+            await prisma.comment.create({
+                data: {
+                    content: `This is a comment ${j} for post ${i}.`,
+                    postId: post.id,
+                    authorId: `test${j}` // Assuming authorId 'test1', 'test2', etc. exist
+                }
+            });
+        }
     }
 }
 
