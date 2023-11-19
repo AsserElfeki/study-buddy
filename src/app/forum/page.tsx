@@ -1,8 +1,4 @@
-
 import React from 'react'
-import { useEffect, useState } from 'react';
-import axios from 'axios';
-import prisma from '@src/lib/prisma';
 import PostCardComponent from '@components/postCard';
 import { getAllPosts } from '@src/utils/actions';
 
