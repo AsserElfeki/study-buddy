@@ -36,7 +36,10 @@
   - [√] program card 
   - [√] program details page
   - [√] university details page
-  - [ ] apply page
+  - [ ] apply page:
+    - [ ] form 
+    - [ ] docs 
+    - [ ] questionaire 
   - [ ] profile page: 
     - [ ] my posts
     - [ ] my applications 
@@ -45,8 +48,11 @@
     - [ ] 
   - [ ] settings page:
     - [ ] ..............
-  - [ ] Help Forum :
-    - [ ] ..............
+  - [ ]  Forum :
+    - [ ] PostCard 
+    - [ ] CommentCard
+    - [ ] CreatePost
+    - [ ] CreateComment
   - [ ] Admin dashboard: 
     - [ ] ..............
   - [ ] alerts on stuff
@@ -58,14 +64,12 @@
   - [ ] documents
 
 - [ ] DB: 
-  - [ ] posts 
-  - [ ] comments 
-  - [ ] notifications 
-  - [ ] edit users to have array of favs 
-  - [ ] 
-  - [ ] edit user to have created at and image 
-  - [ ] edit user to have notifications 
-  - [ ] 
+  - [√] posts 
+  - [√] comments 
+  - [√] notifications 
+  - [√] edit users to have array of favs 
+  - [√] edit user to have created at and image 
+  - [√] edit user to have notifications 
   - [ ] cloudinary for image 
   - [ ] 
 
@@ -79,5 +83,24 @@
   - [ ] middleware 
   - [ ] auth
   - [ ] 
+
+
+- [ ] Today:
+  - [ ] PostCard
+  - [ ] add likes to posts
+  - [ ] commentCard
+  - [ ] fetching posts and comments
+  - [ ] adding posts and comments
+  - [ ] profile header 
+  - [ ] profile tabs (MUI tabs)
+    - [ ] my posts
+    - [ ] my applications
+    - [ ] favourites
+    - [ ] settings (where settings icon points to)
+  - [ ] apply page: 
+    - [ ] form 
+    - [ ] docs 
+    - [ ] questionaire
+  - [ ] alerts on stuff (MUI snackbars)
 
 

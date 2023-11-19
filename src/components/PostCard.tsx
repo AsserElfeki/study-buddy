@@ -1,55 +1,79 @@
+import { ThumbUp, Comment as CommentIcon } from '@mui/icons-material';
 import Image from 'next/image';
 import React from 'react';
+import CommentCard from './commentCard';
+import AddComment from './addComment';
+// import { Post } from '@prisma/client';
 
-const PostCard = ({ author, title, body, comments }) => {
-    if (!author || !comments || !Array.isArray(comments)) {
-        return null; // or render some error message
-    }
+// here rendering the postcard component from the props passed from the forum page
+// and also rendering the comment card component from the props passed from the postcard component
+// there should be a form component here to add new posts and comments 
 
+type Comment = {
+    id: string;
+    content: string;
+    createdAt: Date;
+    postId: string;
+    authorId: string;
+    author: Author;
+}
+type Author = {
+    firstName: string;
+    lastName: string;
+    image?: string;
+}
+type Post = {
+    id: string;
+    title: string;
+    content: string;
+    createdAt: Date;
+    authorId: string;
+    author: Author;
+    comments?: Comment[];
+}
+
+type Props = {
+    post: Post;
+}
+
+function PostCard( {post} : Props) {
     return (
-        <div className='bg-white shadow-md rounded-lg p-4 mb-6'>
+        <div className='bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 shadow-md rounded-lg p-4 mb-6 text-white'>
             <div className='flex items-center mb-4'>
-                <Image
-                    src={ '/images/default.png'}
-                    alt={author.name}
+                <Image 
+                    src={post.author.image!== null? post.author.image : '/images/default.png'}
+                    alt={post.author.firstName + ' ' + post.author.lastName}
                     width={48}
-                    height={48}
-                    className='rounded-full  mr-4' />
+                    height={48} 
+                    className='rounded-full h-12 w-12 mr-4 border-2 border-white' />
+                <p className='text-gray-900'>{post.author.firstName + ' ' + post.author.lastName}</p>
+            </div>
+            {post.title && <h2 className='text-xl font-bold mb-2'>{post.title}</h2>}
+            <p className='text-gray-800'>{post.content}</p>
+            <div className='flex items-center justify-between mt-4'>
+                <div className='flex items-center'>
+                    <ThumbUp className='mr-2' />
+                    {/* <span>{post.likes}</span> */}
+                    <CommentIcon className='ml-4 mr-2' />
+                    <span>{post.comments.length}</span>
+                </div>
                 <div>
-                    <h2 className='text-xl font-bold'>{title}</h2>
-                    <p className='text-gray-600'>by {author.name}</p>
+                    <button className='p-2 rounded-full bg-blue-500 text-white'>
+                        <ThumbUp />
+                    </button>
+                    <button className='p-2 rounded-full bg-green-500 text-white ml-2'>
+                        <CommentIcon />
+                    </button>
                 </div>
             </div>
-            <p className='text-gray-800'>{body}</p>
             <div className='mt-4'>
-                <h3 className='text-lg font-semibold mb-2'>Comments:</h3>
-                <ul>
-                    {comments.map((comment, index) => {
-                        if (!comment || !comment.author) {
-                            return null; // or render some error message
-                        }
-
-                        return (
-                            <li key={index} className='bg-gray-100 rounded-lg p-3 mb-2'>
-                                <div className='flex items-center'>
-                                    <Image
-                                        src={ '/images/default.png'}
-                                        alt={comment.author.name}
-                                        width={32}
-                                        height={32}
-                                        className='rounded-full mr-3' />
-                                    <div>
-                                        <p className='text-gray-800 font-semibold'>{comment.author.name}</p>
-                                        <p className='text-gray-600'>{comment.content}</p>
-                                    </div>
-                                </div>
-                            </li>
-                        );
-                    })}
-                </ul>
+                {post.comments.map((comment, index) => (
+                    <CommentCard key={index} comment={comment} />
+                ))}
             </div>
+            <AddComment />
         </div>
     );
-};
+}
 
 export default PostCard;
