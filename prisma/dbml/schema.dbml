@@ -30,6 +30,7 @@ Table posts {
   content String [not null]
   createdAt DateTime [default: `now()`, not null]
   authorId String [not null]
+  likes Int [not null, default: 0]
   author users [not null]
   comments comments [not null]
 }

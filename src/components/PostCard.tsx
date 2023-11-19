@@ -3,7 +3,6 @@ import Image from 'next/image';
 import React from 'react';
 import CommentCard from './commentCard';
 import AddCommentComponent from './addComment';
-import { likePost } from '@src/utils/actions';
 import LikePostComponent from './likePostComponent';
 // import { Post } from '@prisma/client';
 

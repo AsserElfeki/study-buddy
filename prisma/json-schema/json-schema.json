@@ -134,6 +134,10 @@
           "type": "string",
           "format": "date-time"
         },
+        "likes": {
+          "type": "integer",
+          "default": 0
+        },
         "author": {
           "$ref": "#/definitions/User"
         },
