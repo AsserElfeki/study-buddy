@@ -1,6 +1,5 @@
 import { ThumbUp, Comment as CommentIcon } from '@mui/icons-material';
 import Image from 'next/image';
-import React from 'react';
 import CommentCard from './commentCard';
 import AddCommentComponent from './addComment';
 import LikePostComponent from './likePostComponent';
