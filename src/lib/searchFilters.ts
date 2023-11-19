@@ -60,6 +60,7 @@ export async function getPrograms({
     if (disciplineName) {
         const desciplineRes: Response = await fetch(`${disciplinePath}?name=${disciplineName}`, {
             method: "GET",
+            cache: 'no-cache',
         });
 
         const desciplineData = await desciplineRes.json();
@@ -85,6 +86,7 @@ export async function getPrograms({
 
     const res: Response = await fetch(url, {
         method: "GET",
+        cache: 'no-cache',
     });
 
     const data: Array<StudyProgram> = await res.json();
@@ -105,7 +107,7 @@ export async function getUniversityCount() {
         method: 'GET',
     });
     const data = await res.json();
-    return data.length;
+    return JSON.stringify(data.length);
 }
 
 export async function getProgramNames() {
@@ -115,8 +117,8 @@ export async function getProgramNames() {
 
     const data: Array<StudyProgram> = await res.json();
     let names = data.map((program) => program.name);
-    // console.log("🚀 ~ file: searchFilters.ts:73 ~ getProgramNames ~ names:", names.length)
-    return names;
+    // console.log("🚀 ~ file: searchFilters.ts:73 ~ getProgramNames ~ names:", names)
+    return JSON.stringify(names);
 }
 
 export async function getUniversityNames() {
@@ -125,7 +127,7 @@ export async function getUniversityNames() {
     });
     const data = await res.json();
     let names = data.map((university) => university.name);
-    return names;
+    return JSON.stringify(names);
 }
 
 export async function getDisciplineNames() {
@@ -134,27 +136,27 @@ export async function getDisciplineNames() {
     });
     const data = await res.json();
     let names = data.map((discipline: Discipline) => discipline.name);
-    return names;
+    return JSON.stringify(names);
 }
 
 export async function getUniversity(id: string) {
     console.log("woohoooo 🎉");
     const res: Response = await fetch(`${universityPath}/${id}`, {
         method: 'GET',
-        // cache: 'no-cache',
+        cache: 'no-cache',
         next: {
             revalidate: 10,
         }
     });
     const data = await res.json();
-    console.log("🚀 ~ file: searchFilters.ts:132 ~ getUniversity ~ data:", data)
+    // console.log("🚀 ~ file: searchFilters.ts:132 ~ getUniversity ~ data:", data)
     return data;
 }
 
 export async function getProgram(id: string) {
     const res: Response = await fetch(`${studyProgramPath}/${id}`, {
         method: 'GET',
-        // cache: 'no-cache',
+        cache: 'no-cache',
     });
     // console.log("🚀 ~ file: searchFilters.ts:144 ~ getProgram ~ `${studyProgramPath}/${id}`:", `${studyProgramPath}/${id}`)
 
