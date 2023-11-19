@@ -93,7 +93,7 @@
   - [√] adding posts
   - [√] liking posts
   - [√] adding comments
-  - [] pagination in forum page
+  - [√] pagination in forum page
   - [ ] profile header 
   - [ ] profile tabs (MUI tabs)
     - [ ] my posts

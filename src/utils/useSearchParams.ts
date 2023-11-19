@@ -1,5 +1,9 @@
-export function useHandleSearchParams(searchParams : any ) {
-    
+"use client"
+import { useSearchParams } from 'next/navigation';
+
+export function useHandleSearchParams() {
+    const searchParams = useSearchParams();
+
 
     const tuition = searchParams?.get("tuition") ? searchParams.get("tuition").toString() : '';
     const minFee = tuition ? Number(tuition.split(',')[0].split('[')[1]) : null;

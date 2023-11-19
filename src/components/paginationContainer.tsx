@@ -3,7 +3,7 @@
 import { IconButton } from '@mui/material';
 import { useHandleSearchParams } from '@src/utils/useSearchParams';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import React from 'react';
@@ -17,24 +17,20 @@ type PaginationContainerProps =  {
 
 function PaginationContainer({ children, totalItems, itemsPerPage = 10 }: PaginationContainerProps) {
     const [currentPage, setCurrentPage] = useState(1);
-    // const [items, setItems] = useState([]);
     
     const searchParams = useSearchParams();
     const pathname = usePathname();
-
     const router = useRouter();
-
-    const { page } = useHandleSearchParams(searchParams);
-
-    // const itemsPerPage = 10;
+    const { page } = useHandleSearchParams();
+    useEffect(() => {
+        handlePageChange(page)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[page])
 
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const currentChildren = React.Children.toArray(children).slice(indexOfFirstItem, indexOfLastItem);
-
-    // console.log("🚀 ~ file: searchResults.tsx:45 ~ SearchResults ~ programs:", programs);
-    // const endIndex = indexOfLastItem > items.length ? items.length : indexOfLastItem;
-    // let currentItems = []
+    const totalPages = Math.ceil(totalItems / itemsPerPage);
 
     const handlePageChange = (pageNumber: number) => {
         setCurrentPage(pageNumber);
@@ -54,7 +50,7 @@ function PaginationContainer({ children, totalItems, itemsPerPage = 10 }: Pagina
                 >
                     <NavigateBeforeIcon />
                 </IconButton>
-                {currentPage}
+                {currentPage} / {totalPages}
                 <IconButton
                     onClick={() => handlePageChange(currentPage + 1)}
                     disabled={currentPage === Math.ceil(totalItems / itemsPerPage)}
