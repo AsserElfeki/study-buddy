@@ -1,4 +1,3 @@
-import React from 'react'
 import PostCardComponent from '@components/postCard';
 import { getAllPosts } from '@src/utils/actions';
 import AddPostComponent from '@src/components/addPostComponent';

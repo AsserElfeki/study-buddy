@@ -1,4 +1,4 @@
-import { ThumbUp, Comment as CommentIcon } from '@mui/icons-material';
+// import { ThumbUp, Comment as CommentIcon } from '@mui/icons-material';
 import Image from 'next/image';
 import CommentCard from './commentCard';
 import AddCommentComponent from './addComment';
@@ -53,15 +53,15 @@ export default function PostCardComponent( {post} : Props) {
             <p className='text-gray-800'>{post.content}</p>
             <div className='flex items-center justify-between mt-4'>
                 <div className='flex items-center'>
-                    <ThumbUp className='mr-2' />
+                    {/* <ThumbUp className='mr-2' /> */}
                     <span>{post.likes}</span>
-                    <CommentIcon className='ml-4 mr-2' />
+                    {/* <CommentIcon className='ml-4 mr-2' /> */}
                     <span>{post.comments.length}</span>
                 </div>
                 <div>
                     <LikePostComponent postId={post.id} />
                     <button className='p-2 rounded-full bg-green-500 text-white ml-2'>
-                        <CommentIcon />
+                        {/* <CommentIcon /> */}
                     </button>
                 </div>
             </div>
