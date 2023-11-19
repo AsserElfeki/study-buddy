@@ -86,11 +86,14 @@
 
 
 - [ ] Today:
-  - [ ] PostCard
+  - [√] PostCard
   - [ ] add likes to posts
-  - [ ] commentCard
-  - [ ] fetching posts and comments
-  - [ ] adding posts and comments
+  - [√] commentCard
+  - [√] fetching posts and comments
+  - [ ] adding posts
+  - [√] liking posts
+  - [√] adding comments
+  - [] pagination in forum page
   - [ ] profile header 
   - [ ] profile tabs (MUI tabs)
     - [ ] my posts

@@ -62,6 +62,7 @@ model Post {
   content   String
   createdAt DateTime  @default(now())
   authorId  String    @map("author_id")
+  likes     Int       @default(0)
   author    User      @relation(fields: [authorId], references: [id])
   comments  Comment[]
 

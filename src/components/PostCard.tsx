@@ -2,7 +2,9 @@ import { ThumbUp, Comment as CommentIcon } from '@mui/icons-material';
 import Image from 'next/image';
 import React from 'react';
 import CommentCard from './commentCard';
-import AddComment from './addComment';
+import AddCommentComponent from './addComment';
+import { likePost } from '@src/utils/actions';
+import LikePostComponent from './likePostComponent';
 // import { Post } from '@prisma/client';
 
 // here rendering the postcard component from the props passed from the forum page
@@ -29,6 +31,7 @@ type Post = {
     createdAt: Date;
     authorId: string;
     author: Author;
+    likes: number;
     comments?: Comment[];
 }
 
@@ -53,25 +56,23 @@ export default function PostCardComponent( {post} : Props) {
             <div className='flex items-center justify-between mt-4'>
                 <div className='flex items-center'>
                     <ThumbUp className='mr-2' />
-                    {/* <span>{post.likes}</span> */}
+                    <span>{post.likes}</span>
                     <CommentIcon className='ml-4 mr-2' />
                     <span>{post.comments.length}</span>
                 </div>
                 <div>
-                    <button className='p-2 rounded-full bg-blue-500 text-white'>
-                        <ThumbUp />
-                    </button>
+                    <LikePostComponent postId={post.id} />
                     <button className='p-2 rounded-full bg-green-500 text-white ml-2'>
                         <CommentIcon />
                     </button>
                 </div>
             </div>
             <div className='mt-4'>
-                {post.comments.map((comment, index) => (
-                    <CommentCard key={index} comment={comment} />
+                {post.comments.map((comment) => (
+                    <CommentCard key={comment.id} comment={comment} />
                 ))}
             </div>
-            <AddComment />
+            <AddCommentComponent postId={post.id} />
         </div>
     );
 }

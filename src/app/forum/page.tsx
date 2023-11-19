@@ -8,14 +8,16 @@ import { getAllPosts } from '@src/utils/actions';
 export default async function ForumPage() {
 
     const posts = await getAllPosts(0, 10);
-    console.log("🚀 ~ file: page.tsx:29 ~ ForumPage ~ posts:", posts[0])
+    // console.log("🚀 ~ file: page.tsx:29 ~ ForumPage ~ posts:", posts[0])
 
     return (
-        <div className='flex flex-col w-full max-w-3xl'>
-            {Array.isArray(posts) ?  posts.map((post) => (
-                <PostCardComponent key={post.id} post={post} />
-            )) : <p>loading...</p>} 
-            
-        </div>
+        <>
+            <div className='flex flex-col w-full max-w-3xl'>
+                {Array.isArray(posts) ? posts.map((post) => (
+                    <PostCardComponent key={post.id} post={post} />
+                )) : <p>loading...</p>}
+
+            </div>
+        </>
     )
 }
