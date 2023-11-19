@@ -3,7 +3,7 @@ import React from 'react'
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import prisma from '@src/lib/prisma';
-import PostCard from '@components/postCard';
+import PostCardComponent from '@components/postCard';
 import { getAllPosts } from '@src/utils/actions';
 
 
@@ -17,7 +17,7 @@ export default async function ForumPage() {
     return (
         <div className='flex flex-col w-full max-w-3xl'>
             {Array.isArray(posts) ?  posts.map((post) => (
-                <PostCard key={post.id} post={post} />
+                <PostCardComponent key={post.id} post={post} />
             )) : <p>loading...</p>} 
             
         </div>

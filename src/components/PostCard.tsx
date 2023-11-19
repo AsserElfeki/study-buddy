@@ -36,7 +36,7 @@ type Props = {
     post: Post;
 }
 
-function PostCard( {post} : Props) {
+export default function PostCardComponent( {post} : Props) {
     return (
         <div className='bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 shadow-md rounded-lg p-4 mb-6 text-white'>
             <div className='flex items-center mb-4'>
@@ -75,5 +75,3 @@ function PostCard( {post} : Props) {
         </div>
     );
 }
-
-export default PostCard;
