@@ -6,7 +6,7 @@ import TuitionContainer from './tuitionContainer';
 
 export default async function Sidebar() {
     const maxFee = await getMaxTuition();
-    console.log("🚀 ~ file: sidebar.tsx:9 ~ Sidebar ~ maxFee:", typeof maxFee)
+    // console.log("🚀 ~ file: sidebar.tsx:9 ~ Sidebar ~ maxFee:", typeof maxFee)
     return (
         <div className='self-start bg-white rounder-xl mt-4 ml-2 shadow-md'>
             <CurrentFilters fee = {maxFee} />

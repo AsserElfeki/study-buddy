@@ -11,8 +11,8 @@ export default function SearchTwo() {
 
   return (
     <div className='flex flex-row w-full gap-2 '>
-      <Sidebar />
-      <SearchResults />
+      {/* <Sidebar />
+      <SearchResults /> */}
     </div>
   )
 }
