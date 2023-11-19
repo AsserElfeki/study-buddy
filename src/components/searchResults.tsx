@@ -9,7 +9,7 @@ import { IconButton } from '@mui/material';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import { useHandleSearchParams } from '@src/utils/useSearchParams';
-import { getCostOfLiving } from '@src/lib/costOfLiving';
+// import { getCostOfLiving } from '@src/lib/costOfLiving';
 
 export default function SearchResults() {
     const [programs, setPrograms] = useState<StudyProgram[]>([]);
@@ -22,12 +22,11 @@ export default function SearchResults() {
 
 
     const { minFee, maxFee, discipline, language, duration, format, attendance, degreeType} = useHandleSearchParams(searchParams);
-    console.log("💫 ~ file: searchResults.tsx:22 ~ SearchResults ~ useHandleSearchParams:",discipline )
+    // console.log("💫 ~ file: searchResults.tsx:22 ~ SearchResults ~ useHandleSearchParams:",discipline )
 
     
     useEffect(() => {
         const fetchPrograms = async () => {
-            console.log("useEffect fired ")
             // await getCostOfLiving("krakow"); 
             const fetchedPrograms: StudyProgram[] = await getPrograms({
                 tuMin: minFee,

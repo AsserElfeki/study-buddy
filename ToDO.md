@@ -87,10 +87,10 @@
 
 - [ ] Today:
   - [√] PostCard
-  - [ ] add likes to posts
+  - [√] add likes to posts
   - [√] commentCard
   - [√] fetching posts and comments
-  - [ ] adding posts
+  - [√] adding posts
   - [√] liking posts
   - [√] adding comments
   - [] pagination in forum page

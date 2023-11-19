@@ -7,7 +7,7 @@ import { getServerSession } from 'next-auth';
 import { revalidatePath } from 'next/cache';
 
 
-export async function getAllPosts(skip: number, take: number) {
+export async function getAllPosts(skip?: number, take?: number) {
 
     const session = await getServerSession({...authOptions});
 
@@ -80,8 +80,28 @@ export async function AddComment(formData : FormData, postId: string) {
     return comment;
 }
 
-export async function AddPost(formData : FormData) {
-    
+export async function AddPost(formData: FormData) {
+    const content = formData.get('content');
+    const title = formData.get('title');
+    // console.log("🚀 ~ file: actions.ts:60 ~ AddComment ~ content:", content)
+    const session = await getServerSession({ ...authOptions });
+    if (!session) {
+        return null;
+    }
+    const user = session.user;
+    console.log("🚀 ~ file: actions.ts:66 ~ AddComment ~ user:", user)
+    if (!user.isActive) {
+        return "inactive user";
+    }
+    const post = await prisma.post.create({
+        data: {
+            content: content as string,
+            authorId: user.id,
+            title: title as string
+        }
+    });
+    revalidatePath('./forum')
+    return post;
 }
 
 export async function likePost(postId: string) {

@@ -1,7 +1,7 @@
 "use client";
 import AddCommentIcon from '@mui/icons-material/AddComment';
 import { AddComment } from '@src/utils/actions';
-import { useRef } from 'react';
+import { KeyboardEventHandler, useRef } from 'react';
 
 type AddCommentProps = {
     postId: string;
@@ -11,10 +11,29 @@ export default function AddCommentComponent({ postId } : AddCommentProps) {
 
     const formRef = useRef(null);
     const textareaRef = useRef(null);
+
+    const handleKeyDown: KeyboardEventHandler<HTMLFormElement> = async (event) => {
+        if (event.key === 'Enter' && !event.shiftKey) {
+            event.preventDefault();
+
+            // Call form action
+            if (textareaRef.current.value === '') {
+                //ToDo: add a better alert
+                alert('please fill in both fields');
+                return;
+            }
+            const formData = new FormData(formRef.current);
+            formRef.current.reset();
+            textareaRef.current.style.height = 'auto';
+            await AddComment(formData, postId);
+        }
+    };
+    
     return (
 
         <form
-            ref = {formRef}
+            ref={formRef}
+            onKeyDown={handleKeyDown}
             action={
                 async formData => {
                     formRef.current.reset();
