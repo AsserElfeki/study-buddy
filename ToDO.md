@@ -10,7 +10,7 @@
   - [ ] make fee as min and max not Tuition
   - [√] make discipline appear as name
   - [ ] copy about page to home page 
-  - [ ] redo scraping !?
+  - [x] redo scraping !?
   - [ ] program page and program language reqs component can be split into smaller components
   - [ ] logout should be in a burger menu of settings 
   - [ ] notifications should be working
@@ -56,7 +56,6 @@
   - [ ] Admin dashboard: 
     - [ ] ..............
   - [ ] alerts on stuff
-  
   
 - [ ] EPs: 
   - [ ] applications
@@ -105,5 +104,8 @@
     - [ ] docs 
     - [ ] questionaire
   - [ ] alerts on stuff (MUI snackbars)
+
+**URGENT:**
+- [ ] fix auth 
 
 

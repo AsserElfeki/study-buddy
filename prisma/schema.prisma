@@ -48,11 +48,12 @@ model User {
   applications    Application[]
   Session         Session[]
 
-  createdAt DateTime @default(now())
-  favorites String[] // Array of favorite item IDs
+  createdAt     DateTime       @default(now())
+  favorites     String[] // Array of favorite item IDs
   notifications Notification[]
-  posts       Post[]
-  comments    Comment[]
+  posts         Post[]
+  comments      Comment[]
+
   @@map("users")
 }
 
@@ -70,25 +71,25 @@ model Post {
 }
 
 model Comment {
-  id        String    @id @default(cuid())
+  id        String   @id @default(cuid())
   content   String
-  createdAt DateTime  @default(now())
-  postId    String    @map("post_id")
-  post      Post      @relation(fields: [postId], references: [id])
-  authorId  String    @map("author_id")
-  author    User      @relation(fields: [authorId], references: [id])
+  createdAt DateTime @default(now())
+  postId    String   @map("post_id")
+  post      Post     @relation(fields: [postId], references: [id])
+  authorId  String   @map("author_id")
+  author    User     @relation(fields: [authorId], references: [id])
 
   @@map("comments")
 }
 
 model Notification {
-  id        String       @id @default(cuid())
+  id        String             @id @default(cuid())
   content   String
-  createdAt DateTime     @default(now())
+  createdAt DateTime           @default(now())
   readAt    DateTime?
   status    NotificationStatus @default(UNREAD)
-  userId    String       @map("user_id")
-  user      User         @relation(fields: [userId], references: [id])
+  userId    String             @map("user_id")
+  user      User               @relation(fields: [userId], references: [id])
 
   @@map("notifications")
 }
@@ -97,7 +98,6 @@ enum NotificationStatus {
   READ
   UNREAD
 }
-
 
 model ActivationToken {
   id          String    @id @default(cuid())
@@ -196,13 +196,16 @@ model DisciplineOnProgram {
 }
 
 model Application {
-  id             String       @id @default(cuid())
-  studyProgramId String       @map("study_program_id")
-  userId         String       @map("user_id")
-  studyProgram   StudyProgram @relation(fields: [studyProgramId], references: [id])
-  user           User         @relation(fields: [userId], references: [id])
-  documents      Document[]
-  forms          Form[]
+  // Fields for the application form
+  id                    String                 @id @default(cuid())
+  studyProgramId        String                 @map("study_program_id")
+  userId                String                 @map("user_id")
+  studyProgram          StudyProgram           @relation(fields: [studyProgramId], references: [id])
+  user                  User                   @relation(fields: [userId], references: [id])
+  documents             Document[]
+  forms                 Form[]
+  personalInfo          PersonalInfo?
+  educationalBackground EducationalBackground?
 
   @@map("applications")
 }
@@ -221,6 +224,31 @@ model Document {
   application   Application @relation(fields: [applicationId], references: [id])
 
   @@map("documents")
+}
+
+model PersonalInfo {
+  id            String      @id @default(cuid())
+  applicationId String      @map("application_id") @unique
+  firstName     String
+  lastName      String
+  email         String
+  phoneNumber   String?
+  dateOfBirth   DateTime
+  nationality   String
+  application   Application @relation(fields: [applicationId], references: [id])
+
+  @@map("personal_infos")
+}
+
+model EducationalBackground {
+  id                   String      @id @default(cuid())
+  applicationId        String      @map("application_id") @unique
+  highestQualification String
+  institutionName      String
+  graduationYear       Int
+  application          Application @relation(fields: [applicationId], references: [id])
+
+  @@map("educational_backgrounds")
 }
 
 enum Role {

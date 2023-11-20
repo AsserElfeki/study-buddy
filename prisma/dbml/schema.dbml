@@ -151,6 +151,8 @@ Table applications {
   user users [not null]
   documents documents [not null]
   forms forms [not null]
+  personalInfo personal_infos
+  educationalBackground educational_backgrounds
 }
 
 Table forms {
@@ -162,6 +164,27 @@ Table forms {
 Table documents {
   id String [pk]
   applicationId String [not null]
+  application applications [not null]
+}
+
+Table personal_infos {
+  id String [pk]
+  applicationId String [unique, not null]
+  firstName String [not null]
+  lastName String [not null]
+  email String [not null]
+  phoneNumber String
+  dateOfBirth DateTime [not null]
+  nationality String [not null]
+  application applications [not null]
+}
+
+Table educational_backgrounds {
+  id String [pk]
+  applicationId String [unique, not null]
+  highestQualification String [not null]
+  institutionName String [not null]
+  graduationYear Int [not null]
   application applications [not null]
 }
 
@@ -218,3 +241,7 @@ Ref: applications.userId > users.id
 Ref: forms.applicationId > applications.id
 
 Ref: documents.applicationId > applications.id
+
+Ref: personal_infos.applicationId - applications.id
+
+Ref: educational_backgrounds.applicationId - applications.id
