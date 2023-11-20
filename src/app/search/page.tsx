@@ -7,12 +7,12 @@ import SearchResults from '@src/components/searchResults';
 // Side Bar should change the URL 
 // here fetching the URL, and fetching data accordingly ?
 
-export default function SearchTwo() {
+export default function SearchPage() {
 
   return (
     <div className='flex flex-row w-full gap-2 '>
-      {/* <Sidebar />
-      <SearchResults /> */}
+      <Sidebar />
+      <SearchResults />
     </div>
   )
 }

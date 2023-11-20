@@ -36,7 +36,7 @@ export default function SearchResults() {
         <div className='flex flex-col justify-center items-center gap-4 p-4 self-start w-full'>
             <h1 className='text-4xl font-bold text-primary'>Found {programs.length? programs.length : 0} program(s) matching your criteria</h1>
             <PaginationContainer totalItems={programs.length} itemsPerPage={10}>
-            {programs.map((program) => (
+            {programs.length > 0 && programs.map((program) => (
                 <StudyProgramCard
                     key={program.id}
                     title={program.name}
