@@ -13,6 +13,18 @@ export default function ApplyPage({ params }: { params: { id: string } | null })
     const nextStep = () => setCurrentStep(currentStep + 1);
     const prevStep = () => setCurrentStep(currentStep - 1);
 
+    // a call back function that saves the data from the form to the state here
+    /* 
+    ToDo: 
+    save the data to the state here
+    mutate state here and pass it to each component
+    send after the last step and review 
+    */
+    const handleChangePersonalInfo = () => {
+
+    }
+
+
     const renderStep = () => {
         switch (currentStep) {
             case 1:
