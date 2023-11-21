@@ -230,29 +230,45 @@ model Document {
 
 model PersonalInfo {
   nativeLanguage      String
-  languageProficiency String
-  id                  String      @id @default(cuid())
-  applicationId       String      @unique @map("application_id")
+  languageProficiency EnglishLevel
+  id                  String       @id @default(cuid())
+  applicationId       String       @unique @map("application_id")
   firstName           String
   lastName            String
   email               String
   phoneNumber         String?
   dateOfBirth         DateTime
   nationality         String
-  application         Application @relation(fields: [applicationId], references: [id])
+  application         Application  @relation(fields: [applicationId], references: [id])
 
   @@map("personal_infos")
 }
 
+enum EnglishLevel {
+  A1
+  A2
+  B1
+  B2
+  C1
+  C2
+}
+
 model EducationalBackground {
-  id                   String      @id @default(cuid())
-  applicationId        String      @unique @map("application_id")
-  highestQualification String
+  id                   String               @id @default(cuid())
+  applicationId        String               @unique @map("application_id")
+  highestQualification  highestQualification  @map("highest_qualification")
   institutionName      String
   graduationYear       Int
-  application          Application @relation(fields: [applicationId], references: [id])
+  application          Application          @relation(fields: [applicationId], references: [id])
 
   @@map("educational_backgrounds")
+}
+
+enum highestQualification {
+  HighSchool
+  Bachelor
+  Master
+  PhD
 }
 
 enum Role {

@@ -2,16 +2,25 @@ import { useSession } from 'next-auth/react';
 import React, { useMemo, useState } from 'react';
 import Select from 'react-select'
 import countryList from 'react-select-country-list'
+import { languageOptions } from './languageOptions';
+
 const PersonalInfoForm = ({ nextStep }) => {
 
     const { data: session } = useSession();
-    // console.log("🚀 ~ file: PersonalInfoForm.tsx:8 ~ PersonalInfoForm ~ session:", session?.user)
-    // const user = session.user;
-
+    const [selectedLanguage, setSelectedLanguage] = useState(null);
+    const [selectedProfeciency, setSelectedProfeciency] = useState(null);
     const [value, setValue] = useState('')
     const options = useMemo(() => countryList().getData(), [])
+    const proficiencyOptions = ["A1", "A2", "B1", "B2", "C1", "C2"].map((level) => ({ value: level, label: level }));
+    const handleProfeciencyChange = (selectedOption: any) => {
+        setSelectedProfeciency(selectedOption);
+    }
 
-    const changeHandler = value => {
+    const handleLanguageChange = (selectedOption: any) => {
+        setSelectedLanguage(selectedOption);
+    };
+
+    const handleCountryChange = (value: React.SetStateAction<string>) => {
         setValue(value)
     }
     
@@ -97,13 +106,35 @@ const PersonalInfoForm = ({ nextStep }) => {
                 <label htmlFor="nationality" className="block text-lg font-medium text-gray-700">
                     Nationality
                 </label>
-               
                 <Select
-                    name='nationality'
-                    className='rounded-lg'
                     options={options}
                     value={value}
-                    onChange={changeHandler} />
+                    onChange={handleCountryChange}
+                    name='nationality'
+                    id='nationality'
+                />
+            </div>
+
+            <div>
+                <label htmlFor="nativeLanguage">Native Language</label>
+                <Select
+                    options={languageOptions}
+                    value={selectedLanguage}
+                    onChange={handleLanguageChange}
+                    name="nativeLanguage"
+                    id="nativeLanguage"
+                />
+            </div>
+
+            <div>
+                <label htmlFor="profeciency">English proficiency level</label>
+                <Select
+                    options={proficiencyOptions}
+                    value={selectedProfeciency}
+                    onChange={handleProfeciencyChange}
+                    name="profeciency"
+                    id="profeciency"
+                />
             </div>
 
             <div className="flex justify-center">

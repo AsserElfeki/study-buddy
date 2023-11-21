@@ -100,9 +100,9 @@
     - [ ] favourites
     - [ ] settings (where settings icon points to)
   - [ ] apply page: 
-    - [ ] form 
-    - [ ] docs 
-    - [ ] questionaire
+    - [√] form 
+    - [√] docs 
+    - [ ] backend :(
   - [ ] alerts on stuff (MUI snackbars)
 
 **URGENT:**

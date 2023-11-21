@@ -3,10 +3,11 @@
 import EducationalBackgroundForm from '@src/components/apply/EducationalBackgroundForm';
 import PersonalInfoForm from '@src/components/apply/PersonalInfoForm';
 import ReviewAndSubmitForm from '@src/components/apply/ReviewAndSubmitForm';
-import React from 'react'
+import SupportingDocumentsForm from '@src/components/apply/SupportingDocumentsForm'
+import { useState } from 'react';
 
 export default function ApplyPage({ params }: { params: { id: string } | null }) {
-    const [currentStep, setCurrentStep] = React.useState(1);
+    const [currentStep, setCurrentStep] = useState(1);
 
     const nextStep = () => setCurrentStep(currentStep + 1);
     const prevStep = () => setCurrentStep(currentStep - 1);
@@ -17,7 +18,6 @@ export default function ApplyPage({ params }: { params: { id: string } | null })
                 return <PersonalInfoForm nextStep={nextStep} />;
             case 2:
                 return <EducationalBackgroundForm nextStep={nextStep} prevStep={prevStep} />;
-            // Add additional cases for other steps
             case 3:
                 return <SupportingDocumentsForm nextStep={nextStep} prevStep={prevStep} />;
             default:
