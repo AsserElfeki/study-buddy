@@ -540,6 +540,12 @@
     "Document": {
       "type": "object",
       "properties": {
+        "link": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
         "id": {
           "type": "string"
         },
@@ -551,6 +557,20 @@
     "PersonalInfo": {
       "type": "object",
       "properties": {
+        "nativeLanguage": {
+          "type": "string"
+        },
+        "languageProficiency": {
+          "type": "string",
+          "enum": [
+            "A1",
+            "A2",
+            "B1",
+            "B2",
+            "C1",
+            "C2"
+          ]
+        },
         "id": {
           "type": "string"
         },
@@ -588,7 +608,13 @@
           "type": "string"
         },
         "highestQualification": {
-          "type": "string"
+          "type": "string",
+          "enum": [
+            "HighSchool",
+            "Bachelor",
+            "Master",
+            "PhD"
+          ]
         },
         "institutionName": {
           "type": "string"

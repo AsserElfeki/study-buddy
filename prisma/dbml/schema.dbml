@@ -162,12 +162,15 @@ Table forms {
 }
 
 Table documents {
+  link String
   id String [pk]
   applicationId String [not null]
   application applications [not null]
 }
 
 Table personal_infos {
+  nativeLanguage String [not null]
+  languageProficiency EnglishLevel [not null]
   id String [pk]
   applicationId String [unique, not null]
   firstName String [not null]
@@ -182,7 +185,7 @@ Table personal_infos {
 Table educational_backgrounds {
   id String [pk]
   applicationId String [unique, not null]
-  highestQualification String [not null]
+  highestQualification highestQualification [not null]
   institutionName String [not null]
   graduationYear Int [not null]
   application applications [not null]
@@ -191,6 +194,22 @@ Table educational_backgrounds {
 Enum NotificationStatus {
   READ
   UNREAD
+}
+
+Enum EnglishLevel {
+  A1
+  A2
+  B1
+  B2
+  C1
+  C2
+}
+
+Enum highestQualification {
+  HighSchool
+  Bachelor
+  Master
+  PhD
 }
 
 Enum Role {
