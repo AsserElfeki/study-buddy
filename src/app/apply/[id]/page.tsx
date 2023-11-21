@@ -1,9 +1,10 @@
 "use client";
 
-import EducationalBackgroundForm from '@src/components/apply/educationalBackgroundForm';
-import PersonalInfoForm from '@src/components/apply/personalInfoForm';
-import ReviewAndSubmitForm from '@src/components/apply/reviewAndSubmitForm';
-import SupportingDocumentsForm from '@src/components/apply/supportingDocumentsForm'
+import EducationalBackgroundForm from '@components/apply/educationalBackgroundForm';
+import PersonalInfoForm from '@components/apply/personalInfoForm';
+import SupportingDocumentsForm from '@components/apply/supportingDocumentsForm'
+import ReviewAndSubmitForm from '@components/apply/reviewAndSubmitForm';
+
 import { useState } from 'react';
 
 export default function ApplyPage({ params }: { params: { id: string } | null }) {
