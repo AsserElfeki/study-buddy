@@ -27,8 +27,8 @@ export default function ApplyPage({ params }: { params: { id: string } | null })
 
     return (
         <section className='flex flex-col items-center w-full'>
-            <h1>Application Form</h1>
-            <div className='border-4 border-red-800 shadow-lg flex justify-center items-center w-full'>
+            <h1 className='text-3xl font-black text-blue-600 mb-5 mt-3 '>Application Form</h1>
+            <div className=' shadow-lg flex justify-center items-center w-full rounded-lg border border-slate-100 py-4'>
                 {renderStep()}
             </div>
         </section>

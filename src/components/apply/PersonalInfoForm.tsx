@@ -1,7 +1,12 @@
+import { useSession } from 'next-auth/react';
 import React, { useMemo, useState } from 'react';
 import Select from 'react-select'
 import countryList from 'react-select-country-list'
 const PersonalInfoForm = ({ nextStep }) => {
+
+    const { data: session } = useSession();
+    // console.log("🚀 ~ file: PersonalInfoForm.tsx:8 ~ PersonalInfoForm ~ session:", session?.user)
+    // const user = session.user;
 
     const [value, setValue] = useState('')
     const options = useMemo(() => countryList().getData(), [])
@@ -27,6 +32,8 @@ const PersonalInfoForm = ({ nextStep }) => {
                     name="firstName"
                     id="firstName"
                     className="mt-1 block w-full shadow-sm sm:text-lg border-gray-300 rounded-lg p-1"
+                    placeholder='Official Name(s)'
+                    value={session?.user?.name}
                     required
                 />
             </div>
@@ -40,6 +47,8 @@ const PersonalInfoForm = ({ nextStep }) => {
                     name="lastName"
                     id="lastName"
                     className="mt-1 block w-full shadow-sm sm:text-lg border-gray-300 rounded-lg p-1"
+                    placeholder='Official Surname(s)'
+                    // value={session?.user?.name}
                     required
                 />
             </div>
@@ -53,6 +62,7 @@ const PersonalInfoForm = ({ nextStep }) => {
                     name="email"
                     id="email"
                     className="mt-1 block w-full shadow-sm sm:text-lg border-gray-300 rounded-lg p-1"
+                    value={session?.user?.email}
                     required
                 />
             </div>
