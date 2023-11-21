@@ -2,7 +2,7 @@
 import React from 'react';
 
 const EducationalBackgroundForm = ({ nextStep, prevStep }) => {
-    // Form fields and logic here
+    
 
     return (
         <div>
