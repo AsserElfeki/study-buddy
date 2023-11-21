@@ -50,7 +50,7 @@
   - [ ] apply page: 
     - [√] form 
     - [√] docs 
-    - [ ] backend :(
+    - [ ] backend 
   - [ ] Profile:
     - [ ] profile header 
     - [ ] profile tabs (MUI tabs)
