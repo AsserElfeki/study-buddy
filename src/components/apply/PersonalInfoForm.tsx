@@ -12,7 +12,7 @@ const PersonalInfoForm = ({ nextStep }) => {
     
     const handleSubmit = (event) => {
         event.preventDefault();
-        // Here you would handle the form submission, e.g., updating state, sending data to an API, etc.
+        // Here handle the form submission, e.g., updating state, sending data to an API, etc.
         nextStep();
     };
 
@@ -96,10 +96,10 @@ const PersonalInfoForm = ({ nextStep }) => {
                     onChange={changeHandler} />
             </div>
 
-            <div className="flex justify-end">
+            <div className="flex justify-center">
                 <button
                     type="submit"
-                    className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-lg font-bold rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
                     Next
                 </button>
