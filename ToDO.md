@@ -1,5 +1,3 @@
-
-
 - [ ] ADDONS: 
   - [ ] sort results by (in prisma)
   - [ ] cloudinary 
