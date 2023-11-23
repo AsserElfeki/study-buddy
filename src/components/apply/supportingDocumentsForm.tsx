@@ -10,6 +10,7 @@ const SupportingDocumentsForm = ({ nextStep, prevStep }) => {
         // upload to Cloudinary or store the file for later upload
         const files = event.target.files;
         // Example: setDocuments([...documents, ...files]);
+        //HELP 
     };
 
     const handleSubmit = (event) => {
