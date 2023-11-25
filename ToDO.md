@@ -48,7 +48,8 @@
   - [ ] apply page: 
     - [√] form 
     - [√] docs 
-    - [ ] backend 
+    - [ ] validate 
+    - [ ] backend (cloudinary)
   - [ ] Profile:
     - [ ] profile header 
     - [ ] profile tabs (MUI tabs)
