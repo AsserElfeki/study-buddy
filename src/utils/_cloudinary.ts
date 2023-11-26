@@ -44,18 +44,18 @@ const getAssetInfo = async (publicId) => {
 };
 
 export async function getSignature() {
-    const timeStamp = Math.round(new Date().getTime() / 1000);
+    const timestamp = Math.round(new Date().getTime() / 1000);
     const signature = cloudinary.utils.api_sign_request(
         {
-            timeStamp,
+            timestamp,
             folder: "test"
         },
         cloudinary.config().api_secret
     )
     // console.log("🚀 ~ file: _cloudinary.ts:54 ~ getSignature ~ cloudinary.config().api_secret:", cloudinary.config().api_secret)
-    console.log("time Stamp:", timeStamp);
+    console.log("time Stamp:", timestamp);
     console.log("signature:", signature);
-    return { timeStamp, signature }
+    return { timestamp, signature }
 }
 
 export async function saveToDataBase({ public_id, version, signature }) {
