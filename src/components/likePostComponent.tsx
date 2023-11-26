@@ -1,7 +1,7 @@
-"use client";   
+"use client";
 
 import { ThumbUp } from '@mui/icons-material';
-import { likePost } from '@src/utils/actions'
+import { likePost } from '@src/utils/_actions'
 import { type } from 'os'
 import React from 'react'
 import { buffer } from 'stream/consumers';
@@ -10,17 +10,17 @@ type Props = {
     postId: string;
 }
 
-function LikePostComponent({ postId } : Props) {
-  return (
-      <button
+function LikePostComponent({ postId }: Props) {
+    return (
+        <button
             onClick={async () => {
                 await likePost(postId);
             }}
-          className='p-2 rounded-full bg-blue-500 text-white'>
-          <ThumbUp />
-      </button>
-      
-  )
+            className='p-2 rounded-full bg-blue-500 text-white'>
+            <ThumbUp />
+        </button>
+
+    )
 }
 
 export default LikePostComponent

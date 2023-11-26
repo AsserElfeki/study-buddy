@@ -48,8 +48,8 @@
   - [ ] apply page: 
     - [√] form 
     - [√] docs 
-    - [ ] validate 
     - [ ] backend (cloudinary)
+    - [ ] validate 
   - [ ] Profile:
     - [ ] profile header 
     - [ ] profile tabs (MUI tabs)
@@ -65,7 +65,6 @@
 
 **URGENT:**
 - [ ] fix auth 
-
 
 - [ ] verification (auth) 
   - [ ] copy about page to home page 

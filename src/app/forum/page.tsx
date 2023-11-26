@@ -1,5 +1,5 @@
 import PostCardComponent from '@components/postCard';
-import { getAllPosts } from '@src/utils/actions';
+import { getAllPosts } from '@src/utils/_actions';
 import AddPostComponent from '@src/components/addPostComponent';
 import PaginationContainer from '@src/components/paginationContainer';
 
@@ -13,7 +13,7 @@ export default async function ForumPage() {
     return (
         <div className='flex flex-col gap-6 w-full max-w-3xl'>
             <AddPostComponent />
-            <PaginationContainer  totalItems={posts.length} itemsPerPage={10} >
+            <PaginationContainer totalItems={posts.length} itemsPerPage={10} >
                 {Array.isArray(posts) ? posts.map((post) => (
                     <PostCardComponent key={post.id} post={post} />
                 )) : <p>loading...</p>}

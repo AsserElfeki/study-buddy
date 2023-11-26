@@ -1,13 +1,13 @@
 "use client";
 import AddCommentIcon from '@mui/icons-material/AddComment';
-import { AddComment } from '@src/utils/actions';
+import { AddComment } from '@src/utils/_actions';
 import { KeyboardEventHandler, useRef } from 'react';
 
 type AddCommentProps = {
     postId: string;
 }
 
-export default function AddCommentComponent({ postId } : AddCommentProps) {
+export default function AddCommentComponent({ postId }: AddCommentProps) {
 
     const formRef = useRef(null);
     const textareaRef = useRef(null);
@@ -28,7 +28,7 @@ export default function AddCommentComponent({ postId } : AddCommentProps) {
             await AddComment(formData, postId);
         }
     };
-    
+
     return (
 
         <form
@@ -38,9 +38,9 @@ export default function AddCommentComponent({ postId } : AddCommentProps) {
                 async formData => {
                     formRef.current.reset();
                     textareaRef.current.style.height = 'auto';
-                await AddComment(formData, postId);
-            }
-        }>
+                    await AddComment(formData, postId);
+                }
+            }>
             <div className='flex bg-gray-200 items-center rounded-lg'>
                 <textarea
                     required
@@ -57,9 +57,9 @@ export default function AddCommentComponent({ postId } : AddCommentProps) {
                     type='submit'
                     className='flex items-center justify-center '
                 >
-                <AddCommentIcon
-                    color='primary'
-                    fontSize='large'
+                    <AddCommentIcon
+                        color='primary'
+                        fontSize='large'
                     />
                 </button>
             </div>

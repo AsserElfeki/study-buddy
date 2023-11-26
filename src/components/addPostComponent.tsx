@@ -1,8 +1,8 @@
-"use client";   
+"use client";
 
-import  { useRef, KeyboardEventHandler } from 'react'
+import { useRef, KeyboardEventHandler } from 'react'
 import PostAddIcon from '@mui/icons-material/PostAdd';
-import { AddPost } from '@src/utils/actions';
+import { AddPost } from '@src/utils/_actions';
 function AddPostComponent() {
 
     const formRef = useRef(null);
@@ -40,7 +40,7 @@ function AddPostComponent() {
                     }
                 }
                 className='border-2 border-white focus:border-blue-500 shadow-2xl rounded-lg p-4 pb-0 mb-6 text-white'
-                >
+            >
                 <div className='flex flex-col gap-1 bg-gray-100 items-center rounded-lg '>
                     {/* //input for post title */}
                     <input
@@ -51,7 +51,7 @@ function AddPostComponent() {
                         placeholder='Title: write a short meaningful title'
                         className='w-full text-cyan-700 font-bold p-2 text-2xl bg-zinc-200 focus:bg-zinc-50 rounded-lg 
                          '
-                        />
+                    />
                     <textarea
                         required
                         name='content'
@@ -76,7 +76,7 @@ function AddPostComponent() {
                 </div>
             </form>
         </>
-  )
+    )
 }
 
 export default AddPostComponent

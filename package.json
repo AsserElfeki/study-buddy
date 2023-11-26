@@ -28,6 +28,7 @@
     "bcryptjs": "^2.4.3",
     "check-package-lock": "^1.10.0",
     "cheerio": "^1.0.0-rc.12",
+    "cloudinary": "^1.41.0",
     "cuid": "^3.0.0",
     "dotenv": "^16.3.1",
     "eslint": "8.45.0",
