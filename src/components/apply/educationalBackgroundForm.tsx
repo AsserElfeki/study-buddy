@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from 'react';
 import Select from 'react-select';
 
@@ -6,12 +7,12 @@ const EducationalBackgroundForm = ({ nextStep, prevStep }) => {
     const [institutionName, setInstitutionName] = useState('');
     const [graduationYear, setGraduationYear] = useState('');
 
+    
     const qualificationOptions = [
         { value: 'high_school', label: 'High School' },
         { value: 'bachelor', label: 'Bachelor' },
         { value: 'master', label: 'Master' },
         { value: 'phd', label: 'PhD' },
-        // ... other options
     ];
 
     const yearOptions = Array.from({ length: 50 }, (_, i) => {

@@ -1,3 +1,5 @@
+
+"use client";
 import { useSession } from 'next-auth/react';
 import React, { useMemo, useState } from 'react';
 import Select from 'react-select'

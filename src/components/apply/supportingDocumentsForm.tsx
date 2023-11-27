@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from 'react';
 import { useSession } from 'next-auth/react';
 import { getSignature, saveToDataBase } from '@utils/_cloudinary';

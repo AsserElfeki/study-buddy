@@ -26,22 +26,14 @@ const uploadImage = async (imagePath) => {
         console.error(error);
     }
 };
-const getAssetInfo = async (publicId) => {
 
-    // Return colors in the response
-    const options = {
-        colors: true,
-    };
-
-    try {
-        // Get details about the asset
-        const result = await cloudinary.api.resource(publicId, options);
-        console.log(result);
-        return result.colors;
-    } catch (error) {
-        console.error(error);
-    }
-};
+export async function uploadFile(file) {
+    cloudinary.uploader.upload(file, {
+        folder: "files",
+        resource_type: "auto",
+    },
+        function (error, result) { console.log(result, error); });
+}
 
 export async function getSignature() {
     const timestamp = Math.round(new Date().getTime() / 1000);

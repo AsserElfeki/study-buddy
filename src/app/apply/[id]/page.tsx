@@ -8,7 +8,7 @@ import ReviewAndSubmitForm from '@components/apply/reviewAndSubmitForm';
 import { useState } from 'react';
 
 export default function ApplyPage({ params }: { params: { id: string } | null }) {
-    const [currentStep, setCurrentStep] = useState(1);
+    const [currentStep, setCurrentStep] = useState(3);
 
     const nextStep = () => setCurrentStep(currentStep + 1);
     const prevStep = () => setCurrentStep(currentStep - 1);
