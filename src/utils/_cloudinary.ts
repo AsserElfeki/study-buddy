@@ -7,32 +7,47 @@ cloudinary.config({
     api_secret: process.env.CLOUDINARY_API_SECRET,
     secure: true
 });
-// export default cloudinary
-// console.log(cloudinary.config())
-const uploadImage = async (imagePath) => {
 
-    const options = {
-        use_filename: true,
-        unique_filename: false,
-        overwrite: true,
-    };
-
-    try {
-        // Upload the image
-        const result = await cloudinary.uploader.upload(imagePath, options);
-        console.log(result.secure_url);
-        return result.public_id;
-    } catch (error) {
-        console.error(error);
-    }
+type UploadOptions = {
+    resource_type?: "auto" | "image" | "raw" | "video" ,
+    use_filename: boolean,
+    unique_filename: boolean,
+    overwrite: boolean
+}
+const imageOptions: UploadOptions = {
+    use_filename: true,
+    unique_filename: false,
+    overwrite: true,
 };
 
-export async function uploadFile(file) {
-    cloudinary.uploader.upload(file, {
-        folder: "files",
-        resource_type: "auto",
-    },
-        function (error, result) { console.log(result, error); });
+const pdfOptions: UploadOptions = {
+    resource_type: "auto",
+    use_filename: true,
+    unique_filename: false,
+    overwrite: true,
+};
+
+export async function uploadImage(filePath: string) {
+    return cloudinary.uploader.upload(filePath, imageOptions)
+        .then((result) => {
+            console.log(result);
+            return result;
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+}
+
+export async function uploadPdf(filePath: string) {
+    console.log("in the upload file")
+    cloudinary.uploader.upload(filePath, pdfOptions)
+        .then((result) => {
+            console.log(result);
+            return result;
+        })
+        .catch((error) => {
+            console.log("error in upload file",error);
+        });
 }
 
 export async function getSignature() {

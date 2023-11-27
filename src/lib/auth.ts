@@ -96,8 +96,10 @@ export const authOptions: NextAuthOptions = {
                 user.lastName = profile.family_name;
                 user.image = profile.picture;
                 console.log("google user: ", user)
+
                 if (!existingUser) { //ToDO
-                    // await sendVerificationEmail(user)
+
+                    await sendVerificationEmail(user as User)
                     // console.log("ToDo")
                 }
                 else if (!existingUser.isActive) {

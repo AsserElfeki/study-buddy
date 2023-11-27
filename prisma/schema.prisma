@@ -64,7 +64,7 @@ model Post {
   createdAt DateTime  @default(now())
   authorId  String    @map("author_id")
   likes     Int       @default(0)
-  author    User      @relation(fields: [authorId], references: [id])
+  author    User      @relation(fields: [authorId], references: [id], onDelete: Cascade)
   comments  Comment[]
 
   @@map("posts")
@@ -213,7 +213,7 @@ model Application {
 model Form {
   id            String      @id @default(cuid())
   applicationId String      @map("application_id")
-  application   Application @relation(fields: [applicationId], references: [id])
+  application   Application @relation(fields: [applicationId], references: [id],  onDelete: Cascade)
 
   @@map("forms")
 }
@@ -223,7 +223,7 @@ model Document {
 
   id            String      @id @default(cuid())
   applicationId String      @map("application_id")
-  application   Application @relation(fields: [applicationId], references: [id])
+  application   Application @relation(fields: [applicationId], references: [id], onDelete: Cascade)
 
   @@map("documents")
 }

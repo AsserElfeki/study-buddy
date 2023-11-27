@@ -2,18 +2,16 @@
 
 import React, { useState } from 'react';
 import { useSession } from 'next-auth/react';
-import { getSignature, saveToDataBase } from '@utils/_cloudinary';
+import { getSignature, saveToDataBase, uploadImage, uploadPdf } from '@utils/_cloudinary';
 
 const SupportingDocumentsForm = ({ nextStep, prevStep }) => {
     const { data: session } = useSession();
     const [documents, setDocuments] = useState([]);
 
     const handleFileChange = (event) => {
-        // This is where you'll handle the file selection and possibly
-        // upload to Cloudinary or store the file for later upload
+
         setDocuments([...event.target.files]);
-        // const files = event.target.files;
-        // Example: setDocuments([...documents, ...files]);
+
     };
 
 
@@ -23,6 +21,7 @@ const SupportingDocumentsForm = ({ nextStep, prevStep }) => {
         const { timestamp, signature } = await getSignature();
         const formData = new FormData();
         formData.append('file', documents[0]);
+        formData.append('resource_type', 'auto')
         formData.append('api_key', process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY);
         formData.append('signature', signature);
         formData.append('timestamp', timestamp.toString());

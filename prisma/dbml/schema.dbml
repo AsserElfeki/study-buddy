@@ -233,7 +233,7 @@ Enum searchQueryParamKeys {
   Degree
 }
 
-Ref: posts.authorId > users.id
+Ref: posts.authorId > users.id [delete: Cascade]
 
 Ref: comments.postId > posts.id
 
@@ -257,9 +257,9 @@ Ref: applications.studyProgramId > study_programs.id
 
 Ref: applications.userId > users.id
 
-Ref: forms.applicationId > applications.id
+Ref: forms.applicationId > applications.id [delete: Cascade]
 
-Ref: documents.applicationId > applications.id
+Ref: documents.applicationId > applications.id [delete: Cascade]
 
 Ref: personal_infos.applicationId - applications.id
 

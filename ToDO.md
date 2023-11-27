@@ -4,13 +4,13 @@ in ORDER:
   - [ ] apply page: 
     - [√] form 
     - [√] docs 
-    - [ ] backend (cloudinary)
-    - [ ] validate 
-    - [ ] fix auth 
-  - [ ] fix search page in mobile vp
-  - [ ] add search by name
+    - [x] backend (cloudinary)
+    - [√] fix auth 
 
 - [ ] tomorrow (28):
+  - [ ] add search by name
+  - [ ] fix search page in mobile vp
+  - [ ] validate 
   - [ ] Profile:
     - [ ] profile header 
     - [ ] profile tabs (MUI tabs)
@@ -49,3 +49,5 @@ in ORDER:
   - [ ] Admin dashboard
   - [ ] alerts on stuff (MUI snackbars)
   - [ ] settings page 
+  - [ ] send messages 
+  - [ ] 
