@@ -1,55 +1,16 @@
-- [ ] ADDONS: 
-  - [ ] sort results by (in prisma)
-  - [ ] cloudinary 
-  - [ ] footer with github and linkedin
 
-- [ ] FrontEnd:   
-  - [√] sideBar : container for all the side bar search components
-    - [√] disciplineList : list of all the disciplines (togglaeable)
-      - [√] disciplineCard : card for each discipline
-    - [√] tuitionCard : card with a slide bar and 2 numeric inputs (toggleable)
-    - [ ] DurationCard : card with checkboxes (toggleable)
-    - [ ] FormatCard : card with checkboxes (toggleable)
-    - [ ] AttendanceCard : card with checkboxes (toggleable)
-    - [ ] LanguageCard : card with checkboxes (toggleable)
-    - [ ] DegreeCard : card with checkboxes (toggleable)
-  - [√] Hero 
-  - [√] general search bar
-  - [√] program card 
-  - [√] program details page
-  - [√] university details page
-  - [ ] apply page:
-    - [√] form 
-    - [ ] docs 
-  - [ ] profile page: 
-    - [ ] my posts
-    - [ ] my applications 
-    - [ ] favourites 
-    - [ ] header (photo, name, current status)
-  - [ ] settings page:
-    - [ ] ..............
-  - [√]  Forum :
-    - [√] PostCard 
-    - [√] CommentCard
-    - [√] CreatePost
-    - [√] CreateComment
-  - [ ] Admin dashboard: 
-    - [ ] ..............
-  
+in ORDER: 
 - [ ] Today:
-  - [√] PostCard
-  - [√] add likes to posts
-  - [√] commentCard
-  - [√] fetching posts and comments
-  - [√] adding posts
-  - [√] liking posts
-  - [√] adding comments
-  - [√] pagination in forum page
   - [ ] apply page: 
     - [√] form 
     - [√] docs 
     - [ ] backend (cloudinary)
     - [ ] validate 
+    - [ ] fix auth 
+  - [ ] fix search page in mobile vp
+  - [ ] add search by name
+
+- [ ] tomorrow (28):
   - [ ] Profile:
     - [ ] profile header 
     - [ ] profile tabs (MUI tabs)
@@ -57,19 +18,34 @@
       - [ ] my applications
       - [ ] favourites
       - [ ] settings (where settings icon points to)
-  - [ ] fix auth 
-  - [ ] fix search page in mobile vp
-  - [ ] alerts on stuff (MUI snackbars)
-  - [ ] darkmode 
-  - [ ] add a heart button in program card to add to favs 
 
-**URGENT:**
-- [ ] fix auth 
-
-- [ ] verification (auth) 
-  - [ ] copy about page to home page 
-  - [ ] make fee as min and max not Tuition
-  - [ ] program page and program language reqs component can be split into smaller components
-  - [ ] logout should be in a burger menu of settings 
+- [ ] 29:
   - [ ] notifications should be working (emails ?)
+  - [ ] add to favoruites (edit db)
+  - [ ] Others profile: 
+    - [ ] add as friend (edit db)
+    - [ ] send message (messages a7eeh)
 
+- [ ] 30: 
+  - [ ] emails: 
+    - [ ] to users: 
+      - [ ] auth
+      - [ ] application submitted 
+      - [ ] application status change 
+    - [ ] to admins : 
+      - [ ] when applications are created 
+      - [ ] when contacting support  
+
+- [ ] 31: 
+  - [ ] Search filters:
+    - [ ] DurationCard : card with checkboxes (toggleable)
+    - [ ] FormatCard : card with checkboxes (toggleable)
+    - [ ] AttendanceCard : card with checkboxes (toggleable)
+    - [ ] LanguageCard : card with checkboxes (toggleable)
+    - [ ] DegreeCard : card with checkboxes (toggleable)
+  - [ ] Sort by 
+
+- [ ] 1/12/2023: 
+  - [ ] Admin dashboard
+  - [ ] alerts on stuff (MUI snackbars)
+  - [ ] settings page 

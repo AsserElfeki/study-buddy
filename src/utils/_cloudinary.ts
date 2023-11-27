@@ -52,7 +52,6 @@ export async function getSignature() {
         },
         cloudinary.config().api_secret
     )
-    // console.log("🚀 ~ file: _cloudinary.ts:54 ~ getSignature ~ cloudinary.config().api_secret:", cloudinary.config().api_secret)
     console.log("time Stamp:", timestamp);
     console.log("signature:", signature);
     return { timestamp, signature }
@@ -70,5 +69,7 @@ export async function saveToDataBase({ public_id, version, signature }) {
     console.log("🚀 ~ file: _cloudinary.ts:68 ~ saveToDataBase ~ signature:", signature)
     if (signature === expectedSignature) {
         console.log({ public_id });
+        //ToDo: 
+        //save to database
     }
 }
