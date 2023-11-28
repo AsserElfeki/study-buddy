@@ -1,34 +1,36 @@
-
 "use client";
-import { useSession } from 'next-auth/react';
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import Select from 'react-select'
 import countryList from 'react-select-country-list'
 import { languageOptions } from './languageOptions';
 
-const PersonalInfoForm = ({ nextStep }) => {
+const PersonalInfoForm = ({ nextStep , callback , data}) => {
 
-    const { data: session } = useSession();
-    const [selectedLanguage, setSelectedLanguage] = useState(null);
-    const [selectedProfeciency, setSelectedProfeciency] = useState(null);
-    const [value, setValue] = useState('')
-    const options = useMemo(() => countryList().getData(), [])
-    const proficiencyOptions = ["A1", "A2", "B1", "B2", "C1", "C2"].map((level) => ({ value: level, label: level }));
-    const handleProfeciencyChange = (selectedOption: any) => {
-        setSelectedProfeciency(selectedOption);
+    const handleInputChange = (event) => {
+        const { name, value } = event.target;
+        callback(prevForm => ({ ...prevForm, [name]: value }));
     }
 
-    const handleLanguageChange = (selectedOption: any) => {
-        setSelectedLanguage(selectedOption);
+    const handleCountryChange = (selectedOption) => {
+        callback(prevForm => ({ ...prevForm, nationality: selectedOption }));
     };
 
-    const handleCountryChange = (value: React.SetStateAction<string>) => {
-        setValue(value)
-    }
+    const handleLanguageChange = (selectedOption) => {
+        callback(prevForm => ({ ...prevForm, nativeLanguage: selectedOption }));
+    };
+
+    const handleProficiencyChange = (selectedOption) => {
+        callback(prevForm => ({ ...prevForm, englishProficiency: selectedOption }));
+    };
+
+
+    const countryOptions = useMemo(() => countryList().getData(), [])
+    const proficiencyOptions = ["A1", "A2", "B1", "B2", "C1", "C2"].map((level) => ({ value: level, label: level }));
+   
     
     const handleSubmit = (event) => {
         event.preventDefault();
-        // Here handle the form submission, e.g., updating state, sending data to an API, etc.
+        // callback(form)
         nextStep();
     };
 
@@ -43,8 +45,9 @@ const PersonalInfoForm = ({ nextStep }) => {
                     name="firstName"
                     id="firstName"
                     className="mt-1 block w-full shadow-sm sm:text-lg border-gray-300 rounded-lg p-1"
+                    onChange={handleInputChange}
                     placeholder='Official Name(s)'
-                    value={session?.user?.name}
+                    value={data.firstName}
                     required
                 />
             </div>
@@ -59,7 +62,8 @@ const PersonalInfoForm = ({ nextStep }) => {
                     id="lastName"
                     className="mt-1 block w-full shadow-sm sm:text-lg border-gray-300 rounded-lg p-1"
                     placeholder='Official Surname(s)'
-                    // value={session?.user?.name}
+                    value={data.lastName}
+                    onChange={handleInputChange}
                     required
                 />
             </div>
@@ -73,7 +77,8 @@ const PersonalInfoForm = ({ nextStep }) => {
                     name="email"
                     id="email"
                     className="mt-1 block w-full shadow-sm sm:text-lg border-gray-300 rounded-lg p-1"
-                    value={session?.user?.email}
+                    onChange={handleInputChange}
+                    value={data.email}
                     required
                 />
             </div>
@@ -86,7 +91,9 @@ const PersonalInfoForm = ({ nextStep }) => {
                     type="tel"
                     name="phoneNumber"
                     id="phoneNumber"
+                    value={data.phoneNumber}
                     className="mt-1 block w-full shadow-sm sm:text-lg border-gray-300 rounded-lg p-1"
+                    onChange={handleInputChange}
                     required
                 />
             </div>
@@ -99,6 +106,8 @@ const PersonalInfoForm = ({ nextStep }) => {
                     type="date"
                     name="dateOfBirth"
                     id="dateOfBirth"
+                    value={data.dateOfBirth}
+                    onChange={handleInputChange}
                     className="mt-1 block w-full shadow-sm sm:text-lg border-gray-300 rounded-lg p-1"
                     required
                 />
@@ -109,11 +118,12 @@ const PersonalInfoForm = ({ nextStep }) => {
                     Nationality
                 </label>
                 <Select
-                    options={options}
-                    value={value}
+                    options={countryOptions}
+                    value={data.nationality}
                     onChange={handleCountryChange}
                     name='nationality'
                     id='nationality'
+                    required
                 />
             </div>
 
@@ -121,10 +131,11 @@ const PersonalInfoForm = ({ nextStep }) => {
                 <label htmlFor="nativeLanguage">Native Language</label>
                 <Select
                     options={languageOptions}
-                    value={selectedLanguage}
+                    value={data.nativeLanguage}
                     onChange={handleLanguageChange}
                     name="nativeLanguage"
                     id="nativeLanguage"
+                    required
                 />
             </div>
 
@@ -132,19 +143,20 @@ const PersonalInfoForm = ({ nextStep }) => {
                 <label htmlFor="profeciency">English proficiency level</label>
                 <Select
                     options={proficiencyOptions}
-                    value={selectedProfeciency}
-                    onChange={handleProfeciencyChange}
-                    name="profeciency"
+                    value={data.englishProficiency}
+                    onChange={handleProficiencyChange}
+                    name="englishProfeciency"
                     id="profeciency"
+                    required
                 />
             </div>
 
-            <div className="flex justify-center">
+            <div className="flex justify-between">
                 <button
                     type="submit"
-                    className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-lg font-bold rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    className="py-2 px-4 border border-transparent shadow-sm text-lg font-bold rounded-md text-white bg-lime-600 hover:bg-lime-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-lime-500"
                 >
-                    Next
+                    Submit
                 </button>
             </div>
         </form>

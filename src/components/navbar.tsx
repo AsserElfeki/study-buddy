@@ -75,7 +75,7 @@ export default function Navbar() {
           <div className='flex flex-row justify-center items-center gap-2'>
             <Tooltip title="Profile" placement='bottom' arrow>
               <Link
-                href="./profile"
+                href="/profile"
                 className={`rounded-full hover:shadow-2xl border-4 ${isActive === "/profile" ? "border-red-900" : "border-transparent"}`}
               >
                 <Avatar alt={session?.user.name} src={session?.user?.image} />

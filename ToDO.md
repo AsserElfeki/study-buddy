@@ -8,8 +8,8 @@ in ORDER:
     - [√] fix auth 
 
 - [ ] tomorrow (28):
+  - [ ] fix mobile vp
   - [ ] add search by name
-  - [ ] fix search page in mobile vp
   - [ ] validate 
   - [ ] Profile:
     - [ ] profile header 

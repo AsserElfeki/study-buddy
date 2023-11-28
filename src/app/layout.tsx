@@ -33,11 +33,11 @@ export default function RootLayout({
       <body className={inter.className}>
         <NextAuthProvider>
           <CssBaseline />
-          <Container maxWidth={false} disableGutters={true} className='bg-slate-100'>
+          <Container maxWidth={false} disableGutters={true} className='bg-slate-50 h-screen'>
             <Navbar />
-            <Container maxWidth={'xl'} disableGutters={true} className='flex mx-auto justify-center min-h-[110vh]'>
+            <Container maxWidth={'xl'} disableGutters={true} className='flex mx-auto justify-center'>
               <Suspense fallback={<Loading />}>
-                <main className="max-w-7xl flex flex-row justify-center w-screen  relative overflow-hidden items-start">
+                <main className="max-w-7xl flex flex-row justify-center w-screen  relative overflow- items-start h-full">
                   {children}
                 </main>
               </Suspense>

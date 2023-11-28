@@ -27,35 +27,14 @@ const pdfOptions: UploadOptions = {
     overwrite: true,
 };
 
-export async function uploadImage(filePath: string) {
-    return cloudinary.uploader.upload(filePath, imageOptions)
-        .then((result) => {
-            console.log(result);
-            return result;
-        })
-        .catch((error) => {
-            console.log(error);
-        });
-}
 
-export async function uploadPdf(filePath: string) {
-    console.log("in the upload file")
-    cloudinary.uploader.upload(filePath, pdfOptions)
-        .then((result) => {
-            console.log(result);
-            return result;
-        })
-        .catch((error) => {
-            console.log("error in upload file",error);
-        });
-}
 
-export async function getSignature() {
+export async function getSignature(folder: string) {
     const timestamp = Math.round(new Date().getTime() / 1000);
     const signature = cloudinary.utils.api_sign_request(
         {
             timestamp,
-            folder: "test"
+            folder: folder
         },
         cloudinary.config().api_secret
     )

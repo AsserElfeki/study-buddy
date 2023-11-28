@@ -202,8 +202,8 @@ model Application {
   userId                String                 @map("user_id")
   studyProgram          StudyProgram           @relation(fields: [studyProgramId], references: [id])
   user                  User                   @relation(fields: [userId], references: [id])
-  documents             Document[]
   forms                 Form[]
+  documents             Document[]
   personalInfo          PersonalInfo?
   educationalBackground EducationalBackground?
 
@@ -213,7 +213,7 @@ model Application {
 model Form {
   id            String      @id @default(cuid())
   applicationId String      @map("application_id")
-  application   Application @relation(fields: [applicationId], references: [id],  onDelete: Cascade)
+  application   Application @relation(fields: [applicationId], references: [id], onDelete: Cascade)
 
   @@map("forms")
 }
@@ -230,15 +230,15 @@ model Document {
 
 model PersonalInfo {
   nativeLanguage      String
-  languageProficiency EnglishLevel
+  languageProficiency  EnglishLevel
   id                  String       @id @default(cuid())
-  applicationId       String       @unique @map("application_id")
-  firstName           String
+  firstName            String
   lastName            String
   email               String
   phoneNumber         String?
   dateOfBirth         DateTime
   nationality         String
+  applicationId       String       @unique @map("application_id")
   application         Application  @relation(fields: [applicationId], references: [id])
 
   @@map("personal_infos")
@@ -256,7 +256,7 @@ enum EnglishLevel {
 model EducationalBackground {
   id                   String               @id @default(cuid())
   applicationId        String               @unique @map("application_id")
-  highestQualification  highestQualification  @map("highest_qualification")
+  highestQualification highestQualification @map("highest_qualification")
   institutionName      String
   graduationYear       Int
   application          Application          @relation(fields: [applicationId], references: [id])

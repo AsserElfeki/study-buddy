@@ -130,3 +130,22 @@ export async function likePost(postId: string) {
     // return comment;
 
 }
+
+
+export async function startApplication(studyProgramId: string) {
+    const session = await getServerSession({ ...authOptions });
+    if (!session) {
+        return null;
+    }
+    const user = session.user;
+    if (!user.isActive) {
+        return "inactive user";
+    }
+    const application = await prisma.application.create({
+        data: {
+            userId: session.user.id,
+            studyProgramId: studyProgramId,
+        }
+    });
+    return application;
+}

@@ -4,6 +4,7 @@ import EuroIcon from '@mui/icons-material/Euro';
 import { Button } from '@mui/material'; // Only import what is necessary
 import HeaderBanner from '@src/components/study-programHeader';
 import Divider from '@mui/material/Divider';
+import { startApplication } from '@src/utils/_actions';
 
 
 function capitalizeSentences(str) {
@@ -11,6 +12,11 @@ function capitalizeSentences(str) {
 }
 
 export default async function ProgramCard({ params }: { params: { id: string } | null }) {
+
+
+  const handleApply = async () => {
+    await startApplication(params.id);
+  };
 
   const program: StudyProgram = await getProgram(params.id);
   const title = `${program.degreeType.toUpperCase()} of ${program.name.charAt(0).toUpperCase() + program.name.slice(1)}`;
@@ -73,6 +79,7 @@ export default async function ProgramCard({ params }: { params: { id: string } |
         <Button
           variant="outlined"
           className="mt-4 text-center max-w-fit self-center"
+          // action={handleApply}
           href={`/apply/${program.id}`}
         >
           Apply Now
