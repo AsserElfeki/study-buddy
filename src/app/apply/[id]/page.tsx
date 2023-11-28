@@ -4,14 +4,14 @@ import EducationalBackgroundForm from '@components/apply/educationalBackgroundFo
 import PersonalInfoForm from '@components/apply/personalInfoForm';
 import SupportingDocumentsForm from '@components/apply/supportingDocumentsForm'
 import ReviewAndSubmitForm from '@components/apply/reviewAndSubmitForm';
-import { useEffect, useState } from 'react';
+import { use, useEffect, useState } from 'react';
 import { startApplication } from '@src/utils/_actions';
 import { useSession } from 'next-auth/react';
 import ReviewDocuments from '@src/components/apply/review';
 
 export default function ApplyPage({ params }: { params: { id: string } | null }) {
     const { data: session } = useSession();
-    const [currentStep, setCurrentStep] = useState(3);
+    const [currentStep, setCurrentStep] = useState(1);
     const [applicationId, setApplicationId] = useState("");
     
     //forms state :
@@ -46,36 +46,30 @@ export default function ApplyPage({ params }: { params: { id: string } | null })
             lastName: session?.user?.lastName,
             email: session?.user?.email,
         })
-        console.log("data in page: ", personalInfo)
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [session])
 
-    useEffect(() => {
-        console.log("personal info changed: ", personalInfo);
-    }, [personalInfo])
-
-    useEffect(() => {
-        console.log("educational info changed: ", educationalBackground);
-    }, [educationalBackground])
-
-    useEffect(() => {
-        console.log("supporting docs changed: ", supportingDocuments);
-    }, [supportingDocuments])
-
-// create the application with user and program id
-    // useEffect(() => {
-    //     const Apply = async () => {
-    //         const data = await startApplication(params.id);
-    //         return data;
-    //     }
-    //     if (params && !applicationId) {
-    //         const data = Apply().then(data => {setApplicationId(data.id);
-    //         });
-    //     }
-    // }, []);
-
     const nextStep = () => setCurrentStep(currentStep + 1);
     const prevStep = () => setCurrentStep(currentStep - 1);
+
+    const handleEdit = async () => {  
+        setCurrentStep(1);
+    }
+    const handleSubmit = async () => {
+        // await submitApplication(applicationId, personalInfo, educationalBackground, supportingDocuments);
+        console.log("submitting application");
+        console.log("personalInfo: ", personalInfo);
+        console.log("educationalBackground: ", educationalBackground);
+        console.log("supportingDocuments: ", supportingDocuments);
+
+        const application = await startApplication(params.id);
+        //ToDo: create personal ifno 
+        //ToDo: create educational background
+        //ToDo: upload supporting documents
+        //todo: save documents to database
+
+
+    }
 
     const renderStep = () => {
         switch (currentStep) {
@@ -88,10 +82,9 @@ export default function ApplyPage({ params }: { params: { id: string } | null })
             default:
                 return (
                     <section>
-                        <PersonalInfoForm nextStep={nextStep} callback={setPersonalInfo} data={personalInfo} />
-                        <EducationalBackgroundForm nextStep={nextStep} prevStep={prevStep} callback={setEducationalBackground} data={educationalBackground} />
-                        {/* <SupportingDocumentsForm nextStep={nextStep} prevStep={prevStep} data={supportingDocuments} callback={setSupportingDocuments} /> */}
-                        <ReviewDocuments files={supportingDocuments}  callback={ setSupportingDocuments }/>
+                        <ReviewAndSubmitForm personalInfo={personalInfo} educationalBackground={educationalBackground} onEdit={handleEdit} onSubmit={handleSubmit} >
+                            <ReviewDocuments files={supportingDocuments} callback={setSupportingDocuments} />
+                        </ReviewAndSubmitForm>
                     </section>
                 );
         }

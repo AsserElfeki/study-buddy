@@ -4,16 +4,6 @@ import React, { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import { getSignature, saveToDataBase } from '@utils/_cloudinary';
 import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
-import { Box, Button, List, Grid, Paper, Typography, ListItem, ListItemText, ListItemSecondaryAction, IconButton } from '@mui/material';
-import DeleteIcon from '@mui/icons-material/Delete';
-import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-import ImageIcon from '@mui/icons-material/Image';
-import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
-import DescriptionIcon from '@mui/icons-material/Description';
-import FolderZipIcon from '@mui/icons-material/FolderZip';
-import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
-
-
 
 
 const SupportingDocumentsForm = ({ nextStep, prevStep , data , callback}) => {
@@ -25,7 +15,6 @@ const SupportingDocumentsForm = ({ nextStep, prevStep , data , callback}) => {
         setDocuments(data.documents);
     }, [])
     
-    console.log(numFiles)
 
     const handleFileChange = (event) => {
        
@@ -34,10 +23,9 @@ const SupportingDocumentsForm = ({ nextStep, prevStep , data , callback}) => {
 
 
     async function action() {
-        if (!documents[0])
-            return
+        nextStep();
+        // console.log(numFiles)
         callback ({ documents: documents , numFiles: numFiles});
-
         // for (const doc of documents) {
         //     if (!doc)
         //         //skip if the document is not selected
@@ -79,7 +67,6 @@ const SupportingDocumentsForm = ({ nextStep, prevStep , data , callback}) => {
         //     });
         // }
 
-        nextStep();
 
     }
     return (
@@ -118,15 +105,16 @@ const SupportingDocumentsForm = ({ nextStep, prevStep , data , callback}) => {
                     <button
                         type="button"
                         onClick={prevStep}
-                        className="py-2 px-4 border border-transparent shadow-sm text-lg font-bold rounded-md text-white bg-indigo-500 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        className="py-2 px-4 border border-transparent shadow-sm text-lg font-bold rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-lime-500"
                     >
                         Previous
                     </button>
                     <button
-                        type="submit"
+                        type="button"
+                        onClick={action}
                         className="py-2 px-4 border border-transparent shadow-sm text-lg font-bold rounded-md text-white bg-lime-600 hover:bg-lime-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-lime-500"
                     >
-                        Submit
+                        Review your data
                     </button>
                 </div>
             </form>

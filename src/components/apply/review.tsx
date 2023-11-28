@@ -59,21 +59,21 @@ function ReviewDocuments({ files , callback}) {
         <>
             <Grid container spacing={2} style={{ marginTop: '20px' }}>
                 {documents.map((file, index) => (
-                    <Grid item xs={12} sm={6} md={4} key={index}>
-                        <Paper style={{ padding: '20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', cursor: 'pointer' }} onClick={() => downloadFile(file.file_url, file.name)}>
+                    <Grid item xs={12} sm={6} md={4} lg={3} xl={3} key={index}>
+                        <Paper
+                            className=' bg-orange-200 flex p-1 h-24 w-auto justify-between items-center hover:cursor-pointer'
+                            onClick={() => downloadFile(file.file_url, file.name)}>
                             <Box >
-                                <Typography variant="body1" gutterBottom style={{ margin: '10px' }} m={1}>
+                                <Typography
+                                    variant="body1" gutterBottom m={1}>
                                     {getFileIcon(file.name)}
-                                    <span style={{ marginLeft: '10px' }}>{file.name}</span>
+                                    <span className='break-all  max-w-xs text-sm ml-2 '>{file.name}</span>
                                 </Typography>
-                                <Typography variant="body2" color="textSecondary">
-                                    Click to open
-                                </Typography>
+
                                 <IconButton aria-label="delete" onClick={(e) => { e.stopPropagation(); handleDeleteFile(index) }}>
                                     <DeleteIcon />
                                 </IconButton>
                             </Box>
-
                         </Paper>
                     </Grid>
                 ))}

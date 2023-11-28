@@ -151,12 +151,12 @@ const PersonalInfoForm = ({ nextStep , callback , data}) => {
                 />
             </div>
 
-            <div className="flex justify-between">
+            <div className="flex justify-end flex-row">
                 <button
                     type="submit"
-                    className="py-2 px-4 border border-transparent shadow-sm text-lg font-bold rounded-md text-white bg-lime-600 hover:bg-lime-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-lime-500"
+                    className="py-2 px-4 border border-transparent shadow-sm text-lg font-bold rounded-md text-white bg-indigo-500 hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-lime-500"
                 >
-                    Submit
+                    save and continue
                 </button>
             </div>
         </form>
