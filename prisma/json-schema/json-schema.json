@@ -492,16 +492,16 @@
         "user": {
           "$ref": "#/definitions/User"
         },
-        "documents": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Document"
-          }
-        },
         "forms": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/Form"
+          }
+        },
+        "documents": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Document"
           }
         },
         "personalInfo": {

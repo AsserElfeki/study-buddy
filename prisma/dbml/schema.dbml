@@ -149,8 +149,8 @@ Table applications {
   userId String [not null]
   studyProgram study_programs [not null]
   user users [not null]
-  documents documents [not null]
   forms forms [not null]
+  documents documents [not null]
   personalInfo personal_infos
   educationalBackground educational_backgrounds
 }
@@ -172,13 +172,13 @@ Table personal_infos {
   nativeLanguage String [not null]
   languageProficiency EnglishLevel [not null]
   id String [pk]
-  applicationId String [unique, not null]
   firstName String [not null]
   lastName String [not null]
   email String [not null]
   phoneNumber String
   dateOfBirth DateTime [not null]
   nationality String [not null]
+  applicationId String [unique, not null]
   application applications [not null]
 }
 
