@@ -43,6 +43,7 @@ in ORDER:
     - [ ] AttendanceCard : card with checkboxes (toggleable)
     - [ ] LanguageCard : card with checkboxes (toggleable)
     - [ ] DegreeCard : card with checkboxes (toggleable)
+    - [ ] university 
   - [ ] Sort by 
 
 - [ ] 1/12/2023: 
