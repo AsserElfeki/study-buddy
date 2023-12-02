@@ -200,13 +200,14 @@ model Application {
   id                    String                 @id @default(cuid())
   studyProgramId        String                 @map("study_program_id")
   userId                String                 @map("user_id")
-  studyProgram          StudyProgram           @relation(fields: [studyProgramId], references: [id])
-  user                  User                   @relation(fields: [userId], references: [id])
+  studyProgram          StudyProgram           @relation(fields: [studyProgramId], references: [id] , onDelete: Cascade)
+  user                  User                   @relation(fields: [userId], references: [id], onDelete: Cascade)
   forms                 Form[]
   documents             Document[]
   personalInfo          PersonalInfo?
   educationalBackground EducationalBackground?
 
+  @@unique([studyProgramId, userId])
   @@map("applications")
 }
 
@@ -219,9 +220,8 @@ model Form {
 }
 
 model Document {
-  link String?
-
   id            String      @id @default(cuid())
+  link          String?
   applicationId String      @map("application_id")
   application   Application @relation(fields: [applicationId], references: [id], onDelete: Cascade)
 
@@ -230,16 +230,16 @@ model Document {
 
 model PersonalInfo {
   nativeLanguage      String
-  languageProficiency  EnglishLevel
+  languageProficiency EnglishLevel
   id                  String       @id @default(cuid())
-  firstName            String
+  firstName           String
   lastName            String
   email               String
   phoneNumber         String?
   dateOfBirth         DateTime
   nationality         String
   applicationId       String       @unique @map("application_id")
-  application         Application  @relation(fields: [applicationId], references: [id])
+  application         Application  @relation(fields: [applicationId], references: [id], onDelete: Cascade)
 
   @@map("personal_infos")
 }
@@ -259,7 +259,7 @@ model EducationalBackground {
   highestQualification highestQualification @map("highest_qualification")
   institutionName      String
   graduationYear       Int
-  application          Application          @relation(fields: [applicationId], references: [id])
+  application          Application          @relation(fields: [applicationId], references: [id], onDelete: Cascade)
 
   @@map("educational_backgrounds")
 }

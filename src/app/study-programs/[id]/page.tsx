@@ -14,9 +14,9 @@ function capitalizeSentences(str) {
 export default async function ProgramCard({ params }: { params: { id: string } | null }) {
 
 
-  const handleApply = async () => {
-    await startApplication(params.id);
-  };
+  // const handleApply = async () => {
+  //   await startApplication(params.id);
+  // };
 
   const program: StudyProgram = await getProgram(params.id);
   const title = `${program.degreeType.toUpperCase()} of ${program.name.charAt(0).toUpperCase() + program.name.slice(1)}`;

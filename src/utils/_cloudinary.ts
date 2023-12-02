@@ -1,4 +1,5 @@
 "use server";
+import prisma from '@src/lib/prisma';
 import { v2 as cloudinary } from 'cloudinary';
 
 cloudinary.config({
@@ -44,7 +45,7 @@ export async function getSignature(folder: string) {
     return { timestamp, signature }
 }
 
-export async function saveToDataBase({ public_id, version, signature }) {
+export async function validateSignature({ public_id, version, signature }) {
     const expectedSignature = cloudinary.utils.api_sign_request(
         {
             public_id,
@@ -56,7 +57,7 @@ export async function saveToDataBase({ public_id, version, signature }) {
     console.log("🚀 ~ file: _cloudinary.ts:68 ~ saveToDataBase ~ signature:", signature)
     if (signature === expectedSignature) {
         console.log({ public_id });
-        //ToDo: 
-        //save to database
+        return true;
     }
-}
+        return false
+    }

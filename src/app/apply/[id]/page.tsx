@@ -29,7 +29,7 @@ export default function ApplyPage({ params }: { params: { id: string } | null })
     const [educationalBackground, setEducationalBackground] = useState({
         highestQualification: "",
         institutionName: "",
-        graduationYear: Number,
+        graduationYear: "",
     });
 
     const [supportingDocuments, setSupportingDocuments] = useState({
@@ -55,14 +55,15 @@ export default function ApplyPage({ params }: { params: { id: string } | null })
     const handleEdit = async () => {  
         setCurrentStep(1);
     }
-    const handleSubmit = async () => {
+    const handleSubmit = async (e) => {
+        e.preventDefault();
         // await submitApplication(applicationId, personalInfo, educationalBackground, supportingDocuments);
         console.log("submitting application");
         console.log("personalInfo: ", personalInfo);
         console.log("educationalBackground: ", educationalBackground);
         console.log("supportingDocuments: ", supportingDocuments);
 
-        const application = await startApplication(params.id);
+        const application = await startApplication(params.id, personalInfo, educationalBackground, supportingDocuments);
         //ToDo: create personal ifno 
         //ToDo: create educational background
         //ToDo: upload supporting documents
