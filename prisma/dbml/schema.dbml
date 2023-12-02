@@ -153,6 +153,10 @@ Table applications {
   documents documents [not null]
   personalInfo personal_infos
   educationalBackground educational_backgrounds
+
+  indexes {
+    (studyProgramId, userId) [unique]
+  }
 }
 
 Table forms {
@@ -162,8 +166,8 @@ Table forms {
 }
 
 Table documents {
-  link String
   id String [pk]
+  link String
   applicationId String [not null]
   application applications [not null]
 }
@@ -253,14 +257,14 @@ Ref: disciplines_on_programs.disciplineId > disciplines.id [delete: Cascade]
 
 Ref: disciplines_on_programs.studyProgramId > study_programs.id [delete: Cascade]
 
-Ref: applications.studyProgramId > study_programs.id
+Ref: applications.studyProgramId > study_programs.id [delete: Cascade]
 
-Ref: applications.userId > users.id
+Ref: applications.userId > users.id [delete: Cascade]
 
 Ref: forms.applicationId > applications.id [delete: Cascade]
 
 Ref: documents.applicationId > applications.id [delete: Cascade]
 
-Ref: personal_infos.applicationId - applications.id
+Ref: personal_infos.applicationId - applications.id [delete: Cascade]
 
-Ref: educational_backgrounds.applicationId - applications.id
+Ref: educational_backgrounds.applicationId - applications.id [delete: Cascade]
