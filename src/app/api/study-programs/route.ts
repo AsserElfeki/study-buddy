@@ -196,6 +196,7 @@ export async function POST(req: NextRequest) {
     catch (error) {
         console.log("🚀 ~ file: route.ts:21 ~ GET ~ error", error)
         return Response.json({
+            error: error.message,
             message: 'error while retrieving data',
         }, {
             status: 400,

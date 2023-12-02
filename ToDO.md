@@ -47,6 +47,7 @@ in ORDER:
   - [ ] Sort by 
 
 - [ ] 1/12/2023: 
+    - [ ] Implement dark mode feature
   - [ ] Admin dashboard
   - [ ] alerts on stuff (MUI snackbars)
   - [ ] settings page 

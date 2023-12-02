@@ -29,6 +29,7 @@ const pdfOptions: UploadOptions = {
 
 
 
+
 export async function getSignature(folder: string) {
     const timestamp = Math.round(new Date().getTime() / 1000);
     const signature = cloudinary.utils.api_sign_request(
