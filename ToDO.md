@@ -7,10 +7,12 @@ in ORDER:
     - [x] backend (cloudinary)
     - [√] fix auth 
 
-- [ ] tomorrow (28):
+- [ ] today (2):
+  - [ ] validate 
+  - [ ] add to favoruites (edit db)
+  - [ ] add as friend 
   - [ ] fix mobile vp
   - [ ] add search by name
-  - [ ] validate 
   - [ ] Profile:
     - [ ] profile header 
     - [ ] profile tabs (MUI tabs)
@@ -19,14 +21,13 @@ in ORDER:
       - [ ] favourites
       - [ ] settings (where settings icon points to)
 
-- [ ] 29:
+- [ ] 7:
   - [ ] notifications should be working (emails ?)
-  - [ ] add to favoruites (edit db)
   - [ ] Others profile: 
     - [ ] add as friend (edit db)
     - [ ] send message (messages a7eeh)
 
-- [ ] 30: 
+- [ ] 10: 
   - [ ] emails: 
     - [ ] to users: 
       - [ ] auth
@@ -36,7 +37,7 @@ in ORDER:
       - [ ] when applications are created 
       - [ ] when contacting support  
 
-- [ ] 31: 
+- [ ] 12: 
   - [ ] Search filters:
     - [ ] DurationCard : card with checkboxes (toggleable)
     - [ ] FormatCard : card with checkboxes (toggleable)
@@ -46,7 +47,7 @@ in ORDER:
     - [ ] university 
   - [ ] Sort by 
 
-- [ ] 1/12/2023: 
+- [ ] 15: 
     - [ ] Implement dark mode feature
   - [ ] Admin dashboard
   - [ ] alerts on stuff (MUI snackbars)
