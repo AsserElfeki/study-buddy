@@ -8,7 +8,7 @@ in ORDER:
     - [√] fix auth 
 
 - [ ] today (2):
-  - [ ] validate 
+  - [x] validate 
   - [ ] edit db (a lot of shit)
   - [ ] add to favoruites (edit db)
   - [ ] add as friend 
