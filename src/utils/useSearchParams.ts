@@ -17,5 +17,5 @@ export function useHandleSearchParams() {
     const page = searchParams?.get("page") ? Number(searchParams.get("page")) : 1;
     const university = searchParams?.get("university") ? searchParams.get("university").toString() : '';
     
-    return {minFee, maxFee, discipline, language, duration, format, attendance, degreeType, page, name, university}
+    return { minFee, maxFee, discipline, language, duration, format, attendance, degreeType, page, name, university}
 }

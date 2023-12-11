@@ -7,6 +7,8 @@ import NameSearch from './nameSearch';
 import University from '@src/app/university/[id]/page';
 import UniversityName from './universityName';
 import UniversityNameSearch from './universityName';
+import DurationCard from './durationCard';
+import LanguageCard from './languageCard';
 
 export default async function Sidebar() {
     const maxFee = await getMaxTuition();
@@ -18,6 +20,14 @@ export default async function Sidebar() {
             <UniversityNameSearch />
             <Toggler displayName='Disciplines'>
                 <DisciplineContainer />
+            </Toggler>
+
+            <Toggler displayName='Duration'>
+                <DurationCard />
+            </Toggler>
+
+            <Toggler displayName='Language of study'>
+                <LanguageCard />
             </Toggler>
 
             <Toggler displayName='Tuition Fees'>

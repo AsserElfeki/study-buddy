@@ -29,6 +29,7 @@ export async function GET(req: NextRequest) {
     const universityId = searchParams.get('universityId')
     const universityName = searchParams.get('universityName')
 
+    console.log(programLanguage)
     //ToDo:
 
     // 3. add different duration options duration
@@ -39,7 +40,7 @@ export async function GET(req: NextRequest) {
         tuitionFee?: {},
         duration?: {},
         degreeType?: {},
-        language?: string,
+        studyProgramLanguage?: string,
         attendance?: {},
         format?: {},
         discipline?: {},
@@ -93,10 +94,10 @@ export async function GET(req: NextRequest) {
     }
     if (programLanguage) {
         if (programLanguage.includes("en")) {
-            whereClause.language = studyProgramLanguage.EN
+            whereClause.studyProgramLanguage = studyProgramLanguage.EN
         }
         else if (programLanguage.includes("pl")) {
-            whereClause.language = studyProgramLanguage.PL
+            whereClause.studyProgramLanguage = studyProgramLanguage.PL
         }
     }
     if (programAttendance) {
@@ -118,6 +119,8 @@ export async function GET(req: NextRequest) {
             }
         }
     }
+
+
 
 
     console.log("👉👉👉 ~ file: route.ts:18 ~ GET ~ whereClause:", whereClause)
