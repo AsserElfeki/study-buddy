@@ -40,9 +40,9 @@ in ORDER:
       - [ ] when applications are created 
       - [ ] when contacting support  
 
-- [ ] 12/12: 
+- [x] 12/12: 
   - [ ] Search filters:
-    - [ ] DurationCard : card with checkboxes (toggleable)
+    - [x] DurationCard : card with checkboxes (toggleable)
     - [ ] FormatCard : card with checkboxes (toggleable)
     - [ ] AttendanceCard : card with checkboxes (toggleable)
     - [x] LanguageCard : card with checkboxes (toggleable)
@@ -67,8 +67,8 @@ in ORDER:
   - [x] sign up via google 
   - [ ] edit profile 
   - [x] search by name
-  - [ ] for all filters
-  - [ ] for each filter 
+  - [x] for all filters
+  - [x] for each filter 
   - [x] for each form
   - [x] for all uploads
   - [x] document upload
