@@ -15,17 +15,9 @@ type StudyProgramCardProps = {
     duration: number;
 };
 
-const StudyProgramCard: React.FC<StudyProgramCardProps> = ({
-    id,
-    title,
-    description,
-    university,
-    tuition,
-    tuitionCycle,
-    duration,
-}) => {
+function StudyProgramCard(props: StudyProgramCardProps) {
+    let { id, title, description, university, tuition, tuitionCycle, duration } = props;
 
-    
 
     description = description.charAt(0).toUpperCase() + description.slice(1);
     title = title.charAt(0).toUpperCase() + title.slice(1);

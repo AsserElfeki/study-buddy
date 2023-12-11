@@ -1,6 +1,3 @@
-import { LoginForm } from './../app/login/form';
-import { EducationalBackgroundForm } from '@components/apply/educationalBackgroundForm';
-import { PersonalInfoForm } from '@components/apply/personalInfoForm';
 "use server";
 
 
@@ -282,3 +279,33 @@ export async function uploadDocs(documents, applicationId) {
         }
     }
 }
+
+
+
+export async function addToFavorites(programId: string) : Promise<any> {
+    const session = await getServerSession({ ...authOptions });
+    if (!session) {
+        return null;
+    }
+    const user = session.user;
+    if (!user.isActive) {
+        return "inactive user";
+    }
+    
+    //add the program to the user favorites list, the user model has a field favorites, it's an array
+
+    // Save the updated user object to the database
+    await prisma.user.update({
+        where: {
+            id: user.id
+        },
+        data: {
+            favorites: programId
+        }
+    });
+
+    // Return the updated user object
+    return user;
+    }
+
+    

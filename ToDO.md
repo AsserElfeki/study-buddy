@@ -10,7 +10,7 @@ in ORDER:
 - [ ] today (2):
   - [x] validate 
   - [ ] edit db (a lot of shit)
-  - [ ] add to favoruites (edit db)
+  - [ ] add to favoruites 
   - [ ] add as friend 
   - [ ] fix mobile vp
   - [ ] add search by name
@@ -56,4 +56,25 @@ in ORDER:
   - [ ] alerts on stuff (MUI snackbars)
   - [ ] settings page 
   - [ ] send messages 
-  - [ ] 
+
+
+
+
+- [ ] screenshots: 
+  - [x] login via credentials
+  - [x] login via google 
+  - [x] sign up with credentials
+  - [x] sign up via google 
+  - [ ] edit profile 
+  - [x] search by name
+  - [ ] for all filters
+  - [ ] for each filter 
+  - [x] for each form
+  - [x] for all uploads
+  - [x] document upload
+  - [x] social forum 
+  - [ ] emails notifications 
+  - [ ] npm i 
+  - [ ] npx seed 
+  - [ ] prisma studio 
+  - [ ] toast notifications

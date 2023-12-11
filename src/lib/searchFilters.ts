@@ -1,6 +1,6 @@
 "use server"
 import { disciplinePath, studyProgramPath, universityPath } from './apiPaths';
-import { Discipline, StudyProgram } from '@prisma/client';
+import { Discipline, StudyProgram, University } from '@prisma/client';
 
 export async function getProgramCountinDiscipline(disciplineId: string): Promise<number> {
     const res: Response = await fetch(`${disciplinePath}/${disciplineId}`, {
@@ -44,6 +44,8 @@ export async function getPrograms({
     attendance,
     degree,
     universityId,
+    name,
+    universityName
 }: {
     tuMin?: number;
     tuMax?: number;
@@ -54,6 +56,8 @@ export async function getPrograms({
     attendance?: string;
     degree?: string;
     universityId?: string;
+    name?: string;
+    universityName?: string;
 } = {}): Promise<Array<StudyProgram>> {
     console.log("💧", disciplineName)
     let disciplineId = null;
@@ -81,6 +85,8 @@ export async function getPrograms({
     if (disciplineId) queryParams.append('discipline', disciplineId);
     if (universityId) queryParams.append('universityId', universityId);
     if (duration) queryParams.append('duration', duration);
+    if (name) queryParams.append('name', name);
+    if (universityName) queryParams.append('universityName', universityName);
     const url = `${studyProgramPath}?${queryParams.toString()}`;
     console.log(`🌍${url}`);
 

@@ -13,7 +13,7 @@ import { type NextRequest } from 'next/server';
  * @return {Promise<Response>} A promise that resolves to a response containing the matched study programs.
  */
 export async function GET(req: NextRequest) {
-    
+
     const searchParams = req.nextUrl.searchParams
     // console.log("🚀 ~ file: route.ts:16 ~ GET ~ searchParams:", searchParams)
     const programName = searchParams.get('name')
@@ -27,6 +27,8 @@ export async function GET(req: NextRequest) {
     const programMinTuition: number = parseFloat(searchParams.get('minTuition'))
     const programMaxTuition: number = parseFloat(searchParams.get('maxTuition'))
     const universityId = searchParams.get('universityId')
+    const universityName = searchParams.get('universityName')
+
     //ToDo:
 
     // 3. add different duration options duration
@@ -41,9 +43,20 @@ export async function GET(req: NextRequest) {
         attendance?: {},
         format?: {},
         discipline?: {},
-        universityId?: {}
+        universityId?: {},
+        university?: {
+
+        }
     } = {}
 
+    if (universityName) {
+        whereClause.university = {
+            name: {
+                contains: universityName,
+                mode: "insensitive"
+            }
+        }
+    }
     if (universityId) {
         whereClause.universityId = {
             equals: universityId

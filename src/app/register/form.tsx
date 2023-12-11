@@ -1,9 +1,14 @@
 "use client";
 
 import { signIn } from "next-auth/react";
+import { useSearchParams } from 'next/navigation';
 import { ChangeEvent, useState } from "react";
+import Image from 'next/image';
 
 export const RegisterForm = () => {
+    const searchParams = useSearchParams();
+    const callbackUrl = searchParams.get("callbackUrl") || "/profile";
+    
     const [loading, setLoading] = useState(false);
     const [formValues, setFormValues] = useState({
         firstName: "",
@@ -112,13 +117,33 @@ export const RegisterForm = () => {
                     className={`${input_style}`}
                 />
             </div>
+
+            <div className='flex flex-col justify-between gap-4 flex-auto '>
             <button
                 type="submit"
-                className="inline-block px-7 py-4 bg-red-700 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-red-800 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out w-full disabled:bg-gray-400"
+                className=" inline-block px-7 py-4 bg-red-700 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-red-800 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out w-full disabled:bg-gray-400"
                 disabled={loading}
             >
                 {loading ? "loading..." : "Sign Up"}
             </button>
+
+            <a
+                className="px-7 py-2 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out w-full flex justify-center items-center"
+                style={{ backgroundColor: "#3b5998" }}
+                onClick={() => signIn("google", { callbackUrl })}
+                role="button"
+            >
+                <Image
+                    className="pr-2"
+                    src="/images/google.svg"
+                    alt=""
+                    width={60}
+                    height={60}
+                />
+                Continue with Google
+                </a>
+            </div>
+
         </form>
     );
 };

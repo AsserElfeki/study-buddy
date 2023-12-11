@@ -61,7 +61,7 @@ function ReviewDocuments({ files , callback}) {
                 {documents.map((file, index) => (
                     <Grid item xs={12} sm={6} md={4} lg={3} xl={3} key={index}>
                         <Paper
-                            className=' bg-orange-200 flex p-1 h-24 w-auto justify-between items-center hover:cursor-pointer'
+                            className='lex flex-grow bg-orange-200 flex p-1 h-fit w-auto justify-between items-center hover:cursor-pointer'
                             onClick={() => downloadFile(file.file_url, file.name)}>
                             <Box >
                                 <Typography

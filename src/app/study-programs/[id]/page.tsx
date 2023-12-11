@@ -1,10 +1,10 @@
 import { StudyProgram } from '@prisma/client';
-import { getProgram } from '@src/lib/searchFilters';
+import { getProgram, getUniversity } from '@src/lib/searchFilters';
 import EuroIcon from '@mui/icons-material/Euro';
 import { Button } from '@mui/material'; // Only import what is necessary
 import HeaderBanner from '@src/components/study-programHeader';
 import Divider from '@mui/material/Divider';
-import { startApplication } from '@src/utils/_actions';
+import CustomButton from '@src/components/customButton';
 
 
 function capitalizeSentences(str) {
@@ -13,12 +13,8 @@ function capitalizeSentences(str) {
 
 export default async function ProgramCard({ params }: { params: { id: string } | null }) {
 
-
-  // const handleApply = async () => {
-  //   await startApplication(params.id);
-  // };
-
   const program: StudyProgram = await getProgram(params.id);
+  const university = await getUniversity(program.universityId);
   const title = `${program.degreeType.toUpperCase()} of ${program.name.charAt(0).toUpperCase() + program.name.slice(1)}`;
   const duration = program.duration;
   let durationText;
@@ -26,6 +22,8 @@ export default async function ProgramCard({ params }: { params: { id: string } |
     durationText = `${duration} years`;
   else
     durationText = `${duration * 10} months`;
+
+  console.log(program)
   return (
     <div className='flex flex-col justify-center bg-transparent w-full'>
       <HeaderBanner duration={durationText} paymentCycle={program.paymentCycle} tuitionFee={program.tuitionFee} applyDate={program.applyDate} startDate={program.startDate} />
@@ -35,6 +33,9 @@ export default async function ProgramCard({ params }: { params: { id: string } |
 
         <Divider className='mt-2 mb-6'>Key Information</Divider>
         <div className="grid grid-cols-2 gap-6 mb-8 w-3/5 mx-auto font-bold ">
+          <span className="text-left font-medium">University</span>
+          <span className="text-right">{capitalizeSentences(university.name)}</span>
+
           <span className="text-left font-medium">Duration</span>
           <span className="text-right">{durationText}</span>
 
@@ -76,14 +77,8 @@ export default async function ProgramCard({ params }: { params: { id: string } |
             {capitalizeSentences(program.description)}
           </p>
         </div>
-        <Button
-          variant="outlined"
-          className="mt-4 text-center max-w-fit self-center"
-          // action={handleApply}
-          href={`/apply/${program.id}`}
-        >
-          Apply Now
-        </Button>
+        
+        <CustomButton text="Apply Now" link={`/apply/${program.id}`} /> 
       </div>
     </div>
   );

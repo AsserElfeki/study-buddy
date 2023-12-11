@@ -14,8 +14,15 @@ export default function DisciplineContainer() {
     const fetchData = async () => {
       const disciplines: Discipline[] = await getAllDisciplines() || [];
       setDisciplinesList(disciplines);
+
+
+      {
+        disciplines.sort((a, b) => a.name.localeCompare(b.name))
+      }
+
+      
       disciplinesRef.current = disciplines.map((discipline) =>
-        <DisciplineCard key={discipline.id} name={discipline.name} id={discipline.id} />
+        <DisciplineCard key={discipline.name} name={discipline.name} id={discipline.id} />
       );
     };
     fetchData();

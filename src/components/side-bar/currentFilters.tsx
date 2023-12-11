@@ -12,10 +12,9 @@ function CurrentFilters({ fee }: { fee: number | null }) {
     const searchParams = useSearchParams();
     const pathname = usePathname();
     const router = useRouter();
-    const { minFee, maxFee, discipline, language, duration, format, attendance, degreeType } = useHandleSearchParams(searchParams);
+    const { minFee, maxFee, discipline, language, duration, format, attendance, degreeType, name, university } = useHandleSearchParams();
 
-    // const { fixedMaxFee } = fee ;
-    const props = { discipline, minFee, maxFee, format, language, degreeType };
+    const props = { discipline, minFee, maxFee, format, language, degreeType, name, duration, attendance, university };
     console.log("🚀 ~ file: currentFilters.tsx:19 ~ CurrentFilters ~ maxFixedFee:", fee)
     // console.log(fixedMaxFee)
 

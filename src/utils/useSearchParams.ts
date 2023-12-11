@@ -4,7 +4,7 @@ import { useSearchParams } from 'next/navigation';
 export function useHandleSearchParams() {
     const searchParams = useSearchParams();
 
-
+    const name = searchParams?.get("name") ? searchParams.get("name").toString() : '';
     const tuition = searchParams?.get("tuition") ? searchParams.get("tuition").toString() : '';
     const minFee = tuition ? Number(tuition.split(',')[0].split('[')[1]) : null;
     const maxFee = tuition ? Number(tuition.split(',')[1].split(']')[0]) : null;
@@ -15,6 +15,7 @@ export function useHandleSearchParams() {
     const attendance = searchParams?.get("attendance") ? searchParams.get("attendance").toString() : '';
     const degreeType = searchParams?.get("degree") ? searchParams.get("degree").toString() : '';
     const page = searchParams?.get("page") ? Number(searchParams.get("page")) : 1;
+    const university = searchParams?.get("university") ? searchParams.get("university").toString() : '';
     
-    return {minFee, maxFee, discipline, language, duration, format, attendance, degreeType, page}
+    return {minFee, maxFee, discipline, language, duration, format, attendance, degreeType, page, name, university}
 }

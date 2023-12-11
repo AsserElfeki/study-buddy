@@ -21,6 +21,7 @@ function HomeSearch( ) {
     const [disciplines, setDisciplines] = useState<DisciplineOptionsArray>();
     console.log("🚀 ~ file: homeSearch.tsx:22 ~ HomeSearch ~ disciplines:", disciplines)
     const [selectedDiscipline, setSelectedDiscipline] = useState("");
+    const [nameQuery, setNameQuery] = useState("");
 
     useEffect( () => {
         const fetchData = async () => {
@@ -40,15 +41,23 @@ function HomeSearch( ) {
     const router = useRouter();
     
     const handleSearch = () => {
-        if(selectedDiscipline)
-        router.push(`/search?discipline=${selectedDiscipline}`);
+        let query = "";
+
+        if (selectedDiscipline) {
+            query += `discipline=${selectedDiscipline}&`
+        }
+        if (nameQuery) {
+            query += `name=${nameQuery}&`
+        }
+            
+        router.push(`/search?${query}`);
     }
 
     
 
     return (
         <div className="flex flex-col justify-center">
-            <div className='flex flex-row mt-4 justify-around'>
+            <div className='flex flex-row mt-4 justify-around gap-2'>
                 <Autocomplete
                     disablePortal
                     id="combo-box-demo"
@@ -61,6 +70,13 @@ function HomeSearch( ) {
                     sx={{ width: 300 }}
                     className='rounded-lg shadow-md'
                     renderInput={(params) => <TextField {...params} label="what do you want to study?" />}
+                />
+                <TextField
+                    id="outlined-basic"
+                    label="Search by name"
+                    variant="outlined"
+                    className='rounded-lg shadow-md flex-1'
+                    onChange={(event) => setNameQuery(event.target.value)}
                 />
                 <Button
                     className='bg-primary text-white font-bold rounded-lg bg-opacity-90'
