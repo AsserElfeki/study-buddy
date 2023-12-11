@@ -12,9 +12,9 @@ function CurrentFilters({ fee }: { fee: number | null }) {
     const searchParams = useSearchParams();
     const pathname = usePathname();
     const router = useRouter();
-    const { minFee, maxFee, discipline, language, duration, format, attendance, degreeType, name, university } = useHandleSearchParams();
+    const { minFee, maxFee, discipline, language, minDuration, maxDuration, format, attendance, degreeType, name, university } = useHandleSearchParams();
 
-    const props = { discipline, minFee, maxFee, format, language, degreeType, name, duration, attendance, university };
+    const props = { discipline, minFee, maxFee, format, language, degreeType, name, minDuration, maxDuration, attendance, university };
     console.log("🚀 ~ file: currentFilters.tsx:19 ~ CurrentFilters ~ maxFixedFee:", fee)
     // console.log(fixedMaxFee)
 
@@ -24,6 +24,10 @@ function CurrentFilters({ fee }: { fee: number | null }) {
         if (key === 'minFee' || key === 'maxFee') {
             params.delete('tuition')
         }
+        if (key === 'minDuration' || key === 'maxDuration') {
+            params.delete('duration')
+        }
+        else
 
         params.delete(key);
         router.push(`${pathname}?${params.toString()}`);

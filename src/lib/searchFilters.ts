@@ -1,6 +1,7 @@
 "use server"
 import { disciplinePath, studyProgramPath, universityPath } from './apiPaths';
 import { Discipline, StudyProgram, University } from '@prisma/client';
+import prisma from './prisma';
 
 export async function getProgramCountinDiscipline(disciplineId: string): Promise<number> {
     const res: Response = await fetch(`${disciplinePath}/${disciplineId}`, {
@@ -39,7 +40,8 @@ export async function getPrograms({
     tuMax,
     disciplineName,
     language,
-    duration,
+    minDuration,
+    maxDuration,
     format,
     attendance,
     degree,
@@ -51,7 +53,8 @@ export async function getPrograms({
     tuMax?: number;
     disciplineName?: string;
     language?: string;
-    duration?: string;
+    minDuration?: number;
+    maxDuration?: number;
     format?: string;
     attendance?: string;
     degree?: string;
@@ -59,7 +62,7 @@ export async function getPrograms({
     name?: string;
     universityName?: string;
 } = {}): Promise<Array<StudyProgram>> {
-    console.log("💧", disciplineName)
+    // console.log("💧", disciplineName)
     let disciplineId = null;
     if (disciplineName) {
         const desciplineRes: Response = await fetch(`${disciplinePath}?name=${disciplineName}`, {
@@ -68,11 +71,11 @@ export async function getPrograms({
         });
 
         const desciplineData = await desciplineRes.json();
-        console.log("🌈 ~ file: searchFilters.ts:62 ~ desciplineRes:", desciplineData)
+        // console.log("🌈 ~ file: searchFilters.ts:62 ~ desciplineRes:", desciplineData)
         if (desciplineData) {
-            console.log("🇨🇳 ~ file: searchFilters.ts:68 ~ desciplineData:", desciplineData)
+            // console.log("🇨🇳 ~ file: searchFilters.ts:68 ~ desciplineData:", desciplineData)
             disciplineId = desciplineData[0].id;
-            console.log("🎽 ~ file: searchFilters.ts:68 ~ disciplineId:", disciplineId)
+            // console.log("🎽 ~ file: searchFilters.ts:68 ~ disciplineId:", disciplineId)
         }
     }
     const queryParams = new URLSearchParams();
@@ -84,7 +87,8 @@ export async function getPrograms({
     if (tuMax) queryParams.append('maxTuition', tuMax.toString());
     if (disciplineId) queryParams.append('discipline', disciplineId);
     if (universityId) queryParams.append('universityId', universityId);
-    if (duration) queryParams.append('duration', duration);
+    if (minDuration) queryParams.append('minDuration', minDuration.toString());
+    if (maxDuration) queryParams.append('maxDuration', maxDuration.toString());
     if (name) queryParams.append('name', name);
     if (universityName) queryParams.append('universityName', universityName);
     const url = `${studyProgramPath}?${queryParams.toString()}`;
@@ -169,3 +173,18 @@ export async function getProgram(id: string) {
     const data = await res.json();
     return data;
 }
+
+export async function getMaxDuration() {
+    //return max duration from study programs
+    const res = await prisma.studyProgram.aggregate({
+        _max: {
+            duration: true
+        }
+    })
+    console.log("🚀 ~ file: searchFilters.ts:182 ~ getMaxDuration ~ res:", res)
+    return res._max.duration;
+}
+
+
+
+

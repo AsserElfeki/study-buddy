@@ -45,7 +45,7 @@ in ORDER:
     - [ ] DurationCard : card with checkboxes (toggleable)
     - [ ] FormatCard : card with checkboxes (toggleable)
     - [ ] AttendanceCard : card with checkboxes (toggleable)
-    - [ ] LanguageCard : card with checkboxes (toggleable)
+    - [x] LanguageCard : card with checkboxes (toggleable)
     - [ ] DegreeCard : card with checkboxes (toggleable)
     - [x] university 
   - [ ] Sort by 

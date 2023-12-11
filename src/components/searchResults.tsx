@@ -11,7 +11,7 @@ export default function SearchResults() {
     const [programs, setPrograms] = useState<StudyProgram[]>([]);
     console.log("🦄 ~ file: searchResults.tsx:12 ~ SearchResults ~ programs:", programs)
 
-    const { minFee, maxFee, discipline, language, duration, format, attendance, degreeType, name, university } = useHandleSearchParams();
+    const { minFee, maxFee, discipline, language, minDuration, maxDuration, format, attendance, degreeType, name, university } = useHandleSearchParams();
     
     useEffect(() => {
         const fetchPrograms = async () => {
@@ -21,7 +21,8 @@ export default function SearchResults() {
                 disciplineName: discipline,
                 name,
                 language,
-                duration,
+                minDuration,
+                maxDuration,
                 format,
                 attendance,
                 degree: degreeType,
@@ -32,7 +33,7 @@ export default function SearchResults() {
             
         };
         fetchPrograms();
-    }, [minFee, maxFee, discipline, language, duration, format, attendance, degreeType, name, university]);
+    }, [minFee, maxFee, discipline, language, format, attendance, degreeType, name, university, minDuration, maxDuration]);
 
 
     return (

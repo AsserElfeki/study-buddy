@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 
 export default  function TuitionContainer() {
     const [maxFee, setMaxFee] = useState(0);
-    console.log("🚀 ~ file: tuitionContainer.tsx:10 ~ TuitionContainer ~ maxFee:", maxFee)
+    // console.log("🚀 ~ file: tuitionContainer.tsx:10 ~ TuitionContainer ~ maxFee:", maxFee)
 
     useEffect(() => {
         const fetchMaxTuition = async () => {

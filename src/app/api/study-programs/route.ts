@@ -15,10 +15,10 @@ import { type NextRequest } from 'next/server';
 export async function GET(req: NextRequest) {
 
     const searchParams = req.nextUrl.searchParams
-    // console.log("🚀 ~ file: route.ts:16 ~ GET ~ searchParams:", searchParams)
     const programName = searchParams.get('name')
     // const programTuition: number = parseFloat(searchParams.get('tuition'))
-    const programDuration: number = parseFloat(searchParams.get('duration'))
+    const programMinDuration: number = parseFloat(searchParams.get('minDuration'))
+    const programMaxDuration: number = parseFloat(searchParams.get('maxDuration'))
     const programDegree = searchParams.get('degree')
     const programLanguage = searchParams.get('language')
     const programAttendance = searchParams.get('attendance')
@@ -81,11 +81,18 @@ export async function GET(req: NextRequest) {
             lte: programMaxTuition,
         }
     }
-    if (programDuration) {
+    if (programMinDuration) {
         whereClause.duration = {
-            lte: programDuration,
+            gte: programMinDuration,
         }
     }
+    if (programMaxDuration) {
+        whereClause.duration = {
+            ...whereClause.duration,
+            lte: programMaxDuration,
+        }
+    }
+    
     if (programDegree) {
         whereClause.degreeType = {
             contains: programDegree,

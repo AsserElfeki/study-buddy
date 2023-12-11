@@ -9,9 +9,11 @@ import UniversityName from './universityName';
 import UniversityNameSearch from './universityName';
 import DurationCard from './durationCard';
 import LanguageCard from './languageCard';
+import DurationContainer from './durationContainer';
 
 export default async function Sidebar() {
     const maxFee = await getMaxTuition();
+    // const duration = await getDurations();
     // console.log("🚀 ~ file: sidebar.tsx:9 ~ Sidebar ~ maxFee:", typeof maxFee)
     return (
         <div className='self-start bg-white rounder-xl mt-4 ml-2 shadow-md flex flex-col gap-4'>
@@ -23,7 +25,7 @@ export default async function Sidebar() {
             </Toggler>
 
             <Toggler displayName='Duration'>
-                <DurationCard />
+                <DurationContainer />
             </Toggler>
 
             <Toggler displayName='Language of study'>
