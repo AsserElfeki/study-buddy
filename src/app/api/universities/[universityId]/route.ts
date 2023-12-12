@@ -25,9 +25,9 @@ export async function GET(req: Request, { params } : { params: { universityId: s
                 studyPrograms: true,
             }
         });
-        console.log("🚀 ~ file: route.ts:28 ~ GET ~ data:", data)
+        // console.log("🚀 ~ file: route.ts:28 ~ GET ~ data:", data)
     } catch (error) {
-        console.log("🚀 ~ file: route.ts:21 ~ GET ~ error", error)
+        // console.log("🚀 ~ file: route.ts:21 ~ GET ~ error", error)
         return Response.json({
             message: 'error while retrieving data',
         }, {
@@ -84,7 +84,7 @@ export async function PUT(req: Request, { params }: { params: { universityId: st
         });
     }
     catch (error) {
-        console.log("🚀 ~ file: route.ts:21 ~ GET ~ error", error)
+        // console.log("🚀 ~ file: route.ts:21 ~ GET ~ error", error)
         return Response.json({
             message: 'error while updating data',
         }, {
@@ -127,7 +127,7 @@ export async function DELETE(req: Request, { params }: { params: { universityId:
         });
     }
     catch (error) {
-        console.log("🚀 ~ file: route.ts:21 ~ GET ~ error", error)
+        // console.log("🚀 ~ file: route.ts:21 ~ GET ~ error", error)
         return Response.json({
             message: 'error while retreiving data',
         }, {

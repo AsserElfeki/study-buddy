@@ -15,7 +15,7 @@ function CurrentFilters({ fee }: { fee: number | null }) {
     const { minFee, maxFee, discipline, language, minDuration, maxDuration, format, attendance, degreeType, name, university } = useHandleSearchParams();
 
     const props = { discipline, minFee, maxFee, format, language, degreeType, name, minDuration, maxDuration, attendance, university };
-    console.log("🚀 ~ file: currentFilters.tsx:19 ~ CurrentFilters ~ maxFixedFee:", fee)
+    // console.log("🚀 ~ file: currentFilters.tsx:19 ~ CurrentFilters ~ maxFixedFee:", fee)
     // console.log(fixedMaxFee)
 
 

@@ -36,7 +36,7 @@ export async function GET(req: Request, { params }: { params: { userId: string }
             }
         });
     } catch (error) {
-        console.log("🚀 ~ file: route.ts:21 ~ GET ~ error", error)
+        // console.log("🚀 ~ file: route.ts:21 ~ GET ~ error", error)
         return Response.json({
             message: 'error while retrieving data',
         }, {
@@ -107,7 +107,7 @@ export async function PUT(req: Request, { params }: { params: { userId: string }
             data: data
         });
     } catch (error) {
-        console.log("🚀 ~ file: route.ts:21 ~ GET ~ error", error)
+        // console.log("🚀 ~ file: route.ts:21 ~ GET ~ error", error)
         return Response.json({
             message: 'error while updating data',
         }, {
@@ -164,7 +164,7 @@ export async function DELETE(req: Request, { params }: { params: { userId: strin
             }
         });
     } catch (error) {
-        console.log("🚀 ~ file: route.ts:21 ~ GET ~ error", error)
+        // console.log("🚀 ~ file: route.ts:21 ~ GET ~ error", error)
         return Response.json({
             message: 'error while deleting data',
         }, {

@@ -7,15 +7,14 @@ in ORDER:
     - [x] backend (cloudinary)
     - [√] fix auth 
 
-- [ ] today (2):
+- [ ] today (11):
   - [x] validate 
+  - [ ] fix applications
   - [ ] edit db (a lot of shit)
-  - [ ] add to favoruites 
+  - [x] add to favoruites 
   - [ ] add as friend 
   - [ ] fix mobile vp
-  - [ ] add search by name
-
-- [ ] 3/12/2023
+  - [x] add search by name
   - [ ] Profile:
     - [ ] profile header 
     - [ ] profile tabs (MUI tabs)
@@ -78,3 +77,4 @@ in ORDER:
   - [ ] npx seed 
   - [ ] prisma studio 
   - [ ] toast notifications
+  - [ ] mobile VP 

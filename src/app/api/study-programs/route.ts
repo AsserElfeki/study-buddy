@@ -29,7 +29,7 @@ export async function GET(req: NextRequest) {
     const universityId = searchParams.get('universityId')
     const universityName = searchParams.get('universityName')
 
-    console.log(programLanguage)
+    // console.log(programLanguage)
     //ToDo:
 
     // 3. add different duration options duration
@@ -130,7 +130,7 @@ export async function GET(req: NextRequest) {
 
 
 
-    console.log("👉👉👉 ~ file: route.ts:18 ~ GET ~ whereClause:", whereClause)
+    // console.log("👉👉👉 ~ file: route.ts:18 ~ GET ~ whereClause:", whereClause)
 
     let programs: StudyProgram[];
     //retreive all universities that match fronm db 
@@ -144,7 +144,7 @@ export async function GET(req: NextRequest) {
         });
     }
     catch (error) {
-        console.log("🚀 ~ file: route.ts:21 ~ GET ~ error", error)
+        // console.log("🚀 ~ file: route.ts:21 ~ GET ~ error", error)
         return Response.json({
             message: 'error while retrieving data',
         }, {
@@ -217,7 +217,7 @@ export async function POST(req: NextRequest) {
         });
     }
     catch (error) {
-        console.log("🚀 ~ file: route.ts:21 ~ GET ~ error", error)
+        // console.log("🚀 ~ file: route.ts:21 ~ GET ~ error", error)
         return Response.json({
             error: error.message,
             message: 'error while retrieving data',

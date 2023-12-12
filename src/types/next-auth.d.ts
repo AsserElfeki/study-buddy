@@ -19,6 +19,9 @@ declare module "next-auth" {
         isActive: boolean
         role: Role
         sex?: string
+        createdAt?: Date
+        updatedAt?: Date
+        favorites?: string[]
     }
 
     interface Profile {

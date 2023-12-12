@@ -9,7 +9,7 @@ import PaginationContainer from './paginationContainer';
 
 export default function SearchResults() {
     const [programs, setPrograms] = useState<StudyProgram[]>([]);
-    console.log("🦄 ~ file: searchResults.tsx:12 ~ SearchResults ~ programs:", programs)
+    // console.log("🦄 ~ file: searchResults.tsx:12 ~ SearchResults ~ programs:", programs)
 
     const { minFee, maxFee, discipline, language, minDuration, maxDuration, format, attendance, degreeType, name, university } = useHandleSearchParams();
     

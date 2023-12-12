@@ -154,9 +154,6 @@ export async function getUniversity(id: string) {
     const res: Response = await fetch(`${universityPath}/${id}`, {
         method: 'GET',
         cache: 'no-cache',
-        next: {
-            revalidate: 10,
-        }
     });
     const data = await res.json();
     // console.log("🚀 ~ file: searchFilters.ts:132 ~ getUniversity ~ data:", data)

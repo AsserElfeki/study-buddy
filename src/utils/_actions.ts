@@ -1,6 +1,5 @@
 "use server";
 
-
 import { authOptions } from '@lib/auth';
 import prisma from '@src/lib/prisma';
 import { getServerSession } from 'next-auth';
@@ -11,7 +10,7 @@ import { highestQualification } from '@prisma/client';
 
 export async function getAllPosts(skip?: number, take?: number) {
 
-    const session = await getServerSession({...authOptions});
+    const session = await getServerSession({ ...authOptions });
 
     if (!session) {
         return null;
@@ -55,11 +54,11 @@ export async function getAllPosts(skip?: number, take?: number) {
     );
 
     return posts;
-    
+
 }
 
 
-export async function AddComment(formData : FormData, postId: string) {
+export async function AddComment(formData: FormData, postId: string) {
     const content = formData.get('comment');
     // console.log("🚀 ~ file: actions.ts:60 ~ AddComment ~ content:", content)
     const session = await getServerSession({ ...authOptions });
@@ -116,7 +115,7 @@ export async function likePost(postId: string) {
     if (!user.isActive) {
         return "inactive user";
     }
-    const post =await prisma.post.update({
+    const post = await prisma.post.update({
         where: {
             id: postId
         },
@@ -134,7 +133,7 @@ export async function likePost(postId: string) {
 }
 
 
-export async function startApplication(studyProgramId: string, PersonalInfoForm, EducationalBackgroundForm, files ) {
+export async function startApplication(studyProgramId: string, PersonalInfoForm, EducationalBackgroundForm, files) {
     const session = await getServerSession({ ...authOptions });
     if (!session) {
         return null;
@@ -280,32 +279,108 @@ export async function uploadDocs(documents, applicationId) {
     }
 }
 
-
-
-export async function addToFavorites(programId: string) : Promise<any> {
+export async function addToFavorites(programId: string): Promise<any> {
     const session = await getServerSession({ ...authOptions });
     if (!session) {
         return null;
     }
-    const user = session.user;
-    if (!user.isActive) {
+    const currentUser = session.user;
+    if (!currentUser.isActive) {
         return "inactive user";
     }
-    
-    //add the program to the user favorites list, the user model has a field favorites, it's an array
 
-    // Save the updated user object to the database
-    await prisma.user.update({
-        where: {
-            id: user.id
-        },
-        data: {
-            favorites: programId
+    let user;
+    try {
+        user = await prisma.user.findUnique({
+            where: {
+                id: currentUser.id
+            }
+        });
+
+        //check if the program is in the favorites list
+        const isFavorite = user.favorites.includes(programId);
+        if (!isFavorite) {
+            user = await prisma.user.update({
+                where: {
+                    id: currentUser.id
+                },
+                data: {
+                    favorites: {
+                        push: programId
+                    }
+                }
+            });
         }
-    });
-
-    // Return the updated user object
+    }
+    catch (e) {
+        console.log("🚀 ~ file: actions.ts:66 ~ AddComment ~ user:", e)
+    }
+    // console.log("🏳️‍🌈 ~ file: actions.ts:66 ~ add fav ~ user:", user)
     return user;
+}
+export async function removeFromFavorites(programId: string): Promise<any> {
+    const session = await getServerSession({ ...authOptions });
+    if (!session) {
+        return null;
+    }
+    const currentUser = session.user;
+    if (!currentUser.isActive) {
+        return "inactive user";
+    }
+    let user;
+    try {
+        user = await prisma.user.findUnique({
+            where: {
+                id: currentUser.id
+            }
+        });
+
+        const isFavorite = user.favorites.includes(programId);
+        if (isFavorite) {
+            user = await prisma.user.update({
+                where: {
+                    id: currentUser.id
+                },
+                data: {
+                    favorites: {
+                        set: user.favorites.filter((fav) => fav !== programId)
+                    }
+                }
+            });
+        }
+    } catch (e) {
+        console.log("🚀 ~ file: actions.ts:66 ~ AddComment ~ user:", e)
     }
 
+    // console.log("🚀 ~ file: actions.ts:66 ~ remove fav ~ user:", user)
+    return user;
+}
+
+//function to get all favorites of a user
+export async function getFavorites(): Promise<any> {
+    const session = await getServerSession({ ...authOptions });
+    if (!session) {
+        return null;
+    }
+    const currentUser = session.user;
+    if (!currentUser.isActive) {
+        return "inactive user";
+    }
+    let user;
+    try {
+        user = await prisma.user.findUnique({
+            where: {
+                id: currentUser.id
+            },
+            select: {
+                favorites: true
+            }           
+        });
+    } catch (e) {
+        console.log("🚀 ~ file: actions.ts:66 ~ AddComment ~ user:", e)
+    }
+    //return list of favorites
+    return user?.favorites ?? [];
+    }
     
+

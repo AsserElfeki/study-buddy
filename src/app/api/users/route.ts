@@ -122,7 +122,7 @@ export async function POST(req: Request) {
         }
     })
     if (userExists) {
-        console.log("🚀 ~ file: route.ts:112 ~ POST ~ userExists:", userExists)
+        // console.log("🚀 ~ file: route.ts:112 ~ POST ~ userExists:", userExists)
         
         return Response.json({
             message: 'This email is assigned to another user',
@@ -139,7 +139,7 @@ export async function POST(req: Request) {
             data: user
         });
     } catch (error) {
-        console.log("🚀 ~ file: route.ts:21 ~ GET ~ error", error)
+        // console.log("🚀 ~ file: route.ts:21 ~ GET ~ error", error)
         return Response.json({
             message: 'error while creating user',
         }, {

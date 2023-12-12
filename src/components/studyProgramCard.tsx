@@ -1,5 +1,8 @@
+import { FavoriteBorder } from '@mui/icons-material';
+import { IconButton, Tooltip } from '@mui/material';
 import Link from 'next/link';
 import React from 'react';
+import FavoriteButton from './favoriteButton';
 
 type StudyProgramCardProps = {
     id: string;
@@ -24,7 +27,8 @@ function StudyProgramCard(props: StudyProgramCardProps) {
     university.name = university.name.charAt(0).toUpperCase() + university.name.slice(1);
 
     return (
-        <article className="border bg-white p-4 rounded-lg shadow-md  w-full">
+        <article className="border bg-white p-4 rounded-lg shadow-md  w-full relative">
+            <FavoriteButton id={id}  />
             <header className="mb-4">
                 <Link
                     href = {`/study-programs/${id}`}
