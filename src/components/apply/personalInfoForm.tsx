@@ -150,6 +150,20 @@ const PersonalInfoForm = ({ nextStep , callback , data}) => {
                     required
                 />
             </div>
+            <div className="mt-4">
+                <label htmlFor="gdprConsent" className="flex items-center">
+                    <input
+                        type="checkbox"
+                        id="gdprConsent"
+                        name="gdprConsent"
+                        required
+                        className="form-checkbox h-5 w-5 text-indigo-600"
+                    />
+                    <span className="ml-2 text-sm text-gray-600">
+                        I consent to the processing of my information according to GDPR laws.
+                    </span>
+                </label>
+            </div>
 
             <div className="flex justify-end flex-row">
                 <button

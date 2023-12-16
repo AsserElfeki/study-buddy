@@ -118,9 +118,7 @@ async function seed() {
     }
 
 
-    //================================================
     // create test entities
-    // create 5 users in a loop, each with a different role and id test1, test2, test3, test4, test5
     for (let i = 1; i < 6; i++) {
         await prisma.user.create({
             data: {

@@ -57,6 +57,13 @@ in ORDER:
   - [ ] send messages 
 
 
+- [ ] DB: 
+  - [ ] like : connect user and post 
+  - [x] consent 
+  - [x] user : friends 
+  - [ ] delete forms 
+  - [ ] user : notifications
+  - [ ] 
 
 
 - [ ] screenshots: 
