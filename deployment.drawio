@@ -1,0 +1,83 @@
+<mxfile host="65bd71144e">
+    <diagram id="CeEcQgfpSYMzZmC3Po_0" name="Page-1">
+        <mxGraphModel dx="660" dy="729" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1200" background="none" math="0" shadow="1">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="6" value="" style="group;fillColor=#f5f5f5;gradientColor=#b3b3b3;strokeColor=#666666;" vertex="1" connectable="0" parent="1">
+                    <mxGeometry x="680" y="92.14" width="220" height="185" as="geometry"/>
+                </mxCell>
+                <mxCell id="5" value="&amp;lt;&amp;lt; device &amp;gt;&amp;gt;&lt;br&gt;VM - Database server" style="verticalAlign=top;align=center;spacingTop=8;spacingLeft=2;spacingRight=12;shape=cube;size=10;direction=south;fontStyle=4;html=1;fillColor=default;fillStyle=auto;gradientColor=none;" vertex="1" parent="6">
+                    <mxGeometry width="220" height="185" as="geometry"/>
+                </mxCell>
+                <mxCell id="4" value="PostgreSQL db" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" vertex="1" parent="6">
+                    <mxGeometry x="70" y="80" width="80" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="12" value="" style="group" vertex="1" connectable="0" parent="1">
+                    <mxGeometry x="20" y="299" width="190" height="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="2" value="&amp;lt;&amp;lt; device &amp;gt;&amp;gt;&lt;br&gt;Client Device" style="verticalAlign=top;align=center;spacingTop=8;spacingLeft=2;spacingRight=12;shape=cube;size=10;direction=south;fontStyle=4;html=1;" vertex="1" parent="12">
+                    <mxGeometry width="190" height="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="8" value="&amp;lt;&amp;lt; artifact &amp;gt;&amp;gt;&lt;br&gt;Website" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="12">
+                    <mxGeometry x="30" y="80" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="13" value="&amp;lt;&amp;lt; external device &amp;gt;&amp;gt;&amp;nbsp;&lt;br&gt;" style="html=1;dashed=0;whitespace=wrap;shape=mxgraph.dfd.externalEntity" vertex="1" parent="1">
+                    <mxGeometry x="660" y="500" width="170" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="14" value="Node Mailer " style="autosize=1;part=1;resizable=0;strokeColor=inherit;fillColor=inherit;gradientColor=inherit;" vertex="1" parent="13">
+                    <mxGeometry width="90" height="30" relative="1" as="geometry">
+                        <mxPoint x="-20" y="10" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="16" style="edgeStyle=none;html=1;entryX=0;entryY=0;entryDx=101.43;entryDy=270;entryPerimeter=0;" edge="1" parent="1" source="2" target="3">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="19" style="html=1;entryX=0;entryY=0;entryDx=80;entryDy=0;entryPerimeter=0;elbow=vertical;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="3" target="13">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="28" value="SMTP" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="19">
+                    <mxGeometry x="-0.2001" y="1" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="9" value="&lt;br&gt;for development phase : localhost:3000&lt;br&gt;&lt;br&gt;for production: Vercel" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;" vertex="1" parent="1">
+                    <mxGeometry x="280" y="137.5" width="146" height="110" as="geometry"/>
+                </mxCell>
+                <mxCell id="10" style="edgeStyle=none;html=1;entryX=0;entryY=0;entryDx=0;entryDy=170;entryPerimeter=0;" edge="1" parent="1" source="9" target="3">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="21" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0;exitY=0;exitDx=0;exitDy=85;exitPerimeter=0;entryX=0;entryY=0;entryDx=97.5;entryDy=220;entryPerimeter=0;elbow=vertical;" edge="1" parent="1" source="3" target="5">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="22" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0;exitY=0;exitDx=97.5;exitDy=220;exitPerimeter=0;entryX=0;entryY=0;entryDx=0;entryDy=85;entryPerimeter=0;elbow=vertical;" edge="1" parent="1" source="5" target="3">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="23" value="SQL" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="22">
+                    <mxGeometry x="-0.0774" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="25" value="" style="group" vertex="1" connectable="0" parent="1">
+                    <mxGeometry x="360" y="277.14" width="270" height="192.86" as="geometry"/>
+                </mxCell>
+                <mxCell id="3" value="&amp;lt;&amp;lt; device &amp;gt;&amp;gt;&lt;br&gt;Web/Application server" style="verticalAlign=top;align=center;spacingTop=8;spacingLeft=2;spacingRight=12;shape=cube;size=10;direction=south;fontStyle=4;html=1;" vertex="1" parent="25">
+                    <mxGeometry width="270" height="192.86" as="geometry"/>
+                </mxCell>
+                <mxCell id="24" value="&amp;lt;&amp;lt; artifact &amp;gt;&amp;gt;&lt;br&gt;Next.js SSR / SSG App" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="25">
+                    <mxGeometry x="45" y="80.70175947368419" width="180" height="96.43" as="geometry"/>
+                </mxCell>
+                <mxCell id="26" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0;exitY=0;exitDx=101.43;exitDy=270;exitPerimeter=0;elbow=vertical;" edge="1" parent="1" source="3">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="210" y="379" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="27" value="HTTP / HTTPS" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="26">
+                    <mxGeometry x="-0.0364" y="1" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

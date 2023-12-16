@@ -88,6 +88,12 @@
             "$ref": "#/definitions/Session"
           }
         },
+        "friendList": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
         "createdAt": {
           "type": "string",
           "format": "date-time"
@@ -115,6 +121,12 @@
           "items": {
             "$ref": "#/definitions/Comment"
           }
+        },
+        "likes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/like"
+          }
         }
       }
     },
@@ -134,7 +146,7 @@
           "type": "string",
           "format": "date-time"
         },
-        "likes": {
+        "likesCount": {
           "type": "integer",
           "default": 0
         },
@@ -145,6 +157,12 @@
           "type": "array",
           "items": {
             "$ref": "#/definitions/Comment"
+          }
+        },
+        "ikes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/like"
           }
         }
       }
@@ -161,6 +179,20 @@
         "createdAt": {
           "type": "string",
           "format": "date-time"
+        },
+        "post": {
+          "$ref": "#/definitions/Post"
+        },
+        "author": {
+          "$ref": "#/definitions/User"
+        }
+      }
+    },
+    "like": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
         },
         "post": {
           "$ref": "#/definitions/Post"
@@ -492,12 +524,6 @@
         "user": {
           "$ref": "#/definitions/User"
         },
-        "forms": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Form"
-          }
-        },
         "documents": {
           "type": "array",
           "items": {
@@ -523,17 +549,10 @@
               "type": "null"
             }
           ]
-        }
-      }
-    },
-    "Form": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string"
         },
-        "application": {
-          "$ref": "#/definitions/Application"
+        "userConsent": {
+          "type": "boolean",
+          "default": false
         }
       }
     },
@@ -639,6 +658,9 @@
     "comment": {
       "$ref": "#/definitions/Comment"
     },
+    "like": {
+      "$ref": "#/definitions/like"
+    },
     "notification": {
       "$ref": "#/definitions/Notification"
     },
@@ -665,9 +687,6 @@
     },
     "application": {
       "$ref": "#/definitions/Application"
-    },
-    "form": {
-      "$ref": "#/definitions/Form"
     },
     "document": {
       "$ref": "#/definitions/Document"

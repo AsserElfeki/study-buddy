@@ -17,11 +17,13 @@ Table users {
   ActivationToken activation_tokens [not null]
   applications applications [not null]
   Session sessions [not null]
+  friendList String[] [not null]
   createdAt DateTime [default: `now()`, not null]
   favorites String[] [not null]
   notifications notifications [not null]
   posts posts [not null]
   comments comments [not null]
+  likes likes [not null]
 }
 
 Table posts {
@@ -30,15 +32,24 @@ Table posts {
   content String [not null]
   createdAt DateTime [default: `now()`, not null]
   authorId String [not null]
-  likes Int [not null, default: 0]
+  likesCount Int [not null, default: 0]
   author users [not null]
   comments comments [not null]
+  ikes likes [not null]
 }
 
 Table comments {
   id String [pk]
   content String [not null]
   createdAt DateTime [default: `now()`, not null]
+  postId String [not null]
+  post posts [not null]
+  authorId String [not null]
+  author users [not null]
+}
+
+Table likes {
+  id String [pk]
   postId String [not null]
   post posts [not null]
   authorId String [not null]
@@ -149,20 +160,14 @@ Table applications {
   userId String [not null]
   studyProgram study_programs [not null]
   user users [not null]
-  forms forms [not null]
   documents documents [not null]
   personalInfo personal_infos
   educationalBackground educational_backgrounds
+  userConsent Boolean [not null, default: false]
 
   indexes {
     (studyProgramId, userId) [unique]
   }
-}
-
-Table forms {
-  id String [pk]
-  applicationId String [not null]
-  application applications [not null]
 }
 
 Table documents {
@@ -243,6 +248,10 @@ Ref: comments.postId > posts.id
 
 Ref: comments.authorId > users.id
 
+Ref: likes.postId > posts.id
+
+Ref: likes.authorId > users.id
+
 Ref: notifications.userId > users.id
 
 Ref: activation_tokens.userId > users.id
@@ -260,8 +269,6 @@ Ref: disciplines_on_programs.studyProgramId > study_programs.id [delete: Cascade
 Ref: applications.studyProgramId > study_programs.id [delete: Cascade]
 
 Ref: applications.userId > users.id [delete: Cascade]
-
-Ref: forms.applicationId > applications.id [delete: Cascade]
 
 Ref: documents.applicationId > applications.id [delete: Cascade]
 
