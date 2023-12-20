@@ -1,10 +1,10 @@
 import sendVerificationEmail from '@lib/sendVerificationEmail';
 import { prisma } from "@lib/prisma";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import type { NextAuthOptions, Profile } from "next-auth";
+import type { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
-import { Account, Role, User } from '@prisma/client';
+import { User } from '@prisma/client';
 
 export const authOptions: NextAuthOptions = {
     session: {
@@ -18,37 +18,15 @@ export const authOptions: NextAuthOptions = {
             name: "Credentials",
             type: "credentials",
 
-
-            // The credentials is used to generate a suitable form on the sign in page.
-            // You can specify whatever fields you are expecting to be submitted.
-            // e.g. domain, username, password, 2FA token, etc.
-            // You can pass any HTML attribute to the <input> tag through the object.
             credentials: {},
             async authorize(credentials) {
-                // You need to provide your own logic here that takes the credentials
-                // submitted and returns either a object representing a user or value
-                // that is false/null if the credentials are invalid.
-                // e.g. return { id: 1, name: 'J Smith', email: 'jsmith@example.com' }
-                // You can also use the `req` object to obtain additional parameters
-                // (i.e., the request IP address)
-                //console.log("====CREDENTIALS===")
-                //console.log(credentials)
-                // const { email, password } = credentials as {
-                //     email: String,
-                //     password: String
-                // }
-                console.log("authorize func fired")
                 const res = await fetch(process.env.NEXTAUTH_URL + "/api/login", {
                     method: "POST",
                     body: JSON.stringify(credentials),
                     headers: { "Content-Type": "application/json" },
                 });
-                console.log("back at AUTH fun")
                 const result = await res.json();
-                // console.log(result)
                 const user = result.data;
-
-                // If no error and we have user data, return it
 
                 if (res.ok && user) {
                     return user;
@@ -57,21 +35,9 @@ export const authOptions: NextAuthOptions = {
                 return null;
             },
         }),
-        // EmailProvider({
-        //     server: {
-        //         host: process.env.SMTP_HOST,
-        //         port: Number(process.env.SMTP_PORT),
-        //         auth: {
-        //             user: process.env.SMTP_USER,
-        //             pass: process.env.SMTP_PASSWORD,
-        //         },
-        //     },
-        //     from: process.env.SMTP_FROM,
-        // }),
         GoogleProvider({
             clientId: process.env.GOOGLE_CLIENT_ID as string,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
-
         }),
     ],
     pages: {
@@ -82,12 +48,7 @@ export const authOptions: NextAuthOptions = {
     },
     adapter: PrismaAdapter(prisma),
     callbacks: {
-        // async redirect({ url, baseUrl }) {
-        //     return baseUrl;
-        // },
-
         async signIn({ user, account, profile, email, credentials }) {
-            console.log("the signin in Auth fired")
             const existingUser = await prisma.user.findUnique({
                 where: { email: user.email }
             })
@@ -95,32 +56,19 @@ export const authOptions: NextAuthOptions = {
                 user.firstName = profile.given_name;
                 user.lastName = profile.family_name;
                 user.image = profile.picture;
-                console.log("google user: ", user)
 
                 if (!existingUser) { //ToDO
-
                     await sendVerificationEmail(user as User)
-                    // console.log("ToDo")
                 }
                 else if (!existingUser.isActive) {
-                    console.log("BanHammer")
                     return false;
                 } else if (!existingUser.emailVerified) {
-                    console.log("Verify email")
                     await sendVerificationEmail(user as User)
                     return '/unauthorized';
                 }
 
                 delete user.name;
-                // } else if (account.provider === "email") {
-                //     console.log("EmailProvider")
-                //     if (!existingUser) {
-                //         user.firstName = "Guest";
-                //     }
-                //     else if (!existingUser.isActive) {
-                //         console.log("BanHammer")
-                //         return false;
-                //     }
+                
             } else if (account.provider === "credentials") {
                 console.log("CredentialsProvider")
                 if (!existingUser.isActive) {

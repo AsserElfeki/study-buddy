@@ -5,9 +5,16 @@ import prisma from '@src/lib/prisma';
 import { getServerSession } from 'next-auth';
 import { revalidatePath } from 'next/cache';
 import { getSignature, validateSignature } from './_cloudinary';
-import { highestQualification } from '@prisma/client';
+import { $Enums, $Enums, highestQualification } from '@prisma/client';
 
 
+/**
+ * Retrieves all posts from the database.
+ *
+ * @param {number} skip - The number of posts to skip.
+ * @param {number} take - The number of posts to take.
+ * @return {Promise<Post[]>} An array of posts.
+ */
 export async function getAllPosts(skip?: number, take?: number) {
 
     const session = await getServerSession({ ...authOptions });
@@ -58,6 +65,13 @@ export async function getAllPosts(skip?: number, take?: number) {
 }
 
 
+/**
+ * Add a comment to a post.
+ *
+ * @param {FormData} formData - The form data containing the comment content.
+ * @param {string} postId - The ID of the post to add the comment to.
+ * @return {Promise<Comment>} The newly created comment.
+ */
 export async function AddComment(formData: FormData, postId: string) {
     const content = formData.get('comment');
     // console.log("🚀 ~ file: actions.ts:60 ~ AddComment ~ content:", content)
@@ -81,6 +95,12 @@ export async function AddComment(formData: FormData, postId: string) {
     return comment;
 }
 
+/**
+ * Adds a new post to the forum.
+ *
+ * @param {FormData} formData - The form data containing the content and title of the post.
+ * @return {Promise<null | "inactive user" | Post>} - A promise that resolves to either null, "inactive user", or the newly created post.
+ */
 export async function AddPost(formData: FormData) {
     const content = formData.get('content');
     const title = formData.get('title');
@@ -105,6 +125,12 @@ export async function AddPost(formData: FormData) {
     return post;
 }
 
+/**
+ * Likes a post.
+ *
+ * @param {string} postId - The ID of the post to like.
+ * @return {Promise<void>} - A Promise that resolves when the post has been liked.
+ */
 export async function likePost(postId: string) {
     // console.log("🚀 ~ file: actions.ts:60 ~ AddComment ~ content:", content)
     const session = await getServerSession({ ...authOptions });
@@ -133,7 +159,42 @@ export async function likePost(postId: string) {
 }
 
 
-export async function startApplication(studyProgramId: string, PersonalInfoForm, EducationalBackgroundForm, files) {
+type PersonalInfoFormType = {
+    firstName: string;
+    lastName: string;
+    email: string;
+    phoneNumber: string;
+    dateOfBirth: string;
+    nationality: string;
+    nativeLanguage: string;
+    englishProficiency: string;
+};
+
+type EducationalBackgroundFormType = {
+    highestQualification: string;
+    institutionName: string;
+    graduationYear: string;
+};
+
+type FilesType = {
+    documents: any[];
+    numFiles: number;
+};
+
+/**
+ * Starts the application process for a study program.
+ *
+ * @param {string} studyProgramId - The ID of the study program.
+ * @param {PersonalInfoFormType} PersonalInfoForm - The personal information form.
+ * @param {EducationalBackgroundFormType} EducationalBackgroundForm - The educational background form.
+ * @param {FilesType} files - The files to be uploaded.
+ * @return {Promise<void>} A Promise that resolves once the application is started.
+ */
+export async function startApplication(
+    studyProgramId: string,
+    PersonalInfoForm: PersonalInfoFormType,
+    EducationalBackgroundForm: EducationalBackgroundFormType,
+    files: FilesType)  {
     const session = await getServerSession({ ...authOptions });
     if (!session) {
         return null;
@@ -148,14 +209,13 @@ export async function startApplication(studyProgramId: string, PersonalInfoForm,
             studyProgramId: studyProgramId,
         }
     });
-    // return application;
-
     // createPersonalInfo(PersonalInfoForm, application.id);
     createEducationalBackground(EducationalBackgroundForm, application.id);
     // uploadDocs(files, application.id);
+    // return application;
 }
 
-export async function createPersonalInfo(form, id) {
+export async function createPersonalInfo(form: { nationality: { label: any; }; languageProficiency: any; englishProficiency: { label: any; }; nativeLanguage: { label: any; }; dateOfBirth: string | number | Date; }, id: any) {
     form.nationality = form.nationality.label;
     form.languageProficiency = form.englishProficiency.label;
     form.nativeLanguage = form.nativeLanguage.label;
@@ -181,8 +241,15 @@ export async function createPersonalInfo(form, id) {
     }
 }
 
-//create educational background
-export async function createEducationalBackground(form, id) {
+
+/**
+ * Creates an educational background record for a given form and application ID.
+ *
+ * @param {Object} form - The form object containing the educational background data.
+ * @param {string} id - The ID of the application.
+ * @return {Promise<void>} A promise that resolves when the educational background record is created.
+ */
+export async function createEducationalBackground(form: { highestQualification: any; institutionName?: string; graduationYear: any; }, id: string) {
     form.highestQualification = form.highestQualification.label
     //get year from label and make it Int
     form.graduationYear = parseInt(form.graduationYear.label);
@@ -221,13 +288,20 @@ export async function createEducationalBackground(form, id) {
     }
 }
 
-export async function uploadDocs(documents, applicationId) {
+/**
+ * Uploads multiple documents to the server.
+ *
+ * @param {Array} documents - An array of string or Blob objects representing the documents to be uploaded.
+ * @param {any} applicationId - The ID of the application the documents belong to.
+ * @return {Promise<void>} A Promise that resolves with no value upon successful upload.
+ */
+export async function uploadDocs(documents: (string | Blob)[], applicationId: any) {
     for (const doc of documents) {
         if (!doc)
             //skip if the document is not selected
             continue;
 
-        let url;
+        let url: any;
         const { timestamp, signature } = await getSignature('supporting-documents');
         const formData = new FormData();
         formData.append('file', documents[0]);
@@ -238,7 +312,7 @@ export async function uploadDocs(documents, applicationId) {
         formData.append('folder', 'supporting-documents');
 
         const endPoint = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_URL;
-        let res;
+        let res: { error: { message: any; }; secure_url: any; version: any; public_id: any; signature: any; };
         try {
             res = await fetch(endPoint, {
 
@@ -274,7 +348,9 @@ export async function uploadDocs(documents, applicationId) {
                 }
             })
         } else {
-            console.log("not saved to database");
+            return {
+                error: "Invalid signature"
+            }
         }
     }
 }
@@ -289,7 +365,7 @@ export async function addToFavorites(programId: string): Promise<any> {
         return "inactive user";
     }
 
-    let user;
+    let user: { favorites: any; id?: string; email?: string; password?: string; emailVerified?: Date; image?: string; firstName?: string; isActive?: boolean; lastName?: string; role?: $Enums.Role; sex?: string; friendList?: string[]; createdAt?: Date; };
     try {
         user = await prisma.user.findUnique({
             where: {
@@ -327,7 +403,7 @@ export async function removeFromFavorites(programId: string): Promise<any> {
     if (!currentUser.isActive) {
         return "inactive user";
     }
-    let user;
+    let user: { favorites: any; id?: string; email?: string; password?: string; emailVerified?: Date; image?: string; firstName?: string; isActive?: boolean; lastName?: string; role?: $Enums.Role; sex?: string; friendList?: string[]; createdAt?: Date; };
     try {
         user = await prisma.user.findUnique({
             where: {
@@ -343,7 +419,7 @@ export async function removeFromFavorites(programId: string): Promise<any> {
                 },
                 data: {
                     favorites: {
-                        set: user.favorites.filter((fav) => fav !== programId)
+                        set: user.favorites.filter((fav: string) => fav !== programId)
                     }
                 }
             });
@@ -366,7 +442,7 @@ export async function getFavorites(): Promise<any> {
     if (!currentUser.isActive) {
         return "inactive user";
     }
-    let user;
+    let user: { favorites: string[]; };
     try {
         user = await prisma.user.findUnique({
             where: {

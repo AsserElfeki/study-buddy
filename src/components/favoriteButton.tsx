@@ -11,8 +11,11 @@ import { useEffect, useState } from 'react';
 export default function FavoriteButton({ id } : { id: string }) {
     const [isFavorite, setIsFavorite] = useState(false);
 
+    const {data : session} = useSession();
+
     useEffect(() => {
         const fetchIsFavorite = async () => {
+            if (!session?.user) return;
             const favorites = await getFavorites();
             const isFavorite = favorites.includes(id);
             setIsFavorite(isFavorite);
@@ -27,7 +30,6 @@ export default function FavoriteButton({ id } : { id: string }) {
         setIsFavorite(!isFavorite);
     };
 
-    const { data: session } = useSession();
     
     return (
         <Tooltip title="Add to favourites">

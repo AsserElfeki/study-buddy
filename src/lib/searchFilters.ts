@@ -35,6 +35,24 @@ export async function getMaxTuition(): Promise<number> {
     return max;
 }
 
+/**
+ * Retrieves a list of study programs based on the specified filters.
+ *
+ * @param {Object} options - An object containing the filter options:
+ *   @param {number} options.tuMin - The minimum tuition value.
+ *   @param {number} options.tuMax - The maximum tuition value.
+ *   @param {string} options.disciplineName - The name of the discipline.
+ *   @param {string} options.language - The language of the program.
+ *   @param {number} options.minDuration - The minimum duration of the program.
+ *   @param {number} options.maxDuration - The maximum duration of the program.
+ *   @param {string} options.format - The format of the program.
+ *   @param {string} options.attendance - The attendance mode of the program.
+ *   @param {string} options.degree - The degree level of the program.
+ *   @param {string} options.universityId - The ID of the university.
+ *   @param {string} options.name - The name of the program.
+ *   @param {string} options.universityName - The name of the university.
+ * @return {Promise<Array<StudyProgram>>} A promise that resolves to an array of study programs.
+ */
 export async function getPrograms({
     tuMin,
     tuMax,
