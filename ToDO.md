@@ -1,33 +1,26 @@
 
-in ORDER: 
-- [ ] Today:
-  - [ ] apply page: 
-    - [√] form 
-    - [√] docs 
-    - [x] backend (cloudinary)
-    - [√] fix auth 
 
-- [ ] today (11):
+
+- [ ] today (24/12):
+  - [ ] uploading fix and code 
   - [x] validate 
-  - [ ] fix applications
-  - [ ] edit db (a lot of shit)
+  - [x] fix applications
+  - [x] edit db (a lot of shit)
   - [x] add to favoruites 
   - [ ] add as friend 
   - [ ] fix mobile vp
   - [x] add search by name
   - [ ] Profile:
-    - [ ] profile header 
+    - [x] profile header 
     - [ ] profile tabs (MUI tabs)
       - [ ] my posts
       - [ ] my applications
       - [ ] favourites
       - [ ] settings (where settings icon points to)
 
-- [ ] 7/12:
-  - [ ] notifications should be working (emails ?)
+- [ ] 25/12:
   - [ ] Others profile: 
     - [ ] add as friend (edit db)
-    - [ ] send message (messages a7eeh)
 
 - [ ] 10/12: 
   - [ ] emails: 
@@ -42,29 +35,17 @@ in ORDER:
 - [x] 12/12: 
   - [ ] Search filters:
     - [x] DurationCard : card with checkboxes (toggleable)
-    - [ ] FormatCard : card with checkboxes (toggleable)
-    - [ ] AttendanceCard : card with checkboxes (toggleable)
     - [x] LanguageCard : card with checkboxes (toggleable)
-    - [ ] DegreeCard : card with checkboxes (toggleable)
     - [x] university 
-  - [ ] Sort by 
 
-- [ ] 20/12: 
-    - [ ] Implement dark mode feature
+
+- [ ] 26/12: 
   - [ ] Admin dashboard
   - [ ] alerts on stuff (MUI snackbars)
-  - [ ] settings page 
-  - [ ] send messages 
+  - [ ] Implement dark mode feature
 
-
-- [ ] DB: 
-  - [ ] like : connect user and post 
-  - [x] consent 
-  - [x] user : friends 
-  - [ ] delete forms 
-  - [ ] user : notifications
-  - [ ] 
-
+- [ ] 27/12: 
+  - [ ] upload and emails
 
 - [ ] screenshots: 
   - [x] login via credentials

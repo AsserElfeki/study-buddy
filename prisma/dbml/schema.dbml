@@ -32,10 +32,9 @@ Table posts {
   content String [not null]
   createdAt DateTime [default: `now()`, not null]
   authorId String [not null]
-  likesCount Int [not null, default: 0]
   author users [not null]
   comments comments [not null]
-  ikes likes [not null]
+  likes likes [not null]
 }
 
 Table comments {
@@ -51,9 +50,13 @@ Table comments {
 Table likes {
   id String [pk]
   postId String [not null]
-  post posts [not null]
   authorId String [not null]
+  post posts [not null]
   author users [not null]
+
+  indexes {
+    (postId, authorId) [unique]
+  }
 }
 
 Table notifications {
@@ -89,7 +92,7 @@ Table accounts {
   scope String
   id_token String
   createdAt DateTime [default: `now()`, not null]
-  updatedAt DateTime [not null]
+  updatedAt DateTime
   user users [not null]
 
   indexes {
@@ -158,12 +161,15 @@ Table applications {
   id String [pk]
   studyProgramId String [not null]
   userId String [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime
+  userConsent Boolean [not null, default: false]
+  status applicationStatus [not null, default: 'pending']
   studyProgram study_programs [not null]
   user users [not null]
   documents documents [not null]
   personalInfo personal_infos
   educationalBackground educational_backgrounds
-  userConsent Boolean [not null, default: false]
 
   indexes {
     (studyProgramId, userId) [unique]
@@ -240,6 +246,12 @@ Enum searchQueryParamKeys {
   Format
   Attendance
   Degree
+}
+
+Enum applicationStatus {
+  pending
+  accepted
+  rejected
 }
 
 Ref: posts.authorId > users.id [delete: Cascade]

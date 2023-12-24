@@ -78,7 +78,7 @@ export default function Navbar() {
                 href="/profile"
                 className={`rounded-full hover:shadow-2xl border-4 ${isActive === "/profile" ? "border-red-900" : "border-transparent"}`}
               >
-                <Avatar alt={session?.user.name} src={session?.user?.image} />
+                <Avatar alt={session?.user.name} src={session?.user.image} />
               </Link>
             </Tooltip>
 

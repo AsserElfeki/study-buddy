@@ -23,6 +23,11 @@ const PersonalInfoForm = ({ nextStep , callback , data}) => {
         callback(prevForm => ({ ...prevForm, englishProficiency: selectedOption }));
     };
 
+    const handleConsentChange = (event) => {
+        console.log("consent: ", event.target.checked)
+        callback(prevForm => ({ ...prevForm, userConsent: event.target.checked }));
+    }
+
 
     const countryOptions = useMemo(() => countryList().getData(), [])
     const proficiencyOptions = ["A1", "A2", "B1", "B2", "C1", "C2"].map((level) => ({ value: level, label: level }));
@@ -158,6 +163,8 @@ const PersonalInfoForm = ({ nextStep , callback , data}) => {
                         name="gdprConsent"
                         required
                         className="form-checkbox h-5 w-5 text-indigo-600"
+                        checked={data.userConsent}
+                        onChange={handleConsentChange}
                     />
                     <span className="ml-2 text-sm text-gray-600">
                         I consent to the processing of my information according to GDPR laws.

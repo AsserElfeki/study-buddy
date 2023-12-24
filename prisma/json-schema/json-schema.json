@@ -146,10 +146,6 @@
           "type": "string",
           "format": "date-time"
         },
-        "likesCount": {
-          "type": "integer",
-          "default": 0
-        },
         "author": {
           "$ref": "#/definitions/User"
         },
@@ -159,7 +155,7 @@
             "$ref": "#/definitions/Comment"
           }
         },
-        "ikes": {
+        "likes": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/like"
@@ -323,7 +319,10 @@
           "format": "date-time"
         },
         "updatedAt": {
-          "type": "string",
+          "type": [
+            "string",
+            "null"
+          ],
           "format": "date-time"
         },
         "user": {
@@ -518,6 +517,30 @@
         "id": {
           "type": "string"
         },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "userConsent": {
+          "type": "boolean",
+          "default": false
+        },
+        "status": {
+          "type": "string",
+          "default": "pending",
+          "enum": [
+            "pending",
+            "accepted",
+            "rejected"
+          ]
+        },
         "studyProgram": {
           "$ref": "#/definitions/StudyProgram"
         },
@@ -549,10 +572,6 @@
               "type": "null"
             }
           ]
-        },
-        "userConsent": {
-          "type": "boolean",
-          "default": false
         }
       }
     },

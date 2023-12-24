@@ -4,7 +4,7 @@ import EducationalBackgroundForm from '@components/apply/educationalBackgroundFo
 import PersonalInfoForm from '@components/apply/personalInfoForm';
 import SupportingDocumentsForm from '@components/apply/supportingDocumentsForm'
 import ReviewAndSubmitForm from '@components/apply/reviewAndSubmitForm';
-import { use, useEffect, useState } from 'react';
+import {useEffect, useState } from 'react';
 import { startApplication } from '@src/utils/_actions';
 import { useSession } from 'next-auth/react';
 import ReviewDocuments from '@src/components/apply/review';
@@ -12,24 +12,25 @@ import ReviewDocuments from '@src/components/apply/review';
 export default function ApplyPage({ params }: { params: { id: string } | null }) {
     const { data: session } = useSession();
     const [currentStep, setCurrentStep] = useState(1);
-    const [applicationId, setApplicationId] = useState("");
-    
+    // const [applicationId, setApplicationId] = useState("");
+
     //forms state :
     const [personalInfo, setPersonalInfo] = useState({
-        firstName: session?.user?.firstName? session.user.firstName : "",
-        lastName: session?.user?.lastName? session.user.lastName : "",
-        email: session?.user?.email? session.user.email : "",
+        firstName: session?.user?.firstName ? session.user.firstName : "",
+        lastName: session?.user?.lastName ? session.user.lastName : "",
+        email: session?.user?.email ? session.user.email : "",
         phoneNumber: "",
         dateOfBirth: "",
-        nationality: "",
-        nativeLanguage: "",
-        englishProficiency: "",
+        nationality: {label: "", value: ""},
+        nativeLanguage: {label: "", value: ""},
+        englishProficiency: {label: "", value: ""},
+        userConsent: false,
     });
 
     const [educationalBackground, setEducationalBackground] = useState({
-        highestQualification: "",
+        highestQualification: {label: "", value: ""},
         institutionName: "",
-        graduationYear: "",
+        graduationYear: {label: "", value: ""},
     });
 
     const [supportingDocuments, setSupportingDocuments] = useState({
@@ -38,6 +39,17 @@ export default function ApplyPage({ params }: { params: { id: string } | null })
 
     });
 
+    useEffect(() => {
+        // console.log("personalInfo changed: ", personalInfo);
+    }, [personalInfo]);
+
+    useEffect(() => {
+        // console.log("educationalBackground changed: ", educationalBackground);
+    }, [educationalBackground]);
+
+    useEffect(() => {
+        // console.log("supportingDocuments changed: ", supportingDocuments);
+    }, [supportingDocuments]);
 
     useEffect(() => {
         setPersonalInfo({
@@ -46,13 +58,13 @@ export default function ApplyPage({ params }: { params: { id: string } | null })
             lastName: session?.user?.lastName,
             email: session?.user?.email,
         })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [session])
 
     const nextStep = () => setCurrentStep(currentStep + 1);
     const prevStep = () => setCurrentStep(currentStep - 1);
 
-    const handleEdit = async () => {  
+    const handleEdit = async () => {
         setCurrentStep(1);
     }
     const handleSubmit = async (e) => {
@@ -62,24 +74,23 @@ export default function ApplyPage({ params }: { params: { id: string } | null })
         console.log("personalInfo: ", personalInfo);
         console.log("educationalBackground: ", educationalBackground);
         console.log("supportingDocuments: ", supportingDocuments);
-
-        const application = await startApplication(params.id, personalInfo, educationalBackground, supportingDocuments);
-        //ToDo: create personal ifno 
-        //ToDo: create educational background
-        //ToDo: upload supporting documents
-        //todo: save documents to database
-
-
-    }
+        const formData = new FormData();
+        // append the files only
+        supportingDocuments.documents.forEach((file) => {
+            formData.append("documents", file);
+        });
+        console.log("formData in apply page: ", formData.get("documents"));
+        const application = await startApplication(params.id, personalInfo, educationalBackground, formData);
+        }
 
     const renderStep = () => {
         switch (currentStep) {
             case 1:
-                return <PersonalInfoForm nextStep={nextStep} callback={setPersonalInfo} data={ personalInfo } />;
+                return <PersonalInfoForm nextStep={nextStep} callback={setPersonalInfo} data={personalInfo} />;
             case 2:
                 return <EducationalBackgroundForm nextStep={nextStep} prevStep={prevStep} callback={setEducationalBackground} data={educationalBackground} />;
             case 3:
-                return <SupportingDocumentsForm nextStep={nextStep} prevStep={prevStep} data={ supportingDocuments} callback={setSupportingDocuments}/>;
+                return <SupportingDocumentsForm nextStep={nextStep} prevStep={prevStep} data={supportingDocuments} callback={setSupportingDocuments} />;
             default:
                 return (
                     <section>

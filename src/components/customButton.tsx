@@ -12,7 +12,7 @@ function CustomButton({ text, link }: CustomButtonProps) {
     const { data: session } = useSession();
 
     //return the button if the user is logged in, otherwise return nothing
-    if (!session) return null;
+    // if (!session) return null;
     return (
         <Button
             variant="outlined"

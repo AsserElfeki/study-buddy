@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
-import { getSignature, saveToDataBase } from '@utils/_cloudinary';
+import { getSignature } from '@utils/_cloudinary';
 import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
 
 
@@ -25,7 +25,8 @@ const SupportingDocumentsForm = ({ nextStep, prevStep , data , callback}) => {
     async function action() {
         nextStep();
         // console.log(numFiles)
-        callback ({ documents: documents , numFiles: numFiles});
+        callback({ documents: documents, numFiles: numFiles });
+        // console.log("data: ", data);
         // for (const doc of documents) {
         //     if (!doc)
         //         //skip if the document is not selected
@@ -66,8 +67,6 @@ const SupportingDocumentsForm = ({ nextStep, prevStep , data , callback}) => {
         //         signature: res?.signature,
         //     });
         // }
-
-
     }
     return (
             <>

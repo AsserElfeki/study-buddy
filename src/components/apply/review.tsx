@@ -13,7 +13,7 @@ function ReviewDocuments({ files , callback}) {
 
     useEffect(() => {
         setDocuments(files.documents);
-    }, [])
+    }, [files])
 
     const getFileIcon = (fileName) => {
         if (fileName.endsWith('.png') || fileName.endsWith('.jpg') || fileName.endsWith('.jpeg')) {

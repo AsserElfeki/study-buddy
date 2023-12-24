@@ -5,7 +5,7 @@ import prisma from '@src/lib/prisma';
 import { getServerSession } from 'next-auth';
 import { revalidatePath } from 'next/cache';
 import { getSignature, validateSignature } from './_cloudinary';
-import { $Enums, $Enums, highestQualification } from '@prisma/client';
+import { $Enums, Application, highestQualification } from '@prisma/client';
 
 
 /**
@@ -56,6 +56,12 @@ export async function getAllPosts(skip?: number, take?: number) {
                         },
                     }
                 },
+                // count likes
+                _count: {
+                    select: {
+                        likes: true
+                    }
+                }
             }
         }
     );
@@ -135,26 +141,45 @@ export async function likePost(postId: string) {
     // console.log("🚀 ~ file: actions.ts:60 ~ AddComment ~ content:", content)
     const session = await getServerSession({ ...authOptions });
     if (!session) {
-        return null;
+        return {
+            success: false,
+            error: "not logged in"
+        };
     }
     const user = session.user;
     if (!user.isActive) {
-        return "inactive user";
-    }
-    const post = await prisma.post.update({
-        where: {
-            id: postId
-        },
-        data: {
-            likes: {
-                increment: 1
-            }
+        return {
+            success: false,
+            error: "inactive user"
         }
-    });
-    console.log("🚀 ~ file: actions.ts:108 ~ likePost ~ post:", post)
+    }
+    //check if it exists
+    const exists = await prisma.like.findFirst({
+        where: {
+            postId: postId,
+            authorId: user.id
+        }
+    })
+    if (exists) {
+        return {
+            success: false,
+            error: "already liked"
+        }
+    }
+    //create a like from this user to this post
+    const like = await prisma.like.create({
+        data: {
+            postId: postId,
+            authorId: user.id
+        }
+    })
+    console.log("🚀 ~ file: actions.ts:108 ~ likePost ~ post:", like)
 
     revalidatePath('./forum')
-    // return comment;
+    return {
+        success: true,
+        data: like
+    };
 
 }
 
@@ -165,15 +190,16 @@ type PersonalInfoFormType = {
     email: string;
     phoneNumber: string;
     dateOfBirth: string;
-    nationality: string;
-    nativeLanguage: string;
-    englishProficiency: string;
+    nationality: { label: string, value: string };
+    nativeLanguage: { label: string, value: string };
+    englishProficiency: { label: string, value: string };
+    userConsent: boolean;
 };
 
 type EducationalBackgroundFormType = {
-    highestQualification: string;
+    highestQualification: { label: string, value: string };
     institutionName: string;
-    graduationYear: string;
+    graduationYear: { label: string, value: string };
 };
 
 type FilesType = {
@@ -181,20 +207,20 @@ type FilesType = {
     numFiles: number;
 };
 
+
 /**
  * Starts the application process for a study program.
  *
  * @param {string} studyProgramId - The ID of the study program.
- * @param {PersonalInfoFormType} PersonalInfoForm - The personal information form.
- * @param {EducationalBackgroundFormType} EducationalBackgroundForm - The educational background form.
- * @param {FilesType} files - The files to be uploaded.
- * @return {Promise<void>} A Promise that resolves once the application is started.
+ * @param {PersonalInfoFormType} PersonalInfoForm - The personal information form data.
+ * @param {EducationalBackgroundFormType} EducationalBackgroundForm - The educational background form data.
+ * @param {any} files - The files to be uploaded.
+ * @return {Promise<any>} - The application object or an error message.
  */
 export async function startApplication(
     studyProgramId: string,
-    PersonalInfoForm: PersonalInfoFormType,
-    EducationalBackgroundForm: EducationalBackgroundFormType,
-    files: FilesType)  {
+    personalInfoForm: PersonalInfoFormType,
+    educationalBackgroundForm: EducationalBackgroundFormType, files) {
     const session = await getServerSession({ ...authOptions });
     if (!session) {
         return null;
@@ -203,41 +229,104 @@ export async function startApplication(
     if (!user.isActive) {
         return "inactive user";
     }
-    const application = await prisma.application.create({
-        data: {
+    let updatedApplication: Application;
+    const application = await prisma.application.findFirst({
+        where: {
             userId: session.user.id,
-            studyProgramId: studyProgramId,
+            studyProgramId: studyProgramId
         }
     });
-    // createPersonalInfo(PersonalInfoForm, application.id);
-    createEducationalBackground(EducationalBackgroundForm, application.id);
-    // uploadDocs(files, application.id);
-    // return application;
+    if (application) {
+        updatedApplication = await prisma.application.update({
+            where: {
+                id: application.id
+            },
+            data: {
+                userConsent: personalInfoForm.userConsent
+            }
+        });
+    }
+    else {
+        updatedApplication = await prisma.application.create({
+            data: {
+                userId: session.user.id,
+                studyProgramId: studyProgramId,
+                userConsent: personalInfoForm.userConsent
+            }
+        });
+    }
+    delete personalInfoForm.userConsent;
+
+    const personalInfoResponse = await createPersonalInfo(personalInfoForm, updatedApplication.id);
+    if (!personalInfoResponse.success)
+        return personalInfoResponse;
+    const educationalBackgroundResponse = await createEducationalBackground(educationalBackgroundForm, updatedApplication.id);
+    if (!educationalBackgroundResponse.success)
+        return educationalBackgroundResponse;
+    const uploadDocsResponse = await uploadDocs(files, application.id);
+    if (!uploadDocsResponse.success)
+        return uploadDocsResponse;
+    return updatedApplication;
 }
 
-export async function createPersonalInfo(form: { nationality: { label: any; }; languageProficiency: any; englishProficiency: { label: any; }; nativeLanguage: { label: any; }; dateOfBirth: string | number | Date; }, id: any) {
-    form.nationality = form.nationality.label;
-    form.languageProficiency = form.englishProficiency.label;
-    form.nativeLanguage = form.nativeLanguage.label;
-    //convert date of birth to iso-8601
-    form.dateOfBirth = new Date(form.dateOfBirth).toISOString();
-    // delete nativeLanguage from form
-    delete form.englishProficiency
+/**
+ * Creates a personal information entry in the database.
+ *
+ * @param {PersonalInfoFormType} form - The form data for creating the personal information entry.
+ * @param {any} id - The ID of the related application.
+ * @return {Promise<{success: boolean, data?: any, error?: any}>} - A Promise that resolves to an object indicating the success status, and optionally containing the created personal information entry or an error.
+ */
+export async function createPersonalInfo(form: PersonalInfoFormType, id: any) {
+    let formattedForm = JSON.parse(JSON.stringify(form));
+    formattedForm.nationality = form.nationality.label;
+    formattedForm.languageProficiency = form.englishProficiency.label;
+    formattedForm.nativeLanguage = form.nativeLanguage.label;
+    formattedForm.dateOfBirth = new Date(form.dateOfBirth).toISOString();
+    delete formattedForm.englishProficiency
+    console.log(formattedForm);
+    let newpersonalInfo;
     try {
-        const info = await prisma.personalInfo.create({
-            data: {
-                ...form,
+        //find existing personal info that relates to this application, if exists, edit it
+        const exists = await prisma.personalInfo.findFirst({
+            where: {
                 application: {
-                    connect: {
-                        id: id
-                    }
+                    id: id
                 }
             }
         })
-        console.log(info);
+        if (exists) {
+            newpersonalInfo = await prisma.personalInfo.update({
+                where: {
+                    id: exists.id
+                },
+                data: {
+                    ...formattedForm
+                }
+            })
+        }
+        else {
+            newpersonalInfo = await prisma.personalInfo.create({
+                data: {
+                    ...formattedForm,
+                    application: {
+                        connect: {
+                            id: id
+                        }
+                    }
+                }
+            })
+        }
     }
     catch (error) {
         console.log("🚀 ~ file: actions.ts:140 ~ createPersonalInfo ~ error", error)
+        return {
+            success: false,
+            error: error
+        }
+    }
+    return {
+        success: true,
+        data: newpersonalInfo
     }
 }
 
@@ -249,86 +338,122 @@ export async function createPersonalInfo(form: { nationality: { label: any; }; l
  * @param {string} id - The ID of the application.
  * @return {Promise<void>} A promise that resolves when the educational background record is created.
  */
-export async function createEducationalBackground(form: { highestQualification: any; institutionName?: string; graduationYear: any; }, id: string) {
-    form.highestQualification = form.highestQualification.label
-    //get year from label and make it Int
-    form.graduationYear = parseInt(form.graduationYear.label);
-    // match highest qualification to enum from prisma
-    switch (form.highestQualification) {
+export async function createEducationalBackground(form: EducationalBackgroundFormType, id: string) {
+    let formattedForm = JSON.parse(JSON.stringify(form));
+    formattedForm.highestQualification = form.highestQualification.label
+    formattedForm.graduationYear = parseInt(form.graduationYear.label);
+    switch (formattedForm.highestQualification) {
         case "High School":
-            form.highestQualification = highestQualification.HighSchool;
+            formattedForm.highestQualification = highestQualification.HighSchool;
             break;
         case "Bachelor":
-            form.highestQualification = highestQualification.Bachelor;
+            formattedForm.highestQualification = highestQualification.Bachelor;
             break;
         case "Master":
-            form.highestQualification = highestQualification.Master;
+            formattedForm.highestQualification = highestQualification.Master;
             break;
         case "PhD":
-            form.highestQualification = highestQualification.PhD;
+            formattedForm.highestQualification = highestQualification.PhD;
             break;
         default:
             break;
     }
-
+    let newEducationalBackground;
     try {
-        const info = await prisma.educationalBackground.create({
-            data: {
-                ...form,
+        const exists = await prisma.educationalBackground.findFirst({
+            where: {
                 application: {
-                    connect: {
-                        id: id
-                    }
+                    id: id
                 }
             }
         })
+        if (exists) {
+            newEducationalBackground = await prisma.educationalBackground.update({
+                where: {
+                    id: exists.id
+                },
+                data: {
+                    ...formattedForm
+                }
+            })
+        }
+        else {
+            newEducationalBackground = await prisma.educationalBackground.create({
+                data: {
+                    ...formattedForm,
+                    institutionName: form.institutionName || '', // Add the 'institutionName' property with a default value of an empty string
+                    application: {
+                        connect: {
+                            id: id
+                        }
+                    }
+                }
+            })
+        }
     }
     catch (error) {
-        console.log("🚀 ~ file: actions.ts:140 ~ createPersonalInfo ~ error", error)
+        console.log("🚀 ~ file: actions.ts:140 ~ createEducationalBackground ~ error", error)
+        return {
+            success: false,
+            error: error
+        }
+    }
+    return {
+        success: true,
+        data: newEducationalBackground
     }
 }
 
+
+
 /**
- * Uploads multiple documents to the server.
+ * Uploads documents to the server.
  *
- * @param {Array} documents - An array of string or Blob objects representing the documents to be uploaded.
- * @param {any} applicationId - The ID of the application the documents belong to.
- * @return {Promise<void>} A Promise that resolves with no value upon successful upload.
+ * @param {Array} documents - the list of documents to upload
+ * @param {any} applicationId - the ID of the application
+ * @return {Promise<Object>} - a Promise that resolves to an object with the following properties:
+ *   - success: a boolean indicating whether the upload was successful
+ *   - data: an array of file links
  */
-export async function uploadDocs(documents: (string | Blob)[], applicationId: any) {
+export async function uploadDocs(documents: any, applicationId: any) {
+    let fileLinks = [];
     for (const doc of documents) {
         if (!doc)
-            //skip if the document is not selected
             continue;
 
         let url: any;
         const { timestamp, signature } = await getSignature('supporting-documents');
         const formData = new FormData();
-        formData.append('file', documents[0]);
+        formData.append('file', doc[1]);
         formData.append('resource_type', 'auto')
         formData.append('api_key', process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY);
         formData.append('signature', signature);
         formData.append('timestamp', timestamp.toString());
         formData.append('folder', 'supporting-documents');
 
-        const endPoint = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_URL;
+        const endPoint = `${process.env.CLOUDINARY_UPLOAD_API}raw/upload`;
+
         let res: { error: { message: any; }; secure_url: any; version: any; public_id: any; signature: any; };
         try {
             res = await fetch(endPoint, {
-
                 method: 'POST',
                 body: formData,
             }).then(res => res.json());
 
             if (res.error) {
-                console.error("Upload error: ", res.error.message);
+                return {
+                    success: false,
+                    error: res.error.message
+                }
             } else {
-                console.log("Upload successful: ", res);
                 url = res.secure_url;
-                // Handle successful upload, e.g., save URL to database
             }
         } catch (error) {
             console.error("Fetch error: ", error);
+            return {
+                success: false,
+                error: error
+            }
         }
         //save the url to the database
         const safe = await validateSignature({
@@ -337,7 +462,7 @@ export async function uploadDocs(documents: (string | Blob)[], applicationId: an
             signature: res?.signature,
         });
         if (safe) {
-            const url = await prisma.document.create({
+            const fileLink = await prisma.document.create({
                 data: {
                     link: res?.secure_url,
                     application: {
@@ -347,11 +472,17 @@ export async function uploadDocs(documents: (string | Blob)[], applicationId: an
                     }
                 }
             })
+            fileLinks.push(fileLink);
         } else {
             return {
+                success: false,
                 error: "Invalid signature"
             }
         }
+    }
+    return {
+        success: true,
+        data: fileLinks
     }
 }
 
@@ -450,13 +581,13 @@ export async function getFavorites(): Promise<any> {
             },
             select: {
                 favorites: true
-            }           
+            }
         });
     } catch (e) {
         console.log("🚀 ~ file: actions.ts:66 ~ AddComment ~ user:", e)
     }
     //return list of favorites
     return user?.favorites ?? [];
-    }
-    
+}
+
 
