@@ -7,7 +7,7 @@ const HeroSection: React.FC = () => {
             <div className="mx-auto flex p-8 md:p-24 flex-col items-center ">
                 <div className="flex flex-col p-4 sm:p-8 md:p-24 md:mb-0 items-center text-center bg-primary bg-opacity-90 rounded-lg">
                     <h1 className="text-3xl md:text-5xl mb-4 font-black text-white text-center">
-                        Study in Poland
+                        Study Buddy
                     </h1>
                     <p className="mb-8 leading-relaxed text-white">
                         Your one-stop-shop for applying and connecting with other students.

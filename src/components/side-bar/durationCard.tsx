@@ -26,14 +26,14 @@ export default function DurationionCard(props: Props) {
     const searchParams = useSearchParams();
     const pathname = usePathname();
     const router = useRouter();
-    const minFee = searchParams.get('duration') ? Number(searchParams.get('duration').split(',')[0].slice(1)) : inputProps.min;
-    const maxFee = searchParams.get('duration') ? Number(searchParams.get('duration').split(',')[1].slice(0, -1)) : inputProps.max;
+    const minDur = searchParams.get('duration') ? Number(searchParams.get('duration').split(',')[0].slice(1)) : inputProps.min;
+    const maxDur = searchParams.get('duration') ? Number(searchParams.get('duration').split(',')[1].slice(0, -1)) : inputProps.max;
 
-    const [currentValues, setCurrentValues] = useState([minFee, maxFee]);
+    const [currentValues, setCurrentValues] = useState([minDur, maxDur]);
 
     useEffect(() => {
-        setCurrentValues([minFee, maxFee]);
-    }, [minFee, maxFee])
+        setCurrentValues([minDur, maxDur]);
+    }, [minDur, maxDur])
 
     function handleSearch(min: number, max: number) {
         setCurrentValues([min, max]);

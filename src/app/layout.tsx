@@ -11,7 +11,7 @@ import Loading from './loading';
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Study In Poland - Portal",
+  title: "Study Buddy",
   description:
     "Easily find and apply for study programmes in Poland from all around the world",
 };

@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import DurationionCard from './durationCard';
 
 export default  function DurationContainer() {
-    const [maxFee, setMaxFee] = useState(0);
+    const [maxDur, setMaxDur] = useState(0);
     // console.log("🚀 ~ file: tuitionContainer.tsx:10 ~ TuitionContainer ~ maxFee:", maxFee)
 
     useEffect(() => {
@@ -13,7 +13,7 @@ export default  function DurationContainer() {
             const maxDuration = await getMaxDuration();
             // console.log("🚀 ~ file: durationContainer.tsx:14 ~ fetchMaxDuration ~ maxTuition:", maxDuration)
             
-            setMaxFee(maxDuration);
+            setMaxDur(maxDuration);
         };
 
         fetchMaxDuration();
@@ -23,7 +23,7 @@ export default  function DurationContainer() {
         step: 0.5,
         shrink: "true",
         min: 0,
-        max: maxFee || 100000
+        max: maxDur || 8
     };
 
     return (

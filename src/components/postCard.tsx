@@ -29,7 +29,7 @@ type Post = {
     createdAt: Date;
     authorId: string;
     author: Author;
-    likes: number;
+    _count: {likes: number};
     comments?: Comment[];
 }
 
@@ -54,7 +54,7 @@ function PostCardComponent( {post} : Props) {
             <div className='flex items-center justify-between mt-4'>
                 <div className='flex items-center'>
                     <ThumbUp className='mr-2' />
-                    <span>{post.likes}</span>
+                    <span>{post._count.likes}</span>
                     <CommentIcon className='ml-4 mr-2' />
                     <span>{post.comments.length}</span>
                 </div>
