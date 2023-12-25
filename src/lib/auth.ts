@@ -5,6 +5,8 @@ import type { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import { User } from '@prisma/client';
+import type { GetServerSidePropsContext, NextApiRequest, NextApiResponse } from "next"
+import { getServerSession } from "next-auth"
 
 export const authOptions: NextAuthOptions = {
     session: {
@@ -115,4 +117,8 @@ export const authOptions: NextAuthOptions = {
             return token;
         },
     },
-};
+} satisfies NextAuthOptions;
+
+export function auth(...args: [GetServerSidePropsContext["req"], GetServerSidePropsContext["res"]] | [NextApiRequest, NextApiResponse] | []) {
+    return getServerSession(...args, authOptions)
+}

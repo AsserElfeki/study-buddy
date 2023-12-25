@@ -168,7 +168,7 @@ export async function getDisciplineNames() {
 }
 
 export async function getUniversity(id: string) {
-    console.log("woohoooo 🎉");
+    // console.log("woohoooo 🎉");
     const res: Response = await fetch(`${universityPath}/${id}`, {
         method: 'GET',
         cache: 'no-cache',
