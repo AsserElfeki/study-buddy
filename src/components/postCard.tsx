@@ -50,7 +50,7 @@ function PostCardComponent( {post} : Props) {
                         className='rounded-full h-12 w-12 mr-4 border-2 border-white' />
                     <p className='text-gray-900'>{post.author.firstName + ' ' + post.author.lastName}</p>
                 </div>
-                <p className='text-gray-900'>{new Date(post.createdAt).toLocaleDateString()}</p>
+                <p className='text-gray-900'>{new Date(post.createdAt).getDate() + '/' + (new Date(post.createdAt).getMonth() + 1) + '/' + new Date(post.createdAt).getFullYear() + ' ' + new Date(post.createdAt).getHours() + ':' + new Date(post.createdAt).getMinutes()}</p>
             </div>
             {post.title && <h2 className='text-xl font-bold mb-2'>{post.title}</h2>}
             <p className='text-gray-800'>{post.content}</p>

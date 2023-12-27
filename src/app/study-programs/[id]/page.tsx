@@ -1,10 +1,10 @@
 import { StudyProgram } from '@prisma/client';
 import { getProgram, getUniversity } from '@src/lib/searchFilters';
 import EuroIcon from '@mui/icons-material/Euro';
-import { Button } from '@mui/material'; // Only import what is necessary
 import HeaderBanner from '@src/components/study-programHeader';
 import Divider from '@mui/material/Divider';
 import CustomButton from '@src/components/customButton';
+import FavoriteButton from '@src/components/favoriteButton';
 
 
 function capitalizeSentences(str) {
@@ -30,7 +30,9 @@ export default async function ProgramCard({ params }: { params: { id: string } |
 
       <div className="mx-auto p-6 bg-white rounded-lg shadow-md w-full flex flex-col ">
         <h2 className="text-2xl md:text-3xl font-bold mb-8 text-center">{title}</h2>
-
+        <div className='relative'>
+        <FavoriteButton id={program.id} style={ false } />
+        </div>
         <Divider className='mt-2 mb-6'>Key Information</Divider>
         <div className="grid grid-cols-2 gap-6 mb-8 w-3/5 mx-auto font-bold ">
           <span className="text-left font-medium">University</span>

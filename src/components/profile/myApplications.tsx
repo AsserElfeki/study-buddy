@@ -2,6 +2,7 @@
 
 import { getMyapplications } from '@src/lib/_profile'
 import { useEffect, useState } from 'react'
+import ApplicationCard from './applicationCard';
 
 function MyApplications() {
 
@@ -16,16 +17,13 @@ function MyApplications() {
             }
         }
         fetchData();
-    })
+    },[])
 
     return (
-        <div>
-            <h1>My Applications</h1>
-            <ul>
+        <div className='flex gap-4 flex-wrap justify-center mt-8'>
                 {applications.map((app: any) => (
-                    <li key={app.id}>{app.status}</li>
+                    <ApplicationCard key={app.id} application={app} />
                 ))}
-            </ul>
         </div>
     )
 }

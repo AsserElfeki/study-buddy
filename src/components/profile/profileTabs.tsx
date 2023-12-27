@@ -7,6 +7,8 @@ import Tab from '@mui/material/Tab';
 import CustomTabPanel from './profileTabPanel';
 import MyPosts from './myPosts';
 import MyApplications from './myApplications';
+import PaginationContainer from '../paginationContainer';
+import MyFavorites from './myFavorites';
 
 function ProfileTabs() {
   const [value, setValue] = React.useState(1);
@@ -30,7 +32,7 @@ function ProfileTabs() {
         <MyApplications />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
-        favs
+        <MyFavorites />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={3}>
         settings

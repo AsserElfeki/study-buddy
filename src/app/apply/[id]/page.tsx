@@ -8,11 +8,43 @@ import {useEffect, useState } from 'react';
 import { startApplication } from '@src/utils/_actions';
 import { useSession } from 'next-auth/react';
 import ReviewDocuments from '@src/components/apply/review';
+import { getApplication, getApplicationByProgramId } from '@src/lib/_profile';
 
 export default function ApplyPage({ params }: { params: { id: string } | null }) {
     const { data: session } = useSession();
     const [currentStep, setCurrentStep] = useState(1);
     // const [applicationId, setApplicationId] = useState("");
+
+    const [applicationExist, setApplicationExist] = useState(false);
+    const [existingApplication, setExistingApplication] = useState({});
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const res = await getApplicationByProgramId(params.id);
+            if (res.success) {
+                setApplicationExist(true);
+                setExistingApplication(res.data);
+                setPersonalInfo({
+                    firstName: res.data.personalInfo.firstName,
+                    lastName: res.data.personalInfo.lastName,
+                    email: res.data.personalInfo.email,
+                    phoneNumber: res.data.personalInfo.phoneNumber,
+                    dateOfBirth: res.data.personalInfo.dateOfBirth.toISOString(),
+                    nationality: { label: res.data.personalInfo.nationality, value: res.data.personalInfo.nationality },
+                    nativeLanguage: { label: res.data.personalInfo.nativeLanguage, value: res.data.personalInfo.nativeLanguage },
+                    englishProficiency: { label: res.data.personalInfo.languageProficiency, value: res.data.personalInfo.languageProficiency },
+                    userConsent: res.data.userConsent
+                });
+
+                setEducationalBackground({
+                    highestQualification: { label: res.data.educationalBackground.highestQualification, value: res.data.educationalBackground.highestQualification },
+                    institutionName: res.data.educationalBackground.institutionName,
+                    graduationYear: { label: res.data.educationalBackground.graduationYear.toString(), value: res.data.educationalBackground.graduationYear.toString() },
+                })
+            }
+        }
+        fetchData()
+    }, []);
 
     //forms state :
     const [personalInfo, setPersonalInfo] = useState({

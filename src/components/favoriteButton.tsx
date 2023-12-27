@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react';
 
 
 
-export default function FavoriteButton({ id } : { id: string }) {
+export default function FavoriteButton({ id , style } : { id: string , style: boolean }) {
     const [isFavorite, setIsFavorite] = useState(false);
 
     const {data : session} = useSession();
@@ -22,7 +22,7 @@ export default function FavoriteButton({ id } : { id: string }) {
         };
 
         fetchIsFavorite();
-    }, [id]);
+    }, [id, session?.user]);
 
     const handleClick: () => Promise<void> = async () => {
         console.log("🚀 ~ file: favoriteButton.tsx:50 ~ handleClick ~ id", id)
@@ -34,7 +34,7 @@ export default function FavoriteButton({ id } : { id: string }) {
     return (
         <Tooltip title="Add to favourites">
             <IconButton
-                className="absolute bottom-4 right-4 text-pink-600 "
+                className={`${style ? '' : 'absolute bottom-4 right-4'} bottom-4 right-4 text-pink-600 `}
                 aria-label="add to favorites"
                 onClick={handleClick}
             >

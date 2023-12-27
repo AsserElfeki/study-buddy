@@ -3,8 +3,11 @@
 import { useRef, KeyboardEventHandler } from 'react'
 import PostAddIcon from '@mui/icons-material/PostAdd';
 import { AddPost } from '@src/utils/_actions';
+import path from 'path';
+import { usePathname } from 'next/navigation';
 function AddPostComponent() {
 
+    const pathName = usePathname();
     const formRef = useRef(null);
     const textareaRef = useRef(null);
     const titleRef = useRef(null);
@@ -23,7 +26,7 @@ function AddPostComponent() {
             const formData = new FormData(formRef.current);
             formRef.current.reset();
             textareaRef.current.style.height = 'auto';
-            await AddPost(formData);
+            await AddPost(formData, pathName);
         }
     };
 
@@ -36,7 +39,7 @@ function AddPostComponent() {
                     async formData => {
                         formRef.current.reset();
                         textareaRef.current.style.height = 'auto';
-                        await AddPost(formData);
+                        await AddPost(formData, pathName);
                     }
                 }
                 className='border-2 border-white focus:border-blue-500 shadow-2xl  p-4 pb-0 mb-6 text-white rounded-xl'

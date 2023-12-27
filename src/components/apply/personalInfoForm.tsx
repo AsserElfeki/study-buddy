@@ -32,6 +32,8 @@ const PersonalInfoForm = ({ nextStep , callback , data}) => {
     const countryOptions = useMemo(() => countryList().getData(), [])
     const proficiencyOptions = ["A1", "A2", "B1", "B2", "C1", "C2"].map((level) => ({ value: level, label: level }));
    
+    console.log(data.dateOfBirth)
+    // data.dateOfBirth = data.dateOfBirth ? new Date(data.dateOfBirth) : new Date().toISOString().split('T')[0];
     
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -111,7 +113,7 @@ const PersonalInfoForm = ({ nextStep , callback , data}) => {
                     type="date"
                     name="dateOfBirth"
                     id="dateOfBirth"
-                    value={data.dateOfBirth}
+                    value={data.dateOfBirth ? new Date(data.dateOfBirth).toISOString().split('T')[0] : ""}
                     onChange={handleInputChange}
                     className="mt-1 block w-full shadow-sm sm:text-lg border-gray-300 rounded-lg p-1"
                     required

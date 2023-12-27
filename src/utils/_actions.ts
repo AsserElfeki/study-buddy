@@ -86,7 +86,7 @@ export async function AddComment(formData: FormData, postId: string) {
         return null;
     }
     const user = session.user;
-    console.log("🚀 ~ file: actions.ts:66 ~ AddComment ~ user:", user)
+    // console.log("🚀 ~ file: actions.ts:66 ~ AddComment ~ user:", user)
     if (!user.isActive) {
         return "inactive user";
     }
@@ -107,7 +107,7 @@ export async function AddComment(formData: FormData, postId: string) {
  * @param {FormData} formData - The form data containing the content and title of the post.
  * @return {Promise<null | "inactive user" | Post>} - A promise that resolves to either null, "inactive user", or the newly created post.
  */
-export async function AddPost(formData: FormData) {
+export async function AddPost(formData: FormData, path: string) {
     const content = formData.get('content');
     const title = formData.get('title');
     // console.log("🚀 ~ file: actions.ts:60 ~ AddComment ~ content:", content)
@@ -116,7 +116,7 @@ export async function AddPost(formData: FormData) {
         return null;
     }
     const user = session.user;
-    console.log("🚀 ~ file: actions.ts:66 ~ AddComment ~ user:", user)
+    // console.log("🚀 ~ file: actions.ts:66 ~ AddComment ~ user:", user)
     if (!user.isActive) {
         return "inactive user";
     }
@@ -127,8 +127,29 @@ export async function AddPost(formData: FormData) {
             title: title as string
         }
     });
-    revalidatePath('./forum')
+    revalidatePath(`.${path}`)
+    // console.log("🚀 ~ file: _actions.ts:132 ~ AddPost ~ path:", `.${path}`)
     return post;
+}
+
+//function that takes post id and checks if it belongs to the user
+
+export async function checkPostOwnership(postId: string): Promise<boolean> {
+    const session = await getServerSession({ ...authOptions });
+    if (!session) {
+        return false;
+    }
+    const user = session.user;
+   
+    const post = await prisma.post.findUnique({
+        where: {
+            id: postId
+        }
+    })
+    if (post?.authorId === session.user.id) {
+        return true;
+    }
+    return false
 }
 
 /**
@@ -521,7 +542,7 @@ export async function addToFavorites(programId: string): Promise<any> {
         }
     }
     catch (e) {
-        console.log("🚀 ~ file: actions.ts:66 ~ AddComment ~ user:", e)
+        // console.log("🚀 ~ file: actions.ts:66 ~ AddComment ~ user:", e)
     }
     // console.log("🏳️‍🌈 ~ file: actions.ts:66 ~ add fav ~ user:", user)
     return user;
@@ -557,7 +578,7 @@ export async function removeFromFavorites(programId: string): Promise<any> {
             });
         }
     } catch (e) {
-        console.log("🚀 ~ file: actions.ts:66 ~ AddComment ~ user:", e)
+        // console.log("🚀 ~ file: actions.ts:66 ~ AddComment ~ user:", e)
     }
 
     // console.log("🚀 ~ file: actions.ts:66 ~ remove fav ~ user:", user)
@@ -585,7 +606,7 @@ export async function getFavorites(): Promise<any> {
             }
         });
     } catch (e) {
-        console.log("🚀 ~ file: actions.ts:66 ~ AddComment ~ user:", e)
+        // console.log("🚀 ~ file: actions.ts:66 ~ AddComment ~ user:", e)
     }
     //return list of favorites
     return user?.favorites ?? [];

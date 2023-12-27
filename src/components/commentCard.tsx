@@ -25,7 +25,7 @@ export default function CommentCard({ comment }: Props) {
             <div className='flex  flex-col'>
                 <div className='flex flex-row justify-start items-center mb-2 bg-zinc-100 w-fit rounded-md px-2'>
                 <Image
-                    src={comment.author.image !== null ?comment.author.image : '/images/default.png'}
+                    src={comment.author.image ?comment.author.image : '/images/default.png'}
                     alt={comment.author.firstName}
                     width={32}
                     height={32}

@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import PaginationContainer from '../paginationContainer'
 import { getMyPosts } from '@src/lib/_profile'
 import PostCardComponent from '../postCard';
+import AddPostComponent from '../addPostComponent';
 
 function MyPosts() {
     //state for posts
@@ -23,8 +24,10 @@ function MyPosts() {
 
     return (
         <div>
+            <AddPostComponent />
+
             <PaginationContainer totalItems={10} itemsPerPage={10} >
-                {posts.map((post: any) => (
+                {posts.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()).map((post: any) => (
                     <PostCardComponent key={post.id} post={post} />
                 ))}
             </PaginationContainer>
