@@ -17,14 +17,14 @@ const ProfileCard = () => {
         setUser({
             name: session?.user?.name,
             profilePicture: session?.user?.image,
-            role: session?.user?.role,
+            role: session?.user?.role.split('_').join(' '),
         });
         console.log(session?.user);
     }, [session]);
 
     return (
         <div className="bg-white shadow-lg rounded-lg overflow-hidden  w-full">
-            <div className="bg-purple-500 p-4 text-right min-w-full h-24">
+            <div className="bg-red-800 p-4 text-right min-w-full h-24">
             
             </div>
             <div className="flex justify-center -mt-12">
@@ -37,11 +37,7 @@ const ProfileCard = () => {
             <div className="text-center p-4">
                 {/* Profile name and title */}
                 <h1 className="text-2xl font-semibold">{user.name}</h1>
-                {/* <p className="text-sm text-gray-600">{title}</p> */}
-                {/* Info button */}
-                <Button variant="outlined" color="primary" className="mt-4">
-                    Info
-                </Button>
+                <p className="text-gray-600">{user.role}</p>
             </div>
         </div>
     );

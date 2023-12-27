@@ -4,9 +4,6 @@ import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import type { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
-import { User } from '@prisma/client';
-import type { GetServerSidePropsContext, NextApiRequest, NextApiResponse } from "next"
-import { getServerSession } from "next-auth"
 
 export const authOptions: NextAuthOptions = {
     session: {
@@ -60,12 +57,12 @@ export const authOptions: NextAuthOptions = {
                 user.image = profile.picture;
 
                 if (!existingUser) { //ToDO
-                    await sendVerificationEmail(user as User)
+                    // await sendVerificationEmail(user as User)
                 }
                 else if (!existingUser.isActive) {
                     return false;
                 } else if (!existingUser.emailVerified) {
-                    await sendVerificationEmail(user as User)
+                    // await sendVerificationEmail(user as User)
                     return '/unauthorized';
                 }
 
@@ -78,7 +75,7 @@ export const authOptions: NextAuthOptions = {
                     return false;
                 } else if (!existingUser.emailVerified) {
                     console.log("Verify email")
-                    await sendVerificationEmail(user as User)
+                    // await sendVerificationEmail(user as User)
                     // return '/unauthorized';
                 }
             }
@@ -117,8 +114,9 @@ export const authOptions: NextAuthOptions = {
             return token;
         },
     },
-} satisfies NextAuthOptions;
+} 
+// satisfies NextAuthOptions;
 
-export function auth(...args: [GetServerSidePropsContext["req"], GetServerSidePropsContext["res"]] | [NextApiRequest, NextApiResponse] | []) {
-    return getServerSession(...args, authOptions)
-}
+// export function auth(...args: [GetServerSidePropsContext["req"], GetServerSidePropsContext["res"]] | [NextApiRequest, NextApiResponse] | []) {
+//     return getServerSession(...args, authOptions)
+// }

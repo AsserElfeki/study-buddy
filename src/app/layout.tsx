@@ -33,7 +33,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <NextAuthProvider>
           <CssBaseline />
-          <Container maxWidth={false} disableGutters={true} className='bg-slate-50 h-screen'>
+          <Container maxWidth={false} disableGutters={true} className='bg-slate-50 min-h-screen'>
             <Navbar />
             <Container maxWidth={'xl'} disableGutters={true} className='flex mx-auto justify-center'>
               <Suspense fallback={<Loading />}>

@@ -257,13 +257,14 @@ export async function startApplication(
     }
     delete personalInfoForm.userConsent;
 
+    console.log(updatedApplication.id)
     const personalInfoResponse = await createPersonalInfo(personalInfoForm, updatedApplication.id);
     if (!personalInfoResponse.success)
         return personalInfoResponse;
     const educationalBackgroundResponse = await createEducationalBackground(educationalBackgroundForm, updatedApplication.id);
     if (!educationalBackgroundResponse.success)
         return educationalBackgroundResponse;
-    const uploadDocsResponse = await uploadDocs(files, application.id);
+    const uploadDocsResponse = await uploadDocs(files, updatedApplication.id);
     if (!uploadDocsResponse.success)
         return uploadDocsResponse;
     return updatedApplication;

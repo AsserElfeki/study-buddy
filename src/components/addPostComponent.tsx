@@ -39,9 +39,9 @@ function AddPostComponent() {
                         await AddPost(formData);
                     }
                 }
-                className='border-2 border-white focus:border-blue-500 shadow-2xl rounded-lg p-4 pb-0 mb-6 text-white'
+                className='border-2 border-white focus:border-blue-500 shadow-2xl  p-4 pb-0 mb-6 text-white rounded-xl'
             >
-                <div className='flex flex-col gap-1 bg-gray-100 items-center rounded-lg '>
+                <div className='flex flex-col gap-1  items-center rounded-lg '>
                     {/* //input for post title */}
                     <input
                         required
@@ -65,7 +65,7 @@ function AddPostComponent() {
                     />
                     <button
                         type='submit'
-                        className='flex items-center justify-center text-black font-bold text-lg border-2 border-transparent rounded-xl p-2 hover:border-primary'
+                        className='flex items-center bg-white justify-center text-black font-bold text-lg border-2 border-transparent rounded-xl p-2 hover:border-primary'
                     >
                         Post
                         <PostAddIcon

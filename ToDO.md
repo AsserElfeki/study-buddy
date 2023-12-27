@@ -5,7 +5,7 @@
   - [ ] Profile:
     - [x] profile header 
     - [ ] profile tabs (MUI tabs)
-      - [ ] my posts
+      - [x] my posts
       - [ ] my applications
       - [ ] favourites
       - [ ] settings (where settings icon points to)
