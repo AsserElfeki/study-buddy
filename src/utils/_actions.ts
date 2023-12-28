@@ -1,8 +1,8 @@
-"use server";
+// "use server";
 
 import { authOptions } from '@lib/auth';
-import prisma from '@src/lib/prisma';
-import { getServerSession } from 'next-auth';
+import prisma from '@lib/prisma';
+import { Session, getServerSession } from 'next-auth';
 import { revalidatePath } from 'next/cache';
 import { getSignature, validateSignature } from './_cloudinary';
 import { $Enums, Application, highestQualification } from '@prisma/client';
@@ -135,7 +135,7 @@ export async function AddPost(formData: FormData, path: string) {
 //function that takes post id and checks if it belongs to the user
 
 export async function checkPostOwnership(postId: string): Promise<boolean> {
-    const session = await getServerSession({ ...authOptions });
+    const session : Session = await getServerSession({ ...authOptions });
     if (!session) {
         return false;
     }
@@ -613,3 +613,10 @@ export async function getFavorites(): Promise<any> {
 }
 
 
+module.exports = {
+    checkPostOwnership,
+    addToFavorites,
+    removeFromFavorites,
+    getFavorites
+
+}

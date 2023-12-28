@@ -1,9 +1,10 @@
 {
   "compilerOptions": {
     "typeRoots": [
-            "./src/types"
+            "./src/types",
+            // "./node_modules/@types"
         ],
-    "target": "ES6",
+    "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
@@ -22,24 +23,26 @@
         "name": "next"
       }
     ],
-    "baseUrl": "",
+    "baseUrl": ".",
     "paths": {
-      "@*": ["./*"],
-      "@components/*": ["./src/components/*"],
-      "@pages/*": ["./src/app/*"],
-      "@lib/*" : ["./src/lib/*"],
-      "@utils/*" : ["./src/utils/*"],
-      "@styles/*" : ["./src/styles/*"],
-      "@types/*" : ["./src/types"]
-
+      "@*": ["*"],
+      "@components/*": ["src/components/*"],
+      "@pages/*": ["src/app/*"],
+      "@lib/*" : ["src/lib/*"],
+      "@utils/*" : ["src/utils/*"],
+      "@styles/*" : ["src/styles/*"],
+      // "@types/*" : ["src/types"]
     }
   },
-  "include": ["next-env.d.ts", 
-  "**/*.ts", 
-  "**/*.tsx", 
-  ".next/types/**/*.ts", "src/lib/cloudinary.js",
+  "include": [
+    "next-env.d.ts", 
+    "**/*.ts", 
+    "**/*.tsx", 
+    ".next/types/**/*.ts", 
+    "types.d.ts",
+    "src/lib/cloudinary.js",
 ],
   "exclude": [
-    "node_modules", 
+    // "node_modules", 
 ]
 }
