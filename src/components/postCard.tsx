@@ -3,6 +3,7 @@ import Image from 'next/image';
 import CommentCard from './commentCard';
 import AddCommentComponent from './addComment';
 import LikePostComponent from './likePostComponent';
+import Link from 'next/link';
 // import { Post } from '@prisma/client';
 
 // here rendering the postcard component from the props passed from the forum page
@@ -41,7 +42,7 @@ function PostCardComponent( {post} : Props) {
     return (
         <div className='bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 shadow-md rounded-lg p-4 mb-6 text-white'>
             <div className='flex items-center justify-between mb-4'>
-                <div className='flex items-center'>
+                <Link  href={`/profile/${post.authorId}`} className='flex items-center'>
                     <Image 
                         src={post.author.image!== null? post.author.image : '/images/default.png'}
                         alt={post.author.firstName + ' ' + post.author.lastName}
@@ -49,7 +50,7 @@ function PostCardComponent( {post} : Props) {
                         height={48} 
                         className='rounded-full h-12 w-12 mr-4 border-2 border-white' />
                     <p className='text-gray-900'>{post.author.firstName + ' ' + post.author.lastName}</p>
-                </div>
+                </Link>
                 <p className='text-gray-900'>{new Date(post.createdAt).getDate() + '/' + (new Date(post.createdAt).getMonth() + 1) + '/' + new Date(post.createdAt).getFullYear() + ' ' + new Date(post.createdAt).getHours() + ':' + new Date(post.createdAt).getMinutes()}</p>
             </div>
             {post.title && <h2 className='text-xl font-bold mb-2'>{post.title}</h2>}

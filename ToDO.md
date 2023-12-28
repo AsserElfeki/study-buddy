@@ -6,8 +6,8 @@
     - [x] profile header 
     - [ ] profile tabs (MUI tabs)
       - [x] my posts
-      - [ ] my applications
-      - [ ] favourites
+      - [x] my applications
+      - [x] favourites
       - [ ] settings (where settings icon points to)
   - [ ] Others profile: 
     - [ ] add as friend (edit db)
