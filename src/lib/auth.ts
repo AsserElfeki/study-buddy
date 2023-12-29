@@ -1,5 +1,5 @@
 import sendVerificationEmail from '@lib/sendVerificationEmail';
-import { prisma } from "@lib/prisma";
+import { prisma } from "./prisma";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import type { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";

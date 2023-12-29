@@ -1,45 +1,32 @@
-// import prisma from '../lib/prisma';
-// import { checkPostOwnership } from '../utils/_actions';
-// const checkPostOwnership = require('/utils/_actions').checkPostOwnership;
+import { getAllPosts } from '../src/utils/_actions';
 
-import { checkPostOwnership } from '@utils/_actions';
+describe('getAllPosts', () => {
+    it('should retrieve all posts from the database', async () => {
+        const posts = await getAllPosts();
+        expect(posts).toBeDefined();
+        expect(Array.isArray(posts)).toBe(true);
+    });
 
-describe('checkPostOwnership', () => {
-    it('should return false if there is no active session', async () => {
-        const result = await checkPostOwnership('post-id');
-        expect(result).toBe(false);
+    it('should retrieve a specific number of posts when skip and take parameters are provided', async () => {
+        const skip = 10;
+        const take = 5;
+        const posts = await getAllPosts(skip, take);
+        expect(posts).toBeDefined();
+        expect(Array.isArray(posts)).toBe(true);
+        expect(posts.length).toBe(take);
+    });
+
+    it('should return null if session is not available', async () => {
+        jest.spyOn(global, 'getServerSession').mockReturnValueOnce(null);
+        const posts = await getAllPosts();
+        expect(posts).toBeNull();
+    });
+
+    it('should return "inactive user" if user isActive is false', async () => {
+        jest.spyOn(global, 'getServerSession').mockReturnValueOnce({ user: { isActive: false } });
+        const posts = await getAllPosts();
+        expect(posts).toBe('inactive user');
     });
 });
-    // it('should return false if the post does not exist', async () => {
-    //     jest.spyOn(prisma.post, 'findUnique').mockResolvedValueOnce(null);
 
-    //     const result = await checkPostOwnership('post-id');
-    //     expect(result).toBe(false);
-    // });
 
-    // it('should return false if the user is not the author of the post', async () => {
-    //     jest.spyOn(prisma.post, 'findUnique').mockResolvedValueOnce({
-    //         id: 'post-id',
-    //         title: 'Sample Post Title',
-    //         content: 'This is a sample post content.',
-    //         createdAt: new Date(),
-    //         authorId: 'another-user-id',
-    //     });
-
-    //     const result = await checkPostOwnership('post-id');
-    //     expect(result).toBe(false);
-    // });
-
-    // it('should return true if the user is the author of the post', async () => {
-    //     jest.spyOn(prisma.post, 'findUnique').mockResolvedValueOnce({
-    //         id: 'post-id',
-    //         title: 'Sample Post Title',
-    //         content: 'This is a sample post content.',
-    //         createdAt: new Date(),
-    //         authorId: 'another-user-id',
-    //     });
-
-    //     const result = await checkPostOwnership('post-id');
-    //     expect(result).toBe(true);
-    // });
-// });

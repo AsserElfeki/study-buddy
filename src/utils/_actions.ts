@@ -1,7 +1,7 @@
-// "use server";
+"use server";
 
-import { authOptions } from '@lib/auth';
-import prisma from '@lib/prisma';
+import { authOptions } from '../lib/auth';
+import prisma from '../lib/prisma';
 import { Session, getServerSession } from 'next-auth';
 import { revalidatePath } from 'next/cache';
 import { getSignature, validateSignature } from './_cloudinary';
@@ -83,12 +83,18 @@ export async function AddComment(formData: FormData, postId: string) {
     // console.log("🚀 ~ file: actions.ts:60 ~ AddComment ~ content:", content)
     const session = await getServerSession({ ...authOptions });
     if (!session) {
-        return null;
+        return {
+            success: false,
+            error: "not logged in"
+        };
     }
     const user = session.user;
     // console.log("🚀 ~ file: actions.ts:66 ~ AddComment ~ user:", user)
     if (!user.isActive) {
-        return "inactive user";
+        return {
+            success: false,
+            error: "inactive user"
+        };
     }
     const comment = await prisma.comment.create({
         data: {
@@ -98,7 +104,10 @@ export async function AddComment(formData: FormData, postId: string) {
         }
     });
     revalidatePath('./forum')
-    return comment;
+    return {
+        success: true,
+        data: comment
+    };
 }
 
 /**
@@ -613,10 +622,10 @@ export async function getFavorites(): Promise<any> {
 }
 
 
-module.exports = {
-    checkPostOwnership,
-    addToFavorites,
-    removeFromFavorites,
-    getFavorites
+// module.exports = {
+//     checkPostOwnership,
+//     addToFavorites,
+//     removeFromFavorites,
+//     getFavorites
 
-}
+// }
