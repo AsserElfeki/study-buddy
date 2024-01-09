@@ -18,6 +18,7 @@ import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import { useState } from 'react';
 import CustomSnackbar from './customSnackBar';
 import router from 'next/router';
+import { Role } from '@prisma/client';
 
 export default function Navbar() {
   const { data: session } = useSession();
@@ -59,47 +60,81 @@ export default function Navbar() {
           <Image src={logo} alt="Logo" width={80} height={80} />
           <h1 className={`font-bold hidden md:block mt-[-15px]`}>StudyBuddy</h1>
         </Link>
+        {session?.user?.role === Role.ADMIN ? (
+          <ul className="flex flex-col items-center md:flex-row  md:w-full justify-evenly mx-16 ">
+            <li
+              className={`hover:cursor-pointer hover:animate-bounce ${isActive === "/users" ? "animated-gradient font-extrabold hover:animate-spin" : ""
+                }`}
+            >
+              <Link
+                href="/users"
+                className='p-2 active'>Users
+              </Link>
+            </li>
 
-        <ul className="flex flex-col items-center md:flex-row  md:w-full justify-around ">
-          <li
-            className={` hover:cursor-pointer hover:animate-bounce ${isActive === "/about" ? "animated-gradient font-extrabold hover:animate-spin" : ""
-              }`}
-          >
-            <Link href="/about"
-              className="active p-2">About
-            </Link>
-          </li>
-          <li
-            className={`hover:cursor-pointer hover:animate-bounce ${isActive === "/search" ? "animated-gradient font-extrabold hover:animate-spin" : ""
-              }`}
-          >
-            <Link
-              href="/search"
-              className='p-2'>Search</Link>
-          </li>
-          <li
-            className={`hover:cursor-pointer hover:animate-bounce ${isActive === "/forum" ? "animated-gradient font-extrabold hover:animate-spin" : ""
-              }`}
-          >
-            <Link
-              href="/forum"
-              className='p-2'>Forum</Link>
-          </li>
-          <li
-            className={`hover:cursor-pointer hover:animate-bounce ${isActive === "/faq" ? "animated-gradient font-extrabold hover:animate-spin" : ""
-              }`}
-          >
-            <Link href="/faq" className='p-2'>Faq</Link>
-          </li>
-          <li
-            className={`hover:cursor-pointer hover:animate-bounce ${isActive === "/testimonials" ? "animated-gradient font-extrabold hover:animate-spin" : ""
-              }`}
-          >
-            <Link href="/testimonials" className='p-2'>Testimonials</Link>
-          </li>
-        </ul>
+            <li
+              className={`hover:cursor-pointer hover:animate-bounce ${isActive === "/applications" ? "animated-gradient font-extrabold hover:animate-spin" : ""
+                }`}
+            >
+              <Link
+                href="/applications"
+                className='active p-2'>Applications
+              </Link>
+            </li>
 
-        {session?.user ? (
+            <li
+              className={`hover:cursor-pointer hover:animate-bounce ${isActive === "/forum" ? "animated-gradient font-extrabold hover:animate-spin" : ""
+                }`}
+            >
+              <Link
+                href="/forum"
+                className='p-2'>Forum</Link>
+            </li>
+
+          </ul>
+        ) :
+          (
+            <ul className="flex flex-col items-center md:flex-row  md:w-full justify-around ">
+              <li
+                className={` hover:cursor-pointer hover:animate-bounce ${isActive === "/about" ? "animated-gradient font-extrabold hover:animate-spin" : ""
+                  }`}
+              >
+                <Link href="/about"
+                  className="active p-2">About
+                </Link>
+              </li>
+              <li
+                className={`hover:cursor-pointer hover:animate-bounce ${isActive === "/search" ? "animated-gradient font-extrabold hover:animate-spin" : ""
+                  }`}
+              >
+                <Link
+                  href="/search"
+                  className='p-2'>Search</Link>
+              </li>
+              <li
+                className={`hover:cursor-pointer hover:animate-bounce ${isActive === "/forum" ? "animated-gradient font-extrabold hover:animate-spin" : ""
+                  }`}
+              >
+                <Link
+                  href="/forum"
+                  className='p-2'>Forum</Link>
+              </li>
+              <li
+                className={`hover:cursor-pointer hover:animate-bounce ${isActive === "/faq" ? "animated-gradient font-extrabold hover:animate-spin" : ""
+                  }`}
+              >
+                <Link href="/faq" className='p-2'>Faq</Link>
+              </li>
+              <li
+                className={`hover:cursor-pointer hover:animate-bounce ${isActive === "/testimonials" ? "animated-gradient font-extrabold hover:animate-spin" : ""
+                  }`}
+              >
+                <Link href="/testimonials" className='p-2'>Testimonials</Link>
+              </li>
+            </ul>
+          )}
+        
+        {session?.user  ? (
           <div className='flex flex-row justify-center items-center gap-2'>
             <Tooltip title="Profile" placement='bottom' arrow>
               <Link
@@ -119,20 +154,20 @@ export default function Navbar() {
             </Tooltip>
 
             <Tooltip title='Notifications' placement='bottom' arrow>
-                <Badge badgeContent={0} color="error">
+              <Badge badgeContent={0} color="error">
                 <NotificationsNoneOutlinedIcon fontSize='large'
-                className='text-gray-500 hover:text-blue-600 hover:animate-pulse'
+                  className='text-gray-500 hover:text-blue-600 hover:animate-pulse'
                 />
-                </Badge>
-              </Tooltip>
-            
+              </Badge>
+            </Tooltip>
+
             <Tooltip title="Sign out" placement='bottom' arrow>
               <Link href="/">
                 <button
                   onClick={() => handleSignOut()}
                 >
                   <LogoutOutlinedIcon fontSize='large' color='error'
-                  className='text-gray-500 hover:text-red-600 hover:animate-ping'
+                    className='text-gray-500 hover:text-red-600 hover:animate-ping'
                   />
                 </button>
               </Link>

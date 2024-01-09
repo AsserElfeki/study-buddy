@@ -23,7 +23,6 @@ function ProfileTabs() {
         <Tab label="Posts" />
         <Tab label="applications" />
         <Tab label="favourites" />
-        <Tab label="settings" />
       </Tabs>
       <CustomTabPanel value={value} index={0}>
         <MyPosts />
@@ -33,9 +32,6 @@ function ProfileTabs() {
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
         <MyFavorites />
-      </CustomTabPanel>
-      <CustomTabPanel value={value} index={3}>
-        settings
       </CustomTabPanel>
     </Box>
   );
