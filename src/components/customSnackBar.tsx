@@ -13,7 +13,7 @@ const CustomSnackbar: React.FC<CustomSnackbarProps> = ({ open, message, severity
     return (
         <Snackbar
             open={open}
-            autoHideDuration={6000}
+            autoHideDuration={3000}
             onClose={onClose}
             anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
             className='mt-20'

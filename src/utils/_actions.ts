@@ -27,7 +27,10 @@ export async function getAllPosts(skip?: number, take?: number) {
     // console.log("🚀 ~ file: actions.ts:16 ~ getAllPosts ~ user:", user)
     //check if user isActive
     if (!user.isActive) {
-        return "inactive user";
+        return {
+            success: false,
+            error: "inactive user"
+        };
     }
 
     const posts = await prisma.post.findMany(
@@ -127,7 +130,10 @@ export async function AddPost(formData: FormData, path: string) {
     const user = session.user;
     // console.log("🚀 ~ file: actions.ts:66 ~ AddComment ~ user:", user)
     if (!user.isActive) {
-        return "inactive user";
+        return {
+            success: false,
+            error: "inactive user"
+        };
     }
     const post = await prisma.post.create({
         data: {
@@ -257,7 +263,10 @@ export async function startApplication(
     }
     const user = session.user;
     if (!user.isActive) {
-        return "inactive user";
+        return {
+            success: false,
+            error: "inactive user"
+        };
     }
     let updatedApplication: Application;
     const application = await prisma.application.findFirst({
@@ -297,7 +306,10 @@ export async function startApplication(
     const uploadDocsResponse = await uploadDocs(files, updatedApplication.id);
     if (!uploadDocsResponse.success)
         return uploadDocsResponse;
-    return updatedApplication;
+    return {
+        success: true,
+        data: updatedApplication
+    };
 }
 
 /**
@@ -524,7 +536,10 @@ export async function addToFavorites(programId: string): Promise<any> {
     }
     const currentUser = session.user;
     if (!currentUser.isActive) {
-        return "inactive user";
+        return {
+            success: false,
+            error: "inactive user"
+        };
     }
 
     let user: { favorites: any; id?: string; email?: string; password?: string; emailVerified?: Date; image?: string; firstName?: string; isActive?: boolean; lastName?: string; role?: $Enums.Role; sex?: string; friendList?: string[]; createdAt?: Date; };
@@ -563,7 +578,10 @@ export async function removeFromFavorites(programId: string): Promise<any> {
     }
     const currentUser = session.user;
     if (!currentUser.isActive) {
-        return "inactive user";
+        return {
+            success: false,
+            error: "inactive user"
+        };
     }
     let user: { favorites: any; id?: string; email?: string; password?: string; emailVerified?: Date; image?: string; firstName?: string; isActive?: boolean; lastName?: string; role?: $Enums.Role; sex?: string; friendList?: string[]; createdAt?: Date; };
     try {
@@ -602,7 +620,10 @@ export async function getFavorites(): Promise<any> {
     }
     const currentUser = session.user;
     if (!currentUser.isActive) {
-        return "inactive user";
+        return {
+            success: false,
+            error: "inactive user"
+        };
     }
     let user: { favorites: string[]; };
     try {

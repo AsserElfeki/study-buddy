@@ -28,7 +28,7 @@ function StudyProgramCard(props: StudyProgramCardProps) {
 
     return (
         <article className="border bg-white p-4 rounded-lg shadow-md  w-full relative">
-            <FavoriteButton id={id}  />
+            <FavoriteButton id={id} />
             <header className="mb-4">
                 <Link
                     href = {`/study-programs/${id}`}

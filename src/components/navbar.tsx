@@ -6,7 +6,7 @@ import s from "/public/study buddy.png";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { signOut, useSession } from 'next-auth/react';
-import { Avatar } from '@mui/material';
+import { AlertColor, Avatar } from '@mui/material';
 import HowToRegOutlinedIcon from '@mui/icons-material/HowToRegOutlined';
 import Tooltip from '@mui/material/Tooltip';
 import LoginOutlinedIcon from '@mui/icons-material/LoginOutlined';
@@ -15,12 +15,40 @@ import ManageAccountsOutlinedIcon from '@mui/icons-material/ManageAccountsOutlin
 import Badge from '@mui/material/Badge';
 import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
+import { useState } from 'react';
+import CustomSnackbar from './customSnackBar';
+import router from 'next/router';
 
 export default function Navbar() {
   const { data: session } = useSession();
 
   const pathname = usePathname();
   const isActive = pathname;
+
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState('');
+  const [snackbarSeverity, setSnackbarSeverity] = useState<AlertColor>('info');
+
+  const handleSnackbarClose = () => {
+    setSnackbarOpen(false);
+  };
+
+  const handleSignOut = async () => {
+    try {
+      await signOut();
+      setSnackbarMessage('Sign Out Successful!');
+      setSnackbarSeverity('success');
+      setSnackbarOpen(true);
+      setTimeout(() => {
+        router.push("/");
+      }, 3000)
+    } catch (error) {
+      setSnackbarMessage('Sign Out Failed!');
+      setSnackbarSeverity('error');
+      setSnackbarOpen(true);
+    }
+  }
+
   return (
     <div className="w-full flex bg-white shadow-lg justify-center sticky z-10 top-0 mb-2 py-2">
 
@@ -101,7 +129,7 @@ export default function Navbar() {
             <Tooltip title="Sign out" placement='bottom' arrow>
               <Link href="/">
                 <button
-                  onClick={() => signOut()}
+                  onClick={() => handleSignOut()}
                 >
                   <LogoutOutlinedIcon fontSize='large' color='error'
                   className='text-gray-500 hover:text-red-600 hover:animate-ping'
@@ -127,6 +155,12 @@ export default function Navbar() {
         )}
 
       </div>
+      <CustomSnackbar
+        open={snackbarOpen}
+        message={snackbarMessage}
+        severity={snackbarSeverity}
+        onClose={() => setSnackbarOpen(false)}
+      />
     </div>
   );
 }

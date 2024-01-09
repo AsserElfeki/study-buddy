@@ -1,7 +1,6 @@
 
 import { getServerSession } from "next-auth";
 import { authOptions } from "@lib/auth";
-import { User } from "@components/user.component";
 import HeroSection from '@src/components/hero';
 import SearchBox from '@src/components/searchBox';
 

@@ -4,13 +4,17 @@ import EducationalBackgroundForm from '@components/apply/educationalBackgroundFo
 import PersonalInfoForm from '@components/apply/personalInfoForm';
 import SupportingDocumentsForm from '@components/apply/supportingDocumentsForm'
 import ReviewAndSubmitForm from '@components/apply/reviewAndSubmitForm';
-import {useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { startApplication } from '@src/utils/_actions';
 import { useSession } from 'next-auth/react';
 import ReviewDocuments from '@src/components/apply/review';
 import { getApplication, getApplicationByProgramId } from '@src/lib/_profile';
+import { AlertColor } from '@mui/material';
+import  { useRouter } from 'next/navigation';
+import CustomSnackbar from '@src/components/customSnackBar';
 
 export default function ApplyPage({ params }: { params: { id: string } | null }) {
+    const router = useRouter();
     const { data: session } = useSession();
     const [currentStep, setCurrentStep] = useState(1);
     // const [applicationId, setApplicationId] = useState("");
@@ -53,23 +57,31 @@ export default function ApplyPage({ params }: { params: { id: string } | null })
         email: session?.user?.email ? session.user.email : "",
         phoneNumber: "",
         dateOfBirth: "",
-        nationality: {label: "", value: ""},
-        nativeLanguage: {label: "", value: ""},
-        englishProficiency: {label: "", value: ""},
+        nationality: { label: "", value: "" },
+        nativeLanguage: { label: "", value: "" },
+        englishProficiency: { label: "", value: "" },
         userConsent: false,
     });
 
     const [educationalBackground, setEducationalBackground] = useState({
-        highestQualification: {label: "", value: ""},
+        highestQualification: { label: "", value: "" },
         institutionName: "",
-        graduationYear: {label: "", value: ""},
+        graduationYear: { label: "", value: "" },
     });
 
     const [supportingDocuments, setSupportingDocuments] = useState({
         documents: [],
         numFiles: 3,
-
     });
+
+    const [snackbarOpen, setSnackbarOpen] = useState(false);
+    const [snackbarMessage, setSnackbarMessage] = useState('');
+    const [snackbarSeverity, setSnackbarSeverity] = useState<AlertColor>('info');
+
+    const handleSnackbarClose = () => {
+        setSnackbarOpen(false);
+    };
+    
 
     useEffect(() => {
         // console.log("personalInfo changed: ", personalInfo);
@@ -102,18 +114,31 @@ export default function ApplyPage({ params }: { params: { id: string } | null })
     const handleSubmit = async (e) => {
         e.preventDefault();
         // await submitApplication(applicationId, personalInfo, educationalBackground, supportingDocuments);
-        console.log("submitting application");
-        console.log("personalInfo: ", personalInfo);
-        console.log("educationalBackground: ", educationalBackground);
-        console.log("supportingDocuments: ", supportingDocuments);
+        // console.log("submitting application");
+        // console.log("personalInfo: ", personalInfo);
+        // console.log("educationalBackground: ", educationalBackground);
+        // console.log("supportingDocuments: ", supportingDocuments);
         const formData = new FormData();
         // append the files only
         supportingDocuments.documents.forEach((file) => {
             formData.append("documents", file);
         });
-        console.log("formData in apply page: ", formData.get("documents"));
+        // console.log("formData in apply page: ", formData.get("documents"));
         const application = await startApplication(params.id, personalInfo, educationalBackground, formData);
+        if (application.success) {
+            setSnackbarMessage('Application created successfully');
+            setSnackbarSeverity('success');
+            setSnackbarOpen(true);
+            setTimeout(() => {
+                router.push("/profile");
+            }, 3000)
         }
+        else {
+            setSnackbarMessage('Application failed to create');
+            setSnackbarSeverity('error');
+            setSnackbarOpen(true);
+        }
+    }
 
     const renderStep = () => {
         switch (currentStep) {
@@ -140,6 +165,12 @@ export default function ApplyPage({ params }: { params: { id: string } | null })
             <div className=' shadow-lg flex justify-center items-center w-full rounded-lg border border-slate-100 py-4 h-fit'>
                 {renderStep()}
             </div>
+            <CustomSnackbar
+                open={snackbarOpen}
+                message={snackbarMessage}
+                severity={snackbarSeverity}
+                onClose={() => setSnackbarOpen(false)}
+            />
         </section>
     );
 };
