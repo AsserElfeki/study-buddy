@@ -10,9 +10,10 @@
       - [x] favourites
       - [ ] settings (where settings icon points to)
   - [ ] Others profile: 
+    - [ ] other's profile
     - [ ] add as friend (edit db)
     - [ ] alerts on stuff (MUI snackbars)
-
+  - [ ] rerouting on signin
 
 - [ ] 10/12: 
   - [ ] emails: 
