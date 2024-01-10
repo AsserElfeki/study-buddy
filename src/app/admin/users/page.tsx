@@ -1,18 +1,18 @@
 import UserCard from '@src/components/adminComponents/userCard';
+import UserListHeader from '@src/components/adminComponents/userListHeader';
 import { getAllUsers } from '@src/utils/_adminFunctions';
 
 export default async function Users() {
 
     const users = await getAllUsers();
-    console.log("🚀 ~ Users ~ users:", users)
 
 
     return (
         <>
-            <div className='flex flex-col gap-4'>
-                
+            <div className='flex flex-col gap-4 '>
+                <UserListHeader />
 
-                {users?.users?.map((user) => (
+                {users?.users?.sort((a, b) => a.firstName.localeCompare(b.firstName)).map((user) => (
                     <UserCard key={user.id} user={user} />
                 ))}
             </div>

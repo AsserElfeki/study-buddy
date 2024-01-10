@@ -30,9 +30,7 @@ export default function Navbar() {
   const [snackbarMessage, setSnackbarMessage] = useState('');
   const [snackbarSeverity, setSnackbarSeverity] = useState<AlertColor>('info');
 
-  const handleSnackbarClose = () => {
-    setSnackbarOpen(false);
-  };
+
 
   const handleSignOut = async () => {
     try {
@@ -67,7 +65,7 @@ export default function Navbar() {
                 }`}
             >
               <Link
-                href="/users"
+                href="/admin/users"
                 className='p-2 active'>Users
               </Link>
             </li>
@@ -77,7 +75,7 @@ export default function Navbar() {
                 }`}
             >
               <Link
-                href="/applications"
+                href="/admin/applications"
                 className='active p-2'>Applications
               </Link>
             </li>

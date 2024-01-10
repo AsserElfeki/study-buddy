@@ -10,7 +10,6 @@ import { $Enums, Application, highestQualification } from '@prisma/client';
 
 
 export async function getAllUsers() {
-
     const session = await getServerSession({ ...authOptions });
     const user = await session?.user;
     const isAdmin = user?.role === $Enums.Role.ADMIN;
@@ -32,3 +31,144 @@ export async function getAllUsers() {
         users
     }
 }
+
+export async function getAllApplications() {
+    const session = await getServerSession({ ...authOptions });
+    const user = await session?.user;
+    const isAdmin = user?.role === $Enums.Role.ADMIN;
+    if (!isAdmin) return {
+        success: false,
+        error: "unauthorized"
+    };
+    let applications;
+    try {
+        applications = await prisma.application.findMany({
+            include: {
+                studyProgram: {
+                    include: {
+                        university:true
+                    }
+                },
+                user: true
+            }
+        });
+    } catch (error) {
+        return {
+            success: false,
+            error
+        }
+    }
+    console.log(applications)
+    return {
+        success: true,
+        data: applications
+    }
+}
+
+export async function getUserById(id: string) {
+
+    const session = await getServerSession({ ...authOptions });
+    const user = await session?.user;
+    const isAdmin = user?.role === $Enums.Role.ADMIN;
+    if (!isAdmin) return {
+        success: false,
+        error: "unauthorized"
+    };
+    let userById;
+    try {
+        userById = await prisma.user.findUnique({
+            where: {
+                id
+            }
+        });
+    } catch (error) {
+        return {
+            success: false,
+            error
+        }
+    }
+    return {
+        success: true,
+        userById
+    }
+}
+
+
+export async function banUser(userToBanId: string) {
+
+    const session = await getServerSession({ ...authOptions });
+    const user = await session?.user;
+    const isAdmin = user?.role === $Enums.Role.ADMIN;
+    if (!isAdmin) {
+        return {
+            success: false,
+            error: "unauthorized"
+        };
+    }
+    if (user.id === userToBanId) {
+        return {
+            success: false,
+            error: "You cannot ban yourself"
+        }
+    }
+    let userToBan;
+    try {
+        userToBan = await prisma.user.update({
+            where: {
+                id: userToBanId
+            },
+            data: {
+                isActive: false
+            }
+        });
+        revalidatePath('/users')
+        return {
+            success: true,
+            data: userToBan
+        }
+    }
+    catch (error) {
+        return {
+            success: false,
+            error
+        }
+    }
+
+
+}
+
+export async function unbanUser(userToUnbanId: string) {
+
+    const session = await getServerSession({ ...authOptions });
+    const user = await session?.user;
+    const isAdmin = user?.role === $Enums.Role.ADMIN;
+    if (!isAdmin) {
+        return {
+            success: false,
+            error: "unauthorized"
+        };
+    }
+    let userToUnban;
+    try {
+        userToUnban = await prisma.user.update({
+            where: {
+                id: userToUnbanId
+            },
+            data: {
+                isActive: true
+            }
+        });
+        revalidatePath('/admin/users')
+        return {
+            success: true,
+            data: userToUnban
+        }
+    }
+    catch (error) {
+        return {
+            success: false,
+            error
+        }
+    }
+}
+

@@ -23,5 +23,5 @@
 
 
 - [ ] 26/12: 
-  - [ ] Admin dashboard
+  - [ ] Admin dashboar
 
