@@ -12,7 +12,7 @@ export default async function Users() {
             <div className='flex flex-col gap-4 '>
                 <UserListHeader />
 
-                {users?.users?.sort((a, b) => a.firstName.localeCompare(b.firstName)).map((user) => (
+                {users.data?.sort((a, b) => a.firstName.localeCompare(b.firstName)).map((user) => (
                     <UserCard key={user.id} user={user} />
                 ))}
             </div>

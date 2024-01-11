@@ -213,6 +213,79 @@ async function seed() {
             });
         }
     }
+
+    //create applications
+    for (let i = 1; i <= 5; i++) {
+        await prisma.application.create({
+            data: {
+                status: "pending",
+                user: {
+                    connect: {
+                        id: `test${i}`
+                    }
+                },
+                studyProgram: {
+                    connect: {
+                        id: `test${i}`
+                    }
+                }
+            }
+        })
+    }
+
+    for (let i = 2; i <= 5; i++) {
+        await prisma.application.create({
+            data: {
+                status: "pending",
+                user: {
+                    connect: {
+                        id: `test${i}`
+                    }
+                },
+                studyProgram: {
+                    connect: {
+                        id: `test${i-1}`
+                    }
+                }
+            }
+        })
+    }
+
+    for (let i = 3; i <= 5; i++) {
+        await prisma.application.create({
+            data: {
+                status: "accepted",
+                user: {
+                    connect: {
+                        id: `test${i}`
+                    }
+                },
+                studyProgram: {
+                    connect: {
+                        id: `test${i - 2}`
+                    }
+                }
+            }
+        })
+    }
+
+    for (let i = 1; i <= 3; i++) {
+        await prisma.application.create({
+            data: {
+                status: "rejected",
+                user: {
+                    connect: {
+                        id: `test${i}`
+                    }
+                },
+                studyProgram: {
+                    connect: {
+                        id: `test${i + 2}`
+                    }
+                }
+            }
+        })
+    }
 }
 
 async function main(): Promise<void> {

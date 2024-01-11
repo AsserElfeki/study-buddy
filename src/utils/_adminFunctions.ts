@@ -28,7 +28,7 @@ export async function getAllUsers() {
     }
     return {
         success: true,
-        users
+        data: users
     }
 }
 
@@ -172,7 +172,7 @@ export async function unbanUser(userToUnbanId: string) {
     }
 }
 
-export async function updateApplicationStatus(id: string, status: string) {
+export async function updateApplicationStatus(id: string, status: string, path:string) {
     const session = await getServerSession({ ...authOptions });
     const user = await session?.user;
     const isAdmin = user?.role === $Enums.Role.ADMIN;
@@ -211,7 +211,7 @@ export async function updateApplicationStatus(id: string, status: string) {
                 status: newStatus
             }
         });
-        revalidatePath('/admin/applications')
+        revalidatePath(path)
         return {
             success: true,
             data: application

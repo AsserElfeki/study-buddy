@@ -4,7 +4,8 @@
 - [ ] settings page (where settings icon points to)
 - [ ] other's profile
 - [ ] add as friend
-- [ ] 
+- [ ] middleware
+  
 
   - [ ] emails: 
     - [ ] to users: 

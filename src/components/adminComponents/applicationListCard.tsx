@@ -6,12 +6,15 @@ import { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import { updateApplicationStatus } from '@src/utils/_adminFunctions';
 import CustomSnackbar from '../customSnackBar';
+import { usePathname } from 'next/navigation';
 
 
 
 export default function ApplicationListCard({ application }) {
 
     const { data: session } = useSession();
+
+    const path = usePathname();
 
     const [currentApplication, setCurrentApplication] = useState({});
     const [snackbarOpen, setSnackbarOpen] = useState(false);
@@ -23,7 +26,7 @@ export default function ApplicationListCard({ application }) {
         const newStatus = event.target.value;
         setStatus(newStatus);
 
-        const res = await updateApplicationStatus(currentApplication.id, newStatus);
+        const res = await updateApplicationStatus(currentApplication.id, newStatus, path);
         if (res.success) {
             setSnackbarMessage("Application status updated successfully");
             setSnackbarSeverity('success');
