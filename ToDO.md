@@ -1,10 +1,16 @@
 
 - [ ] posts page
-- [ ] applications page (filter in url ?)
+- [x] applications page (filter in url ?)
+- [x] fix sorting and filtering in applications
+- [ ] add sorting and filtering in users
+- [ ] applications button in users page : go to applications and pass name of person or id or something in url
+- [x] middleware
+- [ ] seeds
+- [ ] video 
+  
 - [ ] settings page (where settings icon points to)
 - [ ] other's profile
 - [ ] add as friend
-- [ ] middleware
   
 
   - [ ] emails: 

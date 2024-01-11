@@ -2,7 +2,7 @@
 
 import { authOptions } from '../lib/auth';
 import prisma from '../lib/prisma';
-import { Session, getServerSession } from 'next-auth';
+import {  getServerSession } from 'next-auth';
 import { revalidatePath } from 'next/cache';
 import { getSignature, validateSignature } from './_cloudinary';
 import { $Enums, Application, applicationStatus, highestQualification } from '@prisma/client';
@@ -173,6 +173,7 @@ export async function unbanUser(userToUnbanId: string) {
 }
 
 export async function updateApplicationStatus(id: string, status: string, path:string) {
+    console.log("🚀 ~ updateApplicationStatus ~ path:", path)
     const session = await getServerSession({ ...authOptions });
     const user = await session?.user;
     const isAdmin = user?.role === $Enums.Role.ADMIN;

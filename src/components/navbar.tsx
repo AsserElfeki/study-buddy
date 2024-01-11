@@ -38,10 +38,11 @@ export default function Navbar() {
       setSnackbarMessage('Sign Out Successful!');
       setSnackbarSeverity('success');
       setSnackbarOpen(true);
-      setTimeout(() => {
-        router.push("/");
-      }, 3000)
+
+      router.replace("/");
+
     } catch (error) {
+      console.log(error);
       setSnackbarMessage('Sign Out Failed!');
       setSnackbarSeverity('error');
       setSnackbarOpen(true);
@@ -131,8 +132,8 @@ export default function Navbar() {
               </li>
             </ul>
           )}
-        
-        {session?.user  ? (
+
+        {session?.user ? (
           <div className='flex flex-row justify-center items-center gap-2'>
             <Tooltip title="Profile" placement='bottom' arrow>
               <Link
