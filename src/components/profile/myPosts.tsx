@@ -25,12 +25,17 @@ function MyPosts() {
     return (
         <div>
             <AddPostComponent />
-
-            <PaginationContainer totalItems={10} itemsPerPage={10} >
-                {posts.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()).map((post: any) => (
-                    <PostCardComponent key={post.id} post={post} />
-                ))}
-            </PaginationContainer>
+            {posts?.length ? (
+                <PaginationContainer totalItems={10} itemsPerPage={10} >
+                    {posts.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()).map((post: any) => (
+                        <PostCardComponent key={post.id} post={post} />
+                    ))}
+                </PaginationContainer>
+        )
+                : (
+                    <div>No posts</div>
+    )}
+            
         </div>
     )
 }

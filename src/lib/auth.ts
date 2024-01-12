@@ -63,7 +63,7 @@ export const authOptions: NextAuthOptions = {
                     return false;
                 } else if (!existingUser.emailVerified) {
                     // await sendVerificationEmail(user as User)
-                    return '/unauthorized';
+                    // return '/unauthorized';
                 }
 
                 delete user.name;

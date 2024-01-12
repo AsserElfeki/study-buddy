@@ -37,3 +37,5 @@ next-env.d.ts
 git_stuff.md
 
 setupEnv.js
+
+*.sql

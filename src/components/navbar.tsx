@@ -43,8 +43,8 @@ export default function Navbar() {
 
     } catch (error) {
       console.log(error);
-      setSnackbarMessage('Sign Out Failed!');
-      setSnackbarSeverity('error');
+      setSnackbarMessage('Sign Out Successful!');
+      setSnackbarSeverity('success');
       setSnackbarOpen(true);
     }
   }

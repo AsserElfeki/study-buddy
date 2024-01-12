@@ -7,6 +7,7 @@ import { useSession } from 'next-auth/react';
 const ProfileCard = () => {
 
     const { data: session } = useSession();
+    console.log("🚀 ~ ProfileCard ~ session:", session)
     const [user, setUser] = useState({
         name: "",
         profilePicture: "",
