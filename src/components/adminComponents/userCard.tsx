@@ -73,10 +73,10 @@ function UserCard({ user }) {
                 <Typography variant="body1" sx={{ mr: 2 }} className='col-span-2'>
                     {currentUser.email}
                 </Typography>
-                <Link href={`/applications/${currentUser.id}`} sx={{ mr: 2 }} className='col-span-1'>
+                <Link href={`/admin/applications?userId=${currentUser.id}`} sx={{ mr: 2 }} className='col-span-1'>
                     Applications
                 </Link>
-                <Link href={`/posts/${currentUser.id}`} sx={{ mr: 2 }} className='col-span-1'>
+                <Link href={`/admin/posts?userId=${currentUser.id}`} sx={{ mr: 2 }} className='col-span-1'>
                     Posts
                 </Link>
                 <Button 

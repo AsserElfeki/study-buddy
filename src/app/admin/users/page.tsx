@@ -1,19 +1,39 @@
+"use client"
 import UserCard from '@src/components/adminComponents/userCard';
 import UserListHeader from '@src/components/adminComponents/userListHeader';
 import { getAllUsers } from '@src/utils/_adminFunctions';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@lib/auth';
 import { Role } from '@prisma/client';
+import { useSession } from 'next-auth/react';
+import { useEffect, useState } from 'react';
+import { CircularProgress } from '@mui/material';
 
-export default async function Users() {
+export default  function Users() {
 
     //get session
 
     // Inside the Users function
-    const session = await getServerSession(authOptions);
+    const {data: session} =  useSession();
+    const [users, setUsers] = useState([])
+    const [isLoading, setLoading] = useState(true);
 
-    const users = await getAllUsers();
+    useEffect(() => {
+        setLoading(true)
+        const fetchUsers = async () => {
+            const users = await getAllUsers();
+            if(users.success)
+                setUsers(users.data)
+        } 
+        fetchUsers();
+        setLoading(false)
+    },[])
 
+    if (isLoading) {
+        return (
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+                <CircularProgress />
+            </div>
+        )
+    }
 
     return (
         <>
@@ -21,7 +41,7 @@ export default async function Users() {
                 <div className='flex flex-col gap-4 '>
                     <UserListHeader />
 
-                    {users.data?.sort((a, b) => a.firstName.localeCompare(b.firstName)).map((user) => (
+                    {users?.sort((a, b) => a.firstName.localeCompare(b.firstName)).map((user) => (
                         <UserCard key={user.id} user={user} />
                     ))}
                 </div>

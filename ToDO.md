@@ -2,7 +2,7 @@
 - [ ] posts page
 - [x] applications page (filter in url ?)
 - [x] fix sorting and filtering in applications
-- [ ] add sorting and filtering in users
+- [x] add sorting and filtering in users
 - [ ] applications button in users page : go to applications and pass name of person or id or something in url
 - [x] middleware
 - [ ] seeds

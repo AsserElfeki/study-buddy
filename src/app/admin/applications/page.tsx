@@ -1,16 +1,21 @@
 "use client";
 
-import { Autocomplete, Button, Card, FormControl, InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material';
+import { Autocomplete, Button, Card, CircularProgress, FormControl, InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material';
 import { Role } from '@prisma/client';
 import ApplicationListCard from '@src/components/adminComponents/applicationListCard';
 import ApplicationListHeader from '@src/components/adminComponents/applicationListHeader';
 import PaginationContainer from '@src/components/paginationContainer';
 import { getAllApplications, getAllUsers } from '@src/utils/_adminFunctions';
+import { all } from 'axios';
 import { useSession } from 'next-auth/react';
-import { use, useEffect, useState } from 'react';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 export default function Applications() {
     const { data: session } = useSession();
+    const searchParams = useSearchParams();
+
+    const [isLoading, setLoading] = useState(true);
 
     const [selectedUser, setSelectedUser] = useState(null);
     const [allUsers, setAllUsers] = useState([]);
@@ -19,16 +24,21 @@ export default function Applications() {
     const [sortOption, setSortOption] = useState('');
     const [sortedApplications, setSortedApplications] = useState([]);
 
-    const handleSortChange = (event) => {
-        const newSortOption = event.target.value;
-
-        setSortOption(event.target.value);
-        const _sortedApplications = [...sortedApplications].sort((a, b) => {
+    const handleSortChange = (event?) => {
+        setLoading(true)
+        setSelectedUser("")
+        console.log("🚀 ~ handleSortChange ~ sortOption:", sortOption)
+        let newSortOption = event?.target?.value ? event.target.value : sortOption;
+        console.log("😨 ~ handleSortChange ~ newSortOption:", newSortOption)
+        if (event?.target?.value) {
+            setSortOption(event.target.value);
+        }
+        const _sortedApplications = [...allApplications].sort((a, b) => {
             switch (newSortOption) {
                 case 'user name':
                     return a.user.lastName.localeCompare(b.user.lastName);
                 case 'status':
-                    console.log(a.status, b.status)
+                    // console.log(a.status, b.status)
                     return a.status.localeCompare(b.status);
                 case 'created at':
                     return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
@@ -39,50 +49,96 @@ export default function Applications() {
             }
         });
         setSortedApplications(_sortedApplications);
+        setLoading(false)
     };
 
     const handleFilterChange = (event, newValue) => {
-        const firstName = newValue?.firstName;
-        const lastName = newValue?.lastName;
-        const _sortedApplications = [...allApplications].filter(app => app.user.firstName === firstName && app.user.lastName === lastName);
-        setSortedApplications(_sortedApplications);
+        setLoading(true)
+        if (searchParams.has("userId")) {
+            const params = new URLSearchParams(searchParams);
+            params.set('userId', newValue.id);
+            router.push(`${pathname}?${params.toString()}`);
+        }
+        // setSelectedUser(newValue)
+        // const id = newValue?.id;
+        // console.log("🚀 ~ handleFilterChange ~ id:", id)
+        // const _sortedApplications = [...allApplications].filter(app => app.user.id === id);
+        // setSortedApplications(_sortedApplications);
+        setLoading(false)
+        // console.log(sortedApplications)
     }
-
-    const filteredApplications = selectedUser
-        ? allApplications.filter(app => app.userId === selectedUser.id)
-        : allApplications;
-
-    useEffect(() => {
-        //update allApplications, then filter and sort them according to currenr filter and sort option, then update the sortedApplications
-
-    }, [])
 
     useEffect(() => {
         const fetchUsers = async () => {
             const users = await getAllUsers();
             setAllUsers(users.data);
-            console.log("USERSSS: ", users.data)
         };
         fetchUsers();
     }, []);
 
     useEffect(() => {
+        setLoading(true)
+        const userId = searchParams.get('userId');
+        // console.log("🚀 ~ useEffect ~ userId:", userId)
+        if (userId) {
+            console.log("all users in params:", allUsers)
+            setSelectedUser(allUsers.find(user => user.id === userId));
+            console.log("user from params:", selectedUser)
+            console.log("all apps:", allApplications)
+            const _sortedApplications = [...allApplications].filter(app => app.userId === userId);
+            console.log("🚀 ~ useEffect ~ _sortedApplications:", _sortedApplications)
+            setSortedApplications(_sortedApplications);
+        }
+        setLoading(false)
+    }, [allApplications, allUsers, searchParams, selectedUser]);
+
+    //logger
+    useEffect(() => {
+        console.log("selectedUser changed", selectedUser)
+    }, [selectedUser])
+
+    const filteredApplications = selectedUser
+        ? allApplications.filter(app => app.userId === selectedUser.id)
+        : allApplications;
+
+    //fetch apps
+    useEffect(() => {
+        setLoading(true)
         const fetchApplications = async () => {
             const applications = await getAllApplications();
             setAllApplications(applications.data);
             setSortedApplications(applications.data);
         };
         fetchApplications();
-    }, []);
+        setLoading(false)
+    }, [searchParams]);
 
-    const handleUserChange = (event, newValue) => {
-        setSelectedUser(newValue);
-    };
+    //callBack
+    const handleUpdateStatus = async () => {
+        const applications = await getAllApplications();
+        setAllApplications(applications.data);
+        // setSortedApplications(applications.data);
+        // handleSortChange();
+    }
+    const pathname = usePathname();
+    const router = useRouter();
+
     const handleResetFilters = () => {
         setSortedApplications(allApplications); // Reset filtered applications to all applications
         setSortOption(''); // Reset sort option to an empty string or your default sort option
+        const params = new URLSearchParams(searchParams);
+        params.delete("userId");
+        router.push(`${pathname}?${params.toString()}`);
+
     };
 
+    if (isLoading) {
+        return (
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+                <CircularProgress />
+            </div>
+        )
+    }
 
     return (
         <>
@@ -96,7 +152,7 @@ export default function Applications() {
                                 getOptionLabel={(option) => option.firstName + ' ' + option.lastName}
                                 onChange={handleFilterChange}
                                 renderInput={(params) => <TextField {...params} label="Filter by user" />}
-
+                            // value={selectedUser.firstName + ' ' + selectedUser.lastName}
                             />
                             <FormControl className='w-1/5'>
                                 <InputLabel id="sort-label">Sort by</InputLabel>
@@ -118,7 +174,7 @@ export default function Applications() {
                         <ApplicationListHeader />
                         <PaginationContainer totalItems={filteredApplications.length} itemsPerPage={10} >
                             {sortedApplications.map((app) => (
-                                <ApplicationListCard key={app.id} application={app} />
+                                <ApplicationListCard key={app.id} application={app} callBack={handleUpdateStatus} />
                             ))}
                         </PaginationContainer>
                     </div>

@@ -22,17 +22,23 @@ export async function getAllDisciplines() {
 }
 
 export async function getMaxTuition(): Promise<number> {
-
-    const res: Response = await fetch(`${studyProgramPath}`, {
-        method: 'GET',
-    });
-
-    const data: Array<StudyProgram> = await res.json();
-
-    //filter data to extract the highest tuition
-    let fees = data.map((program) => program.tuitionFee);
-    let max = Math.max(...fees);
-    return max;
+    try {
+    
+        const res: Response = await fetch(`${studyProgramPath}`, {
+            method: 'GET',
+        });
+    
+        const data: Array<StudyProgram> = await res.json();
+    
+        //filter data to extract the highest tuition
+        let fees = data.map((program) => program.tuitionFee);
+        let max = Math.max(...fees);
+        return max;
+    }
+    catch (e) {
+        console.log(e)
+        return 0;
+    }
 }
 
 /**

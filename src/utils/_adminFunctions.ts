@@ -212,7 +212,7 @@ export async function updateApplicationStatus(id: string, status: string, path:s
                 status: newStatus
             }
         });
-        revalidatePath(path)
+        // revalidatePath(path)
         return {
             success: true,
             data: application

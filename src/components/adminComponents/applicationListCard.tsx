@@ -10,7 +10,7 @@ import { usePathname } from 'next/navigation';
 
 
 
-export default function ApplicationListCard({ application }) {
+export default function ApplicationListCard({ application , callBack }) {
 
     const { data: session } = useSession();
 
@@ -21,23 +21,28 @@ export default function ApplicationListCard({ application }) {
     const [snackbarMessage, setSnackbarMessage] = useState('');
     const [snackbarSeverity, setSnackbarSeverity] = useState<AlertColor>('info');
     const [status, setStatus] = useState("");
+    const [newDate, setNewDate] = useState("");
 
     const handleStatusChange = async (event) => {
         const newStatus = event.target.value;
-        setStatus(newStatus);
-
+        
         const res = await updateApplicationStatus(currentApplication.id, newStatus, path);
+        setNewDate(res.data.updatedAt);
+        console.log("🚀 ~ handleStatusChange ~ res:", res)
         if (res.success) {
+            // setStatus(newStatus);
+            
+            setCurrentApplication( {...currentApplication, ...res.data} )
             setSnackbarMessage("Application status updated successfully");
             setSnackbarSeverity('success');
-            setCurrentApplication({ ...currentApplication, status: newStatus });
+            callBack();
+            // setCurrentApplication({ ...currentApplication, status: newStatus });
         }
         else {
             setSnackbarMessage("Error while updating status");
             setSnackbarSeverity('error');
         }
         setSnackbarOpen(true);
-
 
     };
 
