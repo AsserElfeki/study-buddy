@@ -13,8 +13,8 @@ export default async function ForumPage() {
     return (
         <div className='flex flex-col gap-6 w-full max-w-3xl'>
             <AddPostComponent />
-            <PaginationContainer totalItems={posts.length} itemsPerPage={10} >
-                {Array.isArray(posts) ? posts.map((post) => (
+            <PaginationContainer totalItems={posts.data.length} itemsPerPage={10} >
+                {Array.isArray(posts.data) ? posts.data.map((post) => (
                     <PostCardComponent key={post.id} post={post} />
                 )) : <p>loading...</p>}
 

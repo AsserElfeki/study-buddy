@@ -12,7 +12,7 @@ import UserListHeader from './userListHeader';
 
 
 
-function UserCard({ user }) {
+function UserCard({ user , callBack}) {
 
     const { data: session } = useSession();
 
@@ -41,6 +41,7 @@ function UserCard({ user }) {
             setSnackbarSeverity('error');
             setSnackbarOpen(true);
         }
+        callBack();
     }
 
     useEffect(() => {
@@ -76,7 +77,7 @@ function UserCard({ user }) {
                 <Link href={`/admin/applications?userId=${currentUser.id}`} sx={{ mr: 2 }} className='col-span-1'>
                     Applications
                 </Link>
-                <Link href={`/admin/posts?userId=${currentUser.id}`} sx={{ mr: 2 }} className='col-span-1'>
+                <Link href={`/admin/forum?userId=${currentUser.id}`} sx={{ mr: 2 }} className='col-span-1'>
                     Posts
                 </Link>
                 <Button 

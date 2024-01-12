@@ -20,7 +20,10 @@ export async function getAllPosts(skip?: number, take?: number) {
     const session = await getServerSession({ ...authOptions });
 
     if (!session) {
-        return null;
+        return {
+            success: false,
+            error: "not signed in"
+        };
     }
 
     const user = session.user;
@@ -69,7 +72,10 @@ export async function getAllPosts(skip?: number, take?: number) {
         }
     );
 
-    return posts;
+    return {
+        success: true,
+        data: posts
+    };
 
 }
 
@@ -81,7 +87,7 @@ export async function getAllPosts(skip?: number, take?: number) {
  * @param {string} postId - The ID of the post to add the comment to.
  * @return {Promise<Comment>} The newly created comment.
  */
-export async function AddComment(formData: FormData, postId: string) {
+export async function AddComment(formData: FormData, postId: string, pathName: string) {
     const content = formData.get('comment');
     // console.log("🚀 ~ file: actions.ts:60 ~ AddComment ~ content:", content)
     const session = await getServerSession({ ...authOptions });
@@ -106,7 +112,8 @@ export async function AddComment(formData: FormData, postId: string) {
             authorId: user.id
         }
     });
-    revalidatePath('./forum')
+    revalidatePath(pathName)
+    console.log("🚀 ~ AddComment ~ pathName:", pathName)
     return {
         success: true,
         data: comment

@@ -1,6 +1,7 @@
 "use client";
 import AddCommentIcon from '@mui/icons-material/AddComment';
 import { AddComment } from '@src/utils/_actions';
+import { usePathname } from 'next/navigation';
 import { KeyboardEventHandler, useRef } from 'react';
 
 type AddCommentProps = {
@@ -11,6 +12,7 @@ export default function AddCommentComponent({ postId }: AddCommentProps) {
 
     const formRef = useRef(null);
     const textareaRef = useRef(null);
+    const pathName = usePathname();
 
     const handleKeyDown: KeyboardEventHandler<HTMLFormElement> = async (event) => {
         if (event.key === 'Enter' && !event.shiftKey) {
@@ -25,7 +27,7 @@ export default function AddCommentComponent({ postId }: AddCommentProps) {
             const formData = new FormData(formRef.current);
             formRef.current.reset();
             textareaRef.current.style.height = 'auto';
-            await AddComment(formData, postId);
+            await AddComment(formData, postId, pathName);
         }
     };
 

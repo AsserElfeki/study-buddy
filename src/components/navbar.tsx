@@ -62,7 +62,7 @@ export default function Navbar() {
         {session?.user?.role === Role.ADMIN ? (
           <ul className="flex flex-col items-center md:flex-row  md:w-full justify-evenly mx-16 ">
             <li
-              className={`hover:cursor-pointer hover:animate-bounce ${isActive === "/users" ? "animated-gradient font-extrabold hover:animate-spin" : ""
+              className={`hover:cursor-pointer hover:animate-bounce ${isActive === "/admin/users" ? "animated-gradient font-extrabold hover:animate-spin" : ""
                 }`}
             >
               <Link
@@ -72,7 +72,7 @@ export default function Navbar() {
             </li>
 
             <li
-              className={`hover:cursor-pointer hover:animate-bounce ${isActive === "/applications" ? "animated-gradient font-extrabold hover:animate-spin" : ""
+              className={`hover:cursor-pointer hover:animate-bounce ${isActive === "/admin/applications" ? "animated-gradient font-extrabold hover:animate-spin" : ""
                 }`}
             >
               <Link
