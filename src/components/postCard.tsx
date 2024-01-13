@@ -40,7 +40,7 @@ type Props = {
 
 function PostCardComponent({ post }: Props) {
     return (
-        <div className='bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 shadow-md rounded-lg p-4 mb-6 text-white'>
+        <div className='bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 shadow-md rounded-lg p-4 mb-6 text-white '>
             <div className='flex items-center justify-between mb-4'>
                 <Link  href={`/profile/${post.authorId}`} className='flex items-center'>
                     <Image 
@@ -70,9 +70,17 @@ function PostCardComponent({ post }: Props) {
                 </div>
             </div>
             <div className='mt-4'>
-                {post.comments.map((comment) => (
+                {post.comments.slice(0, 3).map((comment) => (
                     <CommentCard key={comment.id} comment={comment} />
                 ))}
+                {post.comments.length > 3 && (
+                    <details>
+                        <summary>Show all comments</summary>
+                        {post.comments.slice(3).map((comment) => (
+                            <CommentCard key={comment.id} comment={comment} />
+                        ))}
+                    </details>
+                )}
             </div>
             <AddCommentComponent postId={post.id} />
         </div>

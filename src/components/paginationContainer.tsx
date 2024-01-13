@@ -40,7 +40,7 @@ function PaginationContainer({ children, totalItems, itemsPerPage = 10 }: Pagina
     }
 
     return (
-        <>
+        <div className='mx-auto w-full'>
             {currentChildren}
 
             <div className={`${totalItems > itemsPerPage ? 'flex' : 'hidden'} flex-row justify-center items-center gap-2 bottom-0`}>
@@ -58,7 +58,7 @@ function PaginationContainer({ children, totalItems, itemsPerPage = 10 }: Pagina
                     <NavigateNextIcon />
                 </IconButton>
             </div>
-        </>
+        </div>
     )
 }
 

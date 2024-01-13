@@ -59,11 +59,11 @@ export default function Applications() {
             params.set('userId', newValue.id);
             router.push(`${pathname}?${params.toString()}`);
         }
-        // setSelectedUser(newValue)
-        // const id = newValue?.id;
+        setSelectedUser(newValue)
+        const id = newValue?.id;
         // console.log("🚀 ~ handleFilterChange ~ id:", id)
-        // const _sortedApplications = [...allApplications].filter(app => app.user.id === id);
-        // setSortedApplications(_sortedApplications);
+        const _sortedApplications = [...allApplications].filter(app => app.user.id === id);
+        setSortedApplications(_sortedApplications);
         setLoading(false)
         // console.log(sortedApplications)
     }

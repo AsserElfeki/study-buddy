@@ -5,10 +5,13 @@ import { getMyFavourites } from '@src/lib/_profile';
 import StudyProgramCard from '../studyProgramCard';
 import Link from 'next/link';
 import CustomButton from '../customButton';
+import Placeholder from './placeHolder';
+import { CircularProgress } from '@mui/material';
 
 function MyFavorites() {
 
     const [favorites, setFavorites] = React.useState([]);
+    const [isLoading, setLoading] = React.useState(true);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -19,9 +22,21 @@ function MyFavorites() {
             }
         }
         fetchData();
+        setLoading(false);
     }, []);
 
+    if (favorites.length === 0) return (
+        <div className='flex gap-4 flex-wrap justify-center mt-8'>
+            <Placeholder text="You don't have any favorites yet!" link='/search' buttonText='Find Programs you like' />
+        </div>
+    )
 
+    if (isLoading)
+        return (
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+                <CircularProgress />
+            </div>
+        )
 
     return (
 

@@ -74,7 +74,7 @@ model Comment {
   content   String
   createdAt DateTime @default(now())
   postId    String   @map("post_id")
-  post      Post     @relation(fields: [postId], references: [id])
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
   authorId  String   @map("author_id")
   author    User     @relation(fields: [authorId], references: [id])
 
@@ -85,7 +85,7 @@ model like {
   id        String   @id @default(cuid())
   postId    String   @map("post_id")
   authorId  String   @map("author_id")
-  post      Post     @relation(fields: [postId], references: [id])
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
   author    User     @relation(fields: [authorId], references: [id])
   
   @@unique([postId, authorId])

@@ -3,6 +3,7 @@
 import { getMyapplications } from '@src/lib/_profile'
 import { useEffect, useState } from 'react'
 import ApplicationCard from './applicationCard';
+import Placeholder from './placeHolder';
 
 function MyApplications() {
 
@@ -17,26 +18,24 @@ function MyApplications() {
             }
         }
         fetchData();
-    },[])
+    }, [])
 
     return (
-        <div className='flex gap-4 flex-wrap justify-center mt-8'>
+        <>
             {applications?.length !== 0 ? (
-                <div>
-                {
-                    applications.map((app: any) => (
-                        <ApplicationCard key={app.id} application={app} />
+                <div className='flex gap-4 flex-wrap justify-center mt-8'>
+                    {
+                        applications.map((app: any) => (
+                            <ApplicationCard key={app.id} application={app} />
                         ))
                     }
-                    </div>
+                </div>
             )
                 : (
-                    <div>
-                        jghjf
-                   </div> 
-        )}
-                
-        </div>
+                    <Placeholder text='No applications yet' link='/search' buttonText='Search programs' />
+                )}
+
+        </>
     )
 }
 

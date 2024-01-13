@@ -45,10 +45,9 @@ export const LoginForm = () => {
                 callbackUrl,
             });
 
-            setLoading(false);
-
+            
             if (!res?.error) {
-                setSnackbarMessage('Login successful!');
+                setSnackbarMessage(`Login successful! redirecting to ${callbackUrl? callbackUrl : "profile"}`);
                 setSnackbarSeverity('success');
                 setSnackbarOpen(true);
                 setTimeout(() => {
@@ -60,6 +59,7 @@ export const LoginForm = () => {
                 setSnackbarOpen(true);
                 setError("invalid email or password");
             }
+            setLoading(false);
         } catch (error: any) {
             setLoading(false);
             setError(error);

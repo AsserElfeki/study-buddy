@@ -27,7 +27,7 @@ function StudyProgramCard(props: StudyProgramCardProps) {
     university.name = university.name.charAt(0).toUpperCase() + university.name.slice(1);
 
     return (
-        <article className="border bg-white p-4 rounded-lg shadow-md  w-full relative">
+        <article className="border bg-white p-4 rounded-lg shadow-md  w-full relative my-2">
             <FavoriteButton id={id} />
             <header className="mb-4">
                 <Link

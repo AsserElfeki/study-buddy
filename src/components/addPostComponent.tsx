@@ -31,7 +31,7 @@ function AddPostComponent() {
     };
 
     return (
-        <>
+        <div className='w-full'>
             <form
                 ref={formRef}
                 onKeyDown={handleKeyDown}
@@ -42,9 +42,9 @@ function AddPostComponent() {
                         await AddPost(formData, pathName);
                     }
                 }
-                className='border-2 border-white focus:border-blue-500 shadow-2xl  p-4 pb-0 mb-6 text-white rounded-xl'
+                className='border-2 border-white focus:border-blue-500 shadow-2xl  p-4 pb-0 mb-6 text-white rounded-xl mx-auto'
             >
-                <div className='flex flex-col gap-1  items-center rounded-lg '>
+                <div className='flex flex-col gap-1 items-center rounded-lg '>
                     {/* //input for post title */}
                     <input
                         required
@@ -78,7 +78,7 @@ function AddPostComponent() {
                     </button>
                 </div>
             </form>
-        </>
+        </div>
     )
 }
 

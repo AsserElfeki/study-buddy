@@ -5,6 +5,8 @@ import PaginationContainer from '../paginationContainer'
 import { getMyPosts } from '@src/lib/_profile'
 import PostCardComponent from '../postCard';
 import AddPostComponent from '../addPostComponent';
+import { Place } from '@mui/icons-material';
+import Placeholder from './placeHolder';
 
 function MyPosts() {
     //state for posts
@@ -18,8 +20,13 @@ function MyPosts() {
                 setPosts(postsData.data);
             }
         }
-        fetchData();
 
+        fetchData();
+        const intervalId = setInterval(fetchData, 1000); // Run fetchData every second
+
+        return () => {
+            clearInterval(intervalId); // Stop the interval when the component is unmounted
+        }
     }, []);
 
     return (
@@ -33,7 +40,7 @@ function MyPosts() {
                 </PaginationContainer>
         )
                 : (
-                    <div>No posts</div>
+                    <Placeholder text="Aou don't have posts yet!" link='/forum' buttonText='See what others are talking about' />
     )}
             
         </div>

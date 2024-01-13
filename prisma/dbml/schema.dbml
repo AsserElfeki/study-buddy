@@ -256,11 +256,11 @@ Enum applicationStatus {
 
 Ref: posts.authorId > users.id [delete: Cascade]
 
-Ref: comments.postId > posts.id
+Ref: comments.postId > posts.id [delete: Cascade]
 
 Ref: comments.authorId > users.id
 
-Ref: likes.postId > posts.id
+Ref: likes.postId > posts.id [delete: Cascade]
 
 Ref: likes.authorId > users.id
 
